@@ -54,7 +54,7 @@ public class ProductRepositoryImpl implements IProductRepository {
     }
 
     public void initializeProducts() {
-        products.add(new Product("SP01", "Mixue", 45000, "Đồ uống"));
+        products.add(new Product("SP01", "Trà sữa Mixue", 45000, "Đồ uống"));
         products.add(new Product("SP02", "Trà Sữa Thiên Đường", 40000, "Đồ uống"));
         products.add(new Product("SP04", "Trà Sữa Koi Thé", 45000, "Đồ uống"));
         products.add(new Product("SP05", "Cà phê Trung Nguyên", 50000, "Đồ uống"));
