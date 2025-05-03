@@ -106,16 +106,14 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "maNV='" + maNV + '\'' +
-                ", ten='" + ten + '\'' +
-                ", email='" + email + '\'' +
-                ", sdt='" + sdt + '\'' +
-                ", diaChi='" + diaChi + '\'' +
-                ", matKhau='" + matKhau + '\'' +
-                ", chucVu='" + chucVu + '\'' +
-                ", gioiTinh='" + gioiTinh + '\'' +
-                ", caLam='" + caLam + '\'' +
-                '}';
+        return "Mã nhân viên: " + maNV + "\n" +
+           "Tên nhân viên: " + ten + "\n" +
+           "Email: " + email + "\n" +
+           "Số điện thoại: " + sdt + "\n" +
+           "Địa chỉ: " + diaChi + "\n" +
+           "Mật khẩu: " + matKhau + "\n" +
+           "Chức vụ: " + chucVu + "\n" +
+           "Giới tính: " + gioiTinh + "\n" +
+           "Ca làm: " + caLam + "\n";
     }
 }

@@ -5,9 +5,10 @@ import java.util.Objects;
 
 public class Bill implements Serializable {
     private static final long serialVersionUID = 1L;
-    private int maHD;
+
+    private String maHD;
     private String ten;
-    private int SDT;
+    private String sdt;       // Sửa từ int sang String
     private String email;
     private String ngayDat;
     private double tongTien;
@@ -15,16 +16,17 @@ public class Bill implements Serializable {
     public Bill() {
     }
 
-    public Bill(int maHD, String ten, int sDT, String email, String ngayDat, double tongTien) {
+    public Bill(String maHD, String ten, String sdt, String email, String ngayDat, double tongTien) {
         this.maHD = maHD;
         this.ten = ten;
-        this.SDT = sDT;
+        this.sdt = sdt;
         this.email = email;
         this.ngayDat = ngayDat;
         this.tongTien = tongTien;
     }
 
-    public int getMaHD() {
+    // Getters
+    public String getMaHD() {
         return maHD;
     }
 
@@ -32,8 +34,8 @@ public class Bill implements Serializable {
         return ten;
     }
 
-    public int getSDT() {
-        return SDT;
+    public String getSdt() {
+        return sdt;
     }
 
     public String getEmail() {
@@ -48,7 +50,8 @@ public class Bill implements Serializable {
         return tongTien;
     }
 
-    public void setMaHD(int maHD) {
+    // Setters
+    public void setMaHD(String maHD) {
         this.maHD = maHD;
     }
 
@@ -56,8 +59,8 @@ public class Bill implements Serializable {
         this.ten = ten;
     }
 
-    public void setSDT(int sDT) {
-        SDT = sDT;
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
     }
 
     public void setEmail(String email) {
@@ -74,30 +77,29 @@ public class Bill implements Serializable {
 
     @Override
     public String toString() {
-        return "HoaDon [maHD=" + maHD + ", ten=" + ten + ", SDT=" + SDT + ", email=" + email + ", ngayDat=" + ngayDat
-                + ", tongTien=" + tongTien + "]";
+        return "Mã hóa đơn   : " + maHD + "\n" +
+               "Tên khách    : " + ten + "\n" +
+               "SĐT          : " + sdt + "\n" +
+               "Email        : " + email + "\n" +
+               "Ngày đặt     : " + ngayDat + "\n" +
+               "Tổng tiền    : " + tongTien + " VND\n";
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(SDT, email, maHD, ngayDat, ten, tongTien);
+        return Objects.hash(maHD, ten, sdt, email, ngayDat, tongTien);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+        if (this == obj) return true;
+        if (!(obj instanceof Bill)) return false;
         Bill other = (Bill) obj;
-        return SDT == other.SDT && Objects.equals(email, other.email) && maHD == other.maHD
-                && Objects.equals(ngayDat, other.ngayDat) && Objects.equals(ten, other.ten)
-                && Double.doubleToLongBits(tongTien) == Double.doubleToLongBits(other.tongTien);
+        return Objects.equals(maHD, other.maHD) &&
+               Objects.equals(ten, other.ten) &&
+               Objects.equals(sdt, other.sdt) &&
+               Objects.equals(email, other.email) &&
+               Objects.equals(ngayDat, other.ngayDat) &&
+               Double.compare(tongTien, other.tongTien) == 0;
     }
-
 }

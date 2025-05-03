@@ -4,14 +4,17 @@
  */
 package scene;
 
-/**
- *
- * @author HP
- */
+import javax.swing.JOptionPane;
+import model.User;
+import repository.UserRepositoryImpl;
+
 public class AdminScene extends javax.swing.JFrame {
+    private UserRepositoryImpl userRepositoryImpl;
     
     public AdminScene() {
         initComponents();
+        userRepositoryImpl = new UserRepositoryImpl();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -81,17 +84,42 @@ public class AdminScene extends javax.swing.JFrame {
         jLabel3.setText("Bảng danh sách nhân viên");
 
         addProductBtn.setText("Add product");
+        addProductBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addProductBtnActionPerformed(evt);
+            }
+        });
 
         deleteProductBtn.setText("Delete Product");
+        deleteProductBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteProductBtnActionPerformed(evt);
+            }
+        });
 
         editProductBtn.setText("Edit Product");
+        editProductBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editProductBtnActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Email User: ");
 
         getUserBtn.setText("Get User");
+        getUserBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getUserBtnActionPerformed(evt);
+            }
+        });
 
         deleteUserBtn.setText("Delete User");
+        deleteUserBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteUserBtnActionPerformed(evt);
+            }
+        });
 
         logoutBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         logoutBtn.setText("Log out");
@@ -102,8 +130,18 @@ public class AdminScene extends javax.swing.JFrame {
         });
 
         addUserBtn.setText("Add User");
+        addUserBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addUserBtnActionPerformed(evt);
+            }
+        });
 
         editUserBtn.setText("Edit User");
+        editUserBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editUserBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -122,7 +160,7 @@ public class AdminScene extends javax.swing.JFrame {
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(41, 41, 41)
                                 .addComponent(addUserBtn)
-                                .addGap(42, 42, 42)
+                                .addGap(50, 50, 50)
                                 .addComponent(editUserBtn))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
@@ -130,10 +168,10 @@ public class AdminScene extends javax.swing.JFrame {
                                 .addComponent(getUserField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
+                                .addGap(46, 46, 46)
                                 .addComponent(deleteUserBtn))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(123, 123, 123)
+                                .addGap(112, 112, 112)
                                 .addComponent(getUserBtn)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -196,6 +234,48 @@ public class AdminScene extends javax.swing.JFrame {
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         this.dispose();
     }//GEN-LAST:event_logoutBtnActionPerformed
+
+    private void getUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getUserBtnActionPerformed
+        String getUser = getUserField.getText();
+        
+        if (getUser.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập email cần tìm kiếm", "Thiếu email", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        User usedFound = userRepositoryImpl.findByEmail(getUser);
+        if (usedFound != null) {
+            JOptionPane.showMessageDialog(this, "Thông tin tài khoản có email cần tìm là: " + usedFound.toString(), "Hiện thông tin", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy tài khoản có email đã nhập ", "Không tìm thấy", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_getUserBtnActionPerformed
+
+    private void addUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserBtnActionPerformed
+       AddUserScene addUserScene = new AddUserScene();
+       addUserScene.setVisible(true);
+       addUserScene.setLocationRelativeTo(this);
+    }//GEN-LAST:event_addUserBtnActionPerformed
+
+    private void editUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editUserBtnActionPerformed
+        
+    }//GEN-LAST:event_editUserBtnActionPerformed
+
+    private void deleteUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserBtnActionPerformed
+        
+    }//GEN-LAST:event_deleteUserBtnActionPerformed
+
+    private void addProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductBtnActionPerformed
+        
+    }//GEN-LAST:event_addProductBtnActionPerformed
+
+    private void editProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProductBtnActionPerformed
+        
+    }//GEN-LAST:event_editProductBtnActionPerformed
+
+    private void deleteProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductBtnActionPerformed
+        
+    }//GEN-LAST:event_deleteProductBtnActionPerformed
 
     /**
      * @param args the command line arguments
