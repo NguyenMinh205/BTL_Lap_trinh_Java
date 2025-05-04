@@ -12,10 +12,13 @@ public class EditUserForm extends javax.swing.JFrame {
      * Creates new form EditUserForm
      */
     public EditUserForm() {
+        initComponents();
+        setLocationRelativeTo(null);
+    }
+    
+    public EditUserForm(User user) {
         this.user = user;
         initComponents();
-
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
 
@@ -58,6 +61,7 @@ public class EditUserForm extends javax.swing.JFrame {
         jLabel3.setText("Tên Nhân Viên");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Chỉnh sửa thông tin");
 
         LableHeader.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         LableHeader.setText(" EDIT USER");
@@ -219,8 +223,6 @@ public class EditUserForm extends javax.swing.JFrame {
                     .addComponent(jButton_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 14, Short.MAX_VALUE))
         );
-
-        jLable_Email.getAccessibleContext().setAccessibleName("Email");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

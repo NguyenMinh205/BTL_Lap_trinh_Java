@@ -300,24 +300,24 @@ public class AdminScene extends javax.swing.JFrame {
 
     private void editUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editUserBtnActionPerformed
         //Chọn người dùng để chỉnh sửa
-        int selecRow = userTable.getSelectedRow();
-        if(selecRow == -1) { 
+        int selectRow = userTable.getSelectedRow();
+        if(selectRow == -1) { 
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một người dùng để sửa");
             return; 
         }
         //Lấy thông tin người dùng từ bảng userTable
-         String maNV = userTable.getValueAt(selecRow, 0).toString();
-        String tenNV = userTable.getValueAt(selecRow, 1).toString();
-        String email = userTable.getValueAt(selecRow, 2).toString();
-        String soDT = userTable.getValueAt(selecRow, 3).toString();
-        String matKhau = userTable.getValueAt(selecRow, 4).toString();
-        String queQuan = userTable.getValueAt(selecRow, 5).toString();
-        String chucVu = userTable.getValueAt(selecRow, 6).toString();
-        String gioiTinh = userTable.getValueAt(selecRow, 7).toString();
-        String caLamViec = userTable.getValueAt(selecRow, 8).toString();
+         String maNV = userTable.getValueAt(selectRow, 0).toString();
+        String tenNV = userTable.getValueAt(selectRow, 1).toString();
+        String email = userTable.getValueAt(selectRow, 2).toString();
+        String soDT = userTable.getValueAt(selectRow, 3).toString();
+        String matKhau = userTable.getValueAt(selectRow, 4).toString();
+        String queQuan = userTable.getValueAt(selectRow, 5).toString();
+        String chucVu = userTable.getValueAt(selectRow, 6).toString();
+        String gioiTinh = userTable.getValueAt(selectRow, 7).toString();
+        String caLamViec = userTable.getValueAt(selectRow, 8).toString();
         
-        User selecUser = new User(maNV, tenNV, email, soDT, matKhau, queQuan, chucVu, gioiTinh, caLamViec);
-        EditUserForm editUserForm = new EditUserForm(selecUser);
+        User selectUser = new User(maNV, tenNV, email, soDT, matKhau, queQuan, chucVu, gioiTinh, caLamViec);
+        EditUserForm editUserForm = new EditUserForm(selectUser);
         editUserForm.setVisible(true);
     }//GEN-LAST:event_editUserBtnActionPerformed
 

@@ -16,10 +16,12 @@ import repository.UserRepositoryImpl;
  */
 public class AddUserScene extends javax.swing.JFrame {
     private UserRepositoryImpl userRepositoryImpl;
+    private AdminScene adminScene;
     
     public AddUserScene() {
         initComponents();
         userRepositoryImpl = new UserRepositoryImpl();
+        adminScene = new AdminScene();
         this.setLocationRelativeTo(null);
     }
     
@@ -294,11 +296,11 @@ public class AddUserScene extends javax.swing.JFrame {
         }
         
         if (caSang.isSelected()) {
-            workShift = "Sáng";
+            workShift = "Ca sáng";
         } else if (caTrua.isSelected()) {
-            workShift = "Trưa";
+            workShift = "Ca trưa";
         } else if (caToi.isSelected()) {
-            workShift = "Tối";
+            workShift = "Ca tối";
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn ca làm việc.", "Thiếu thông tin", JOptionPane.WARNING_MESSAGE);
             return;
@@ -315,6 +317,7 @@ public class AddUserScene extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
         userRepositoryImpl.addUser(new User(employeeID, name, mail, phone, password, hometown, position, gender, workShift));
+        adminScene.loadUserTable();
         clearDetails();
     }//GEN-LAST:event_inputDataActionPerformed
 
