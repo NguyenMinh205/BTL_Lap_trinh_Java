@@ -9,6 +9,7 @@ import java.util.List;
 import java.awt.Frame;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_OPTION;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import model.Product;
@@ -59,7 +60,17 @@ public class AdminScene extends javax.swing.JFrame {
             product.getLoai()
         });
     }
-
+    
+    public boolean isProductIdExists(String maSP) {
+        DefaultTableModel model = (DefaultTableModel) productTable.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            if (maSP.equals(model.getValueAt(i, 0))) { // Cột 0 là mã SP
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public void loadUserTable() {
         String[] columnNames = {"Mã NV", "Tên", "Email", "SĐT", "Mật khẩu", "Chức vụ", "Giới tính", "Quê quán", "Ca làm"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
@@ -382,6 +393,7 @@ public class AdminScene extends javax.swing.JFrame {
         int selecRow = userTable.getSelectedRow();
         if (selecRow == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn người dùng để xóa");
+            return;
         }
         int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa người dùng này không ?");
         if (option != JOptionPane.YES_OPTION) {
@@ -418,7 +430,37 @@ public class AdminScene extends javax.swing.JFrame {
     }//GEN-LAST:event_editProductBtnActionPerformed
 
     private void deleteProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductBtnActionPerformed
-
+        int selecRow = productTable.getSelectedRow();
+        if(selecRow == -1){
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn sản phẩm để xóa");
+            return;
+        }
+        int chon = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn xóa");
+        if(chon != JOptionPane.YES_OPTION)
+        {
+            return;
+        }
+        String maSP = productTable.getValueAt(selecRow, 0).toString();
+        Product spXoa = null;
+        for(Product p : productRepositoryImpl.findAll())
+        {
+            if(p.getMaSP().equalsIgnoreCase(maSP))
+            {
+                spXoa = p;
+                break;
+            }
+        }
+        if(spXoa != null)
+        {
+            productRepositoryImpl.delete(spXoa);
+            ((DefaultTableModel) productTable.getModel()).removeRow(selecRow);
+            JOptionPane.showMessageDialog(rootPane, "Đã xóa sản phẩm thành công");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(rootPane, "Không tìm thấy sản phẩm");
+        }
+           
     }//GEN-LAST:event_deleteProductBtnActionPerformed
 
     /**

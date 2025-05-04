@@ -127,13 +127,17 @@ public class AddProductScene extends javax.swing.JPanel {
         {
             if(gia.matches("\\d+"))
             {
+                if(admin != null && admin.isProductIdExists(id))
+                {
+                    JOptionPane.showMessageDialog(textMaSP, "Mã sản phẩm đã tồn tại");
+                    return;
+                }
                 double giaBan = Float.parseFloat(gia);
                 Product pd = new Product(id, name, giaBan, loai);
                 productRepositoryImpl.addProduct(pd);
                 clearDetails();
                 javax.swing.JDialog dialog = (javax.swing.JDialog)javax.swing.SwingUtilities.getWindowAncestor(this);
                 dialog.dispose();
-                productRepositoryImpl.addProduct(pd);
                 admin.addProductToTable(pd);
             JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
             }
