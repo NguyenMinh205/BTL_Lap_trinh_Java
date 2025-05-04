@@ -4,6 +4,7 @@
  */
 package scene;
 
+import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 import model.User;
 import repository.UserRepositoryImpl;
@@ -258,10 +259,30 @@ public class AdminScene extends javax.swing.JFrame {
     }//GEN-LAST:event_addUserBtnActionPerformed
 
     private void editUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editUserBtnActionPerformed
+        //Chọn người dùng để chỉnh sửa
+        int selecRow = userTable.getSelectedRow();
+        if(selecRow == -1) { 
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một người dùng để sửa");
+            return; 
+        }
+        //Lấy thông tin người dùng từ bảng userTable
+         String maNV = userTable.getValueAt(selecRow, 0).toString();
+        String tenNV = userTable.getValueAt(selecRow, 1).toString();
+        String email = userTable.getValueAt(selecRow, 2).toString();
+        String soDT = userTable.getValueAt(selecRow, 3).toString();
+        String matKhau = userTable.getValueAt(selecRow, 4).toString();
+        String queQuan = userTable.getValueAt(selecRow, 5).toString();
+        String chucVu = userTable.getValueAt(selecRow, 6).toString();
+        String gioiTinh = userTable.getValueAt(selecRow, 7).toString();
+        String caLamViec = userTable.getValueAt(selecRow, 8).toString();
         
+        User selecUser = new User(maNV, tenNV, email, soDT, matKhau, queQuan, chucVu, gioiTinh, caLamViec);
+        EditUserForm editUserForm = new EditUserForm(selecUser);
+        editUserForm.setVisible(true);
     }//GEN-LAST:event_editUserBtnActionPerformed
 
     private void deleteUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserBtnActionPerformed
+        
         
     }//GEN-LAST:event_deleteUserBtnActionPerformed
 
@@ -307,7 +328,9 @@ public class AdminScene extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminScene().setVisible(true);
+                AdminScene admin = new AdminScene();
+                admin.setVisible(true);
+                admin.setDefaultCloseOperation(EXIT_ON_CLOSE); 
             }
         });
     }
