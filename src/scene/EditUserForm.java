@@ -22,13 +22,36 @@ public class EditUserForm extends javax.swing.JFrame {
     public EditUserForm() {
         initComponents();
         userRepository = new UserRepositoryImpl();
+        adminScene = new AdminScene();
         setLocationRelativeTo(null);
     }
     
-    public EditUserForm(User user) {
+    public EditUserForm(User user, AdminScene adminScene) {
         initComponents();
         this.selectedUser = user;
         userRepository = new UserRepositoryImpl();
+        this.adminScene = adminScene;
+        
+        jTextField_TenNhanVien.setText(user.getTen());
+        jTextField_email.setText(user.getEmail());
+        jTextField_sdt.setText(user.getSdt());
+        jTextField_matKhau.setText(user.getMatKhau());
+        jTextField_queQuan.setText(user.getDiaChi());
+        jComboBox_chucVu.setSelectedItem(user.getChucVu());
+        // Chọn giới tính và ca làm
+        if (user.getGioiTinh().equals("Nam")) {
+            jRadioButton_nam.setSelected(true);
+        } else {
+            jRadioButton_nu.setSelected(true);
+        }
+        if (user.getCaLam().equals("Ca Sáng")) {
+            jRadioButton_CaSang.setSelected(true);
+        } else if (user.getCaLam().equals("Ca Trưa")) {
+            jRadioButton_caTrua.setSelected(true);
+        } else if (user.getCaLam().equals("Ca Tối")) {
+            jRadioButton_caToi.setSelected(true);
+        }
+
         setLocationRelativeTo(null);
     }
 

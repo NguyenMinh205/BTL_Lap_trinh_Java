@@ -9,6 +9,7 @@ import java.util.List;
 import java.awt.Frame;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_OPTION;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import model.Product;
@@ -17,7 +18,6 @@ import repository.ProductRepositoryImpl;
 import repository.UserRepositoryImpl;
 
 public class AdminScene extends javax.swing.JFrame {
-
     private UserRepositoryImpl userRepositoryImpl;
     private ProductRepositoryImpl productRepositoryImpl;
 
@@ -34,20 +34,21 @@ public class AdminScene extends javax.swing.JFrame {
         loadUserTable();
         loadProductTable();
     }
-    
+
     public void addUserToTable(User user) {
         DefaultTableModel model = (DefaultTableModel) userTable.getModel();
         model.addRow(new Object[]{
-                user.getMaNV(),
-                user.getTen(),
-                user.getEmail(),
-                user.getSdt(),
-                user.getMatKhau(),
-                user.getChucVu(),
-                user.getGioiTinh(),
-                user.getDiaChi(),
-                user.getCaLam()
-            });
+            user.getMaNV(),
+            user.getTen(),
+            user.getEmail(),
+            user.getSdt(),
+            user.getMatKhau(),
+            user.getChucVu(),
+            user.getGioiTinh(),
+            user.getDiaChi(),
+            user.getCaLam()
+        });
+        userTable.setModel(model);
     }
 
     public void addProductToTable(Product product) {
@@ -59,7 +60,17 @@ public class AdminScene extends javax.swing.JFrame {
             product.getLoai()
         });
     }
-
+    
+    public boolean isProductIdExists(String maSP) {
+        DefaultTableModel model = (DefaultTableModel) productTable.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            if (maSP.equals(model.getValueAt(i, 0))) { // Cột 0 là mã SP
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public void loadUserTable() {
         String[] columnNames = {"Mã NV", "Tên", "Email", "SĐT", "Mật khẩu", "Chức vụ", "Giới tính", "Quê quán", "Ca làm"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
@@ -103,8 +114,8 @@ public class AdminScene extends javax.swing.JFrame {
 
         productTable.setModel(model);
     }
-    
-        public void updateUserInTable(User user) {
+
+    public void updateUserInTable(User user) {
         DefaultTableModel model = (DefaultTableModel) this.userTable.getModel();
         for (int i = 0; i < model.getRowCount(); i++) {
             String maNV = model.getValueAt(i, 0).toString(); // Assuming maNV is in column 0
@@ -117,6 +128,7 @@ public class AdminScene extends javax.swing.JFrame {
                 model.setValueAt(user.getChucVu(), i, 6);
                 model.setValueAt(user.getGioiTinh(), i, 7);
                 model.setValueAt(user.getCaLam(), i, 8);
+                userTable.setModel(model);
                 break;
             }
         }
@@ -351,7 +363,7 @@ public class AdminScene extends javax.swing.JFrame {
     }//GEN-LAST:event_getUserBtnActionPerformed
 
     private void addUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserBtnActionPerformed
-        AddUserScene addUserScene = new AddUserScene();
+        AddUserScene addUserScene = new AddUserScene(this);
         addUserScene.setVisible(true);
         addUserScene.setLocationRelativeTo(this);
     }//GEN-LAST:event_addUserBtnActionPerformed
@@ -373,7 +385,7 @@ public class AdminScene extends javax.swing.JFrame {
         String gioiTinh = userTable.getValueAt(selecRow, 7).toString();
         String caLamViec = userTable.getValueAt(selecRow, 8).toString();
         User selectUser = new User(maNV, tenNV, email, soDT, matKhau, queQuan, chucVu, gioiTinh, caLamViec);
-        EditUserForm editUserForm = new EditUserForm(selectUser);
+        EditUserForm editUserForm = new EditUserForm(selectUser, this);
         editUserForm.setVisible(true);
     }//GEN-LAST:event_editUserBtnActionPerformed
 
@@ -381,6 +393,7 @@ public class AdminScene extends javax.swing.JFrame {
         int selecRow = userTable.getSelectedRow();
         if (selecRow == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn người dùng để xóa");
+            return;
         }
         int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa người dùng này không ?");
         if (option != JOptionPane.YES_OPTION) {
@@ -417,7 +430,37 @@ public class AdminScene extends javax.swing.JFrame {
     }//GEN-LAST:event_editProductBtnActionPerformed
 
     private void deleteProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductBtnActionPerformed
-
+        int selecRow = productTable.getSelectedRow();
+        if(selecRow == -1){
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn sản phẩm để xóa");
+            return;
+        }
+        int chon = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn xóa");
+        if(chon != JOptionPane.YES_OPTION)
+        {
+            return;
+        }
+        String maSP = productTable.getValueAt(selecRow, 0).toString();
+        Product spXoa = null;
+        for(Product p : productRepositoryImpl.findAll())
+        {
+            if(p.getMaSP().equalsIgnoreCase(maSP))
+            {
+                spXoa = p;
+                break;
+            }
+        }
+        if(spXoa != null)
+        {
+            productRepositoryImpl.delete(spXoa);
+            ((DefaultTableModel) productTable.getModel()).removeRow(selecRow);
+            JOptionPane.showMessageDialog(rootPane, "Đã xóa sản phẩm thành công");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(rootPane, "Không tìm thấy sản phẩm");
+        }
+           
     }//GEN-LAST:event_deleteProductBtnActionPerformed
 
     /**

@@ -99,7 +99,7 @@ public class UserRepositoryImpl implements IUserRepository {
             if (users.get(i).getMaNV().equals(user.getMaNV())) {
                 users.set(i, user);
                 saveUsersToFile();
-                return user;
+                return users.get(i);
             }
         }
         return null;
