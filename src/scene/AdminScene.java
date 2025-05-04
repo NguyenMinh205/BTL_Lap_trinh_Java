@@ -4,8 +4,10 @@
  */
 package scene;
 
-import java.awt.event.WindowEvent;
+import java.awt.Frame;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import model.Product;
 import model.User;
@@ -13,9 +15,10 @@ import repository.ProductRepositoryImpl;
 import repository.UserRepositoryImpl;
 
 public class AdminScene extends javax.swing.JFrame {
+
     private UserRepositoryImpl userRepositoryImpl;
     private ProductRepositoryImpl productRepositoryImpl;
-    
+
     public AdminScene() {
         initComponents();
         userRepositoryImpl = new UserRepositoryImpl();
@@ -23,6 +26,16 @@ public class AdminScene extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         loadUserTable();
         loadProductTable();
+    }
+
+    public void addProductToTable(Product product) {
+        DefaultTableModel model = (DefaultTableModel) productTable.getModel();
+        model.addRow(new Object[]{
+            product.getMaSP(),
+            product.getTenSP(),
+            product.getGia(),
+            product.getLoai()
+        });
     }
 
     public void loadUserTable() {
@@ -56,13 +69,14 @@ public class AdminScene extends javax.swing.JFrame {
                 product.getMaSP(),
                 product.getTenSP(),
                 product.getGia(),
-                product.getLoai(),
-            };
+                product.getLoai(),};
             model.addRow(rowData);
+
         }
 
         productTable.setModel(model);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -87,7 +101,6 @@ public class AdminScene extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Admin Scene");
-        setPreferredSize(new java.awt.Dimension(960, 540));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Admin Scene");
@@ -230,7 +243,7 @@ public class AdminScene extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(productScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
                         .addComponent(logoutBtn)
                         .addGap(70, 70, 70))))
         );
@@ -262,7 +275,7 @@ public class AdminScene extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addComponent(productScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(18, Short.MAX_VALUE))
+                        .addContainerGap(52, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(logoutBtn)
@@ -278,12 +291,12 @@ public class AdminScene extends javax.swing.JFrame {
 
     private void getUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getUserBtnActionPerformed
         String getUser = getUserField.getText();
-        
-        if (getUser.isEmpty()){
+
+        if (getUser.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập email cần tìm kiếm", "Thiếu email", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         User usedFound = userRepositoryImpl.findByEmail(getUser);
         if (usedFound != null) {
             JOptionPane.showMessageDialog(this, "Thông tin tài khoản có email cần tìm là: \n" + usedFound.toString(), "Hiện thông tin", JOptionPane.INFORMATION_MESSAGE);
@@ -293,20 +306,21 @@ public class AdminScene extends javax.swing.JFrame {
     }//GEN-LAST:event_getUserBtnActionPerformed
 
     private void addUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserBtnActionPerformed
-       AddUserScene addUserScene = new AddUserScene();
-       addUserScene.setVisible(true);
-       addUserScene.setLocationRelativeTo(this);
+        AddUserScene addUserScene = new AddUserScene();
+        addUserScene.setVisible(true);
+        addUserScene.setLocationRelativeTo(this);
     }//GEN-LAST:event_addUserBtnActionPerformed
 
     private void editUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editUserBtnActionPerformed
         //Chọn người dùng để chỉnh sửa
         int selectRow = userTable.getSelectedRow();
-        if(selectRow == -1) { 
+        if (selectRow == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một người dùng để sửa");
-            return; 
+            return;
         }
         //Lấy thông tin người dùng từ bảng userTable
-         String maNV = userTable.getValueAt(selectRow, 0).toString();
+
+        String maNV = userTable.getValueAt(selectRow, 0).toString();
         String tenNV = userTable.getValueAt(selectRow, 1).toString();
         String email = userTable.getValueAt(selectRow, 2).toString();
         String soDT = userTable.getValueAt(selectRow, 3).toString();
@@ -315,27 +329,31 @@ public class AdminScene extends javax.swing.JFrame {
         String chucVu = userTable.getValueAt(selectRow, 6).toString();
         String gioiTinh = userTable.getValueAt(selectRow, 7).toString();
         String caLamViec = userTable.getValueAt(selectRow, 8).toString();
-        
+
         User selectUser = new User(maNV, tenNV, email, soDT, matKhau, queQuan, chucVu, gioiTinh, caLamViec);
         EditUserForm editUserForm = new EditUserForm(selectUser);
         editUserForm.setVisible(true);
     }//GEN-LAST:event_editUserBtnActionPerformed
 
     private void deleteUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserBtnActionPerformed
-        
-        
+
     }//GEN-LAST:event_deleteUserBtnActionPerformed
 
     private void addProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductBtnActionPerformed
-        
+        AddProductScene addProductPanel = new AddProductScene(this);
+        JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "Thêm sản phẩm", true);
+        dialog.getContentPane().add(addProductPanel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
     }//GEN-LAST:event_addProductBtnActionPerformed
 
     private void editProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProductBtnActionPerformed
-        
+
     }//GEN-LAST:event_editProductBtnActionPerformed
 
     private void deleteProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductBtnActionPerformed
-        
+
     }//GEN-LAST:event_deleteProductBtnActionPerformed
 
     /**
@@ -364,13 +382,12 @@ public class AdminScene extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(AdminScene.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AdminScene admin = new AdminScene();
-                admin.setVisible(true);
-                admin.setDefaultCloseOperation(EXIT_ON_CLOSE); 
+                new AdminScene().setVisible(true);
             }
         });
     }
