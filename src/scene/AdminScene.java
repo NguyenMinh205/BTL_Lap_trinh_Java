@@ -5,6 +5,7 @@
 package scene;
 
 import java.awt.event.WindowEvent;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Product;
@@ -13,9 +14,14 @@ import repository.ProductRepositoryImpl;
 import repository.UserRepositoryImpl;
 
 public class AdminScene extends javax.swing.JFrame {
+
     private UserRepositoryImpl userRepositoryImpl;
     private ProductRepositoryImpl productRepositoryImpl;
-    
+    // Add this method to AdminScene class
+
+    public UserRepositoryImpl getUserRepository() {
+        return this.userRepositoryImpl;
+    }
     public AdminScene() {
         initComponents();
         userRepositoryImpl = new UserRepositoryImpl();
@@ -28,22 +34,27 @@ public class AdminScene extends javax.swing.JFrame {
     public void loadUserTable() {
         String[] columnNames = {"Mã NV", "Tên", "Email", "SĐT", "Mật khẩu", "Chức vụ", "Giới tính", "Quê quán", "Ca làm"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        model.setRowCount(0);
+        List<User> users = userRepositoryImpl.findAll();
+        if (users == null || users.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không có dữ liệu người dùng!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
 
-        for (User user : userRepositoryImpl.findAll()) {
-            Object[] row = {
+        // Populate table
+        for (User user : users) {
+            model.addRow(new Object[]{
                 user.getMaNV(),
                 user.getTen(),
                 user.getEmail(),
                 user.getSdt(),
-                user.getMatKhau(),
+                user.getMatKhau(), // Mask passwords for security
                 user.getChucVu(),
                 user.getGioiTinh(),
                 user.getDiaChi(),
                 user.getCaLam()
-            };
-            model.addRow(row);
+            });
         }
-
         userTable.setModel(model);
     }
 
@@ -56,13 +67,13 @@ public class AdminScene extends javax.swing.JFrame {
                 product.getMaSP(),
                 product.getTenSP(),
                 product.getGia(),
-                product.getLoai(),
-            };
+                product.getLoai(),};
             model.addRow(rowData);
         }
 
         productTable.setModel(model);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -278,12 +289,12 @@ public class AdminScene extends javax.swing.JFrame {
 
     private void getUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getUserBtnActionPerformed
         String getUser = getUserField.getText();
-        
-        if (getUser.isEmpty()){
+
+        if (getUser.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập email cần tìm kiếm", "Thiếu email", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         User usedFound = userRepositoryImpl.findByEmail(getUser);
         if (usedFound != null) {
             JOptionPane.showMessageDialog(this, "Thông tin tài khoản có email cần tìm là: \n" + usedFound.toString(), "Hiện thông tin", JOptionPane.INFORMATION_MESSAGE);
@@ -293,20 +304,20 @@ public class AdminScene extends javax.swing.JFrame {
     }//GEN-LAST:event_getUserBtnActionPerformed
 
     private void addUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserBtnActionPerformed
-       AddUserScene addUserScene = new AddUserScene();
-       addUserScene.setVisible(true);
-       addUserScene.setLocationRelativeTo(this);
+        AddUserScene addUserScene = new AddUserScene();
+        addUserScene.setVisible(true);
+        addUserScene.setLocationRelativeTo(this);
     }//GEN-LAST:event_addUserBtnActionPerformed
 
     private void editUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editUserBtnActionPerformed
         //Chọn người dùng để chỉnh sửa
         int selecRow = userTable.getSelectedRow();
-        if(selecRow == -1) { 
+        if (selecRow == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một người dùng để sửa");
-            return; 
+            return;
         }
         //Lấy thông tin người dùng từ bảng userTable
-         String maNV = userTable.getValueAt(selecRow, 0).toString();
+        String maNV = userTable.getValueAt(selecRow, 0).toString();
         String tenNV = userTable.getValueAt(selecRow, 1).toString();
         String email = userTable.getValueAt(selecRow, 2).toString();
         String soDT = userTable.getValueAt(selecRow, 3).toString();
@@ -315,27 +326,27 @@ public class AdminScene extends javax.swing.JFrame {
         String chucVu = userTable.getValueAt(selecRow, 6).toString();
         String gioiTinh = userTable.getValueAt(selecRow, 7).toString();
         String caLamViec = userTable.getValueAt(selecRow, 8).toString();
-        
+
         User selecUser = new User(maNV, tenNV, email, soDT, matKhau, queQuan, chucVu, gioiTinh, caLamViec);
-        EditUserForm editUserForm = new EditUserForm(selecUser);
+        EditUserForm editUserForm = new EditUserForm(selecUser, this, userTable, userRepositoryImpl);
         editUserForm.setVisible(true);
     }//GEN-LAST:event_editUserBtnActionPerformed
 
     private void deleteUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserBtnActionPerformed
-        
-        
+
+
     }//GEN-LAST:event_deleteUserBtnActionPerformed
 
     private void addProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductBtnActionPerformed
-        
+
     }//GEN-LAST:event_addProductBtnActionPerformed
 
     private void editProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProductBtnActionPerformed
-        
+
     }//GEN-LAST:event_editProductBtnActionPerformed
 
     private void deleteProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductBtnActionPerformed
-        
+
     }//GEN-LAST:event_deleteProductBtnActionPerformed
 
     /**
@@ -370,7 +381,7 @@ public class AdminScene extends javax.swing.JFrame {
             public void run() {
                 AdminScene admin = new AdminScene();
                 admin.setVisible(true);
-                admin.setDefaultCloseOperation(EXIT_ON_CLOSE); 
+                admin.setDefaultCloseOperation(EXIT_ON_CLOSE);
             }
         });
     }

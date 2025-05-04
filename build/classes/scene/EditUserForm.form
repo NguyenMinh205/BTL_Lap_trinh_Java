@@ -184,9 +184,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Email"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Email"/>
-      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField_email">
     </Component>

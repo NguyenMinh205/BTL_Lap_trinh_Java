@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepositoryImpl implements IUserRepository {
+
     private static final String FILE_PATH = "users.txt";
     private List<User> users = new ArrayList<>();
 
@@ -28,14 +29,18 @@ public class UserRepositoryImpl implements IUserRepository {
 
     private void loadUsersFromFile() {
         File file = new File(FILE_PATH);
-        if (!file.exists()) return;
+        if (!file.exists()) {
+            return;
+        }
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
             Object obj = ois.readObject();
             if (obj instanceof List<?>) {
                 users = new ArrayList<>();
                 for (Object o : (List<?>) obj) {
-                    if (o instanceof User) users.add((User) o);
+                    if (o instanceof User) {
+                        users.add((User) o);
+                    }
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
@@ -45,7 +50,8 @@ public class UserRepositoryImpl implements IUserRepository {
 
     private void initializeUsers() {
         users.add(new User("AD01", "Nguyễn Quang Minh", "nqm1312@gmail.com", "0966618229", "Minh123*", "Hà Nội", "ADMIN", "Nam", "Ca sáng"));
-        users.add(new User("NV01", "Nguyễn Văn A", "a@gmail.com", "0900000001", "Abcd123*", "Hà Nội", "USER", "Nam", "Ca chiều"));
+        users.add(new User("AD02", "Vũ Tiến Khang", "khang2404@gmail.com", "0966618229", "Khang123*", "Hà Nội", "ADMIN", "Nam", "Ca sáng"));
+        users.add(new User("NV01", "Vũ Tiến Hoàng", "vutienkhang01@gmail.com", "0999999999", "Khang123*", "Hà Nội", "USER", "Nam", "Ca chiều"));
         users.add(new User("NV02", "Trần Thị B", "b@gmail.com", "0900000002", "Abcd123*", "Hà Nội", "USER", "Nữ", "Ca sáng"));
         users.add(new User("NV03", "Lê Văn C", "c@gmail.com", "0900000003", "Abcd123*", "Hà Nội", "USER", "Nam", "Ca tối"));
         users.add(new User("NV04", "Phạm Thị D", "d@gmail.com", "0900000004", "Abcd123*", "Hà Nội", "USER", "Nữ", "Ca chiều"));
@@ -59,7 +65,6 @@ public class UserRepositoryImpl implements IUserRepository {
         return role.equalsIgnoreCase("ADMIN") ? String.format("AD%02d", count) : String.format("NV%02d", count);
     }
 
-
     @Override
     public User findByEmailAndPassword(String email, String password) {
         for (User user : users) {
@@ -70,7 +75,6 @@ public class UserRepositoryImpl implements IUserRepository {
         }
         return null;
     }
-
 
     @Override
     public User findByEmail(String email) {
@@ -92,7 +96,7 @@ public class UserRepositoryImpl implements IUserRepository {
     @Override
     public User update(User user) {
         for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getEmail().equalsIgnoreCase(user.getEmail())) {
+            if (users.get(i).getMaNV().equals(user.getMaNV())) {
                 users.set(i, user);
                 saveUsersToFile();
                 return user;

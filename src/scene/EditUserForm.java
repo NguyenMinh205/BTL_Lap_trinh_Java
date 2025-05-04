@@ -1,19 +1,51 @@
 package scene;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import model.User;
+import repository.UserRepositoryImpl;
 
 /**
  *
  * @author admin
  */
 public class EditUserForm extends javax.swing.JFrame {
+
     private User user;
+    private AdminScene adminScene;
+    private JTable userTable;
+    private UserRepositoryImpl userRepository;
+
     /**
      * Creates new form EditUserForm
      */
-    public EditUserForm() {
+    public EditUserForm(User user, AdminScene adminScene, JTable userTable, UserRepositoryImpl userRepositoryImpl) {
         this.user = user;
+        this.adminScene = adminScene;
+        this.userTable = userTable;
+        this.userRepository = userRepositoryImpl;
         initComponents();
+
+        jTextField_TenNhanVien.setText(user.getTen());
+        jTextField_email.setText(user.getEmail());
+        jTextField_sdt.setText(user.getSdt());
+        jTextField_matKhau.setText(user.getMatKhau());
+        jTextField_queQuan.setText(user.getDiaChi());
+        jComboBox_chucVu.setSelectedItem(user.getChucVu());
+        // Chọn giới tính và ca làm
+        if (user.getGioiTinh().equals("Nam")) {
+            jRadioButton_nam.setSelected(true);
+        } else {
+            jRadioButton_nu.setSelected(true);
+        }
+        if (user.getCaLam().equals("Ca Sáng")) {
+            jRadioButton_CaSang.setSelected(true);
+        } else if (user.getCaLam().equals("Ca Trưa")) {
+            jRadioButton_caTrua.setSelected(true);
+        } else if (user.getCaLam().equals("Ca Tối")) {
+            jRadioButton_caToi.setSelected(true);
+        }
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -226,7 +258,6 @@ public class EditUserForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_UpdateActionPerformed
-
         String tenNhanVien = jTextField_TenNhanVien.getText().trim();
         String email = jTextField_email.getText().trim();
         String sdt = jTextField_sdt.getText().trim();
@@ -262,37 +293,54 @@ public class EditUserForm extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Email không hợp lệ.");
             return;
         }
-
-        // In ra để kiểm tra
-        System.out.println("Tên: " + tenNhanVien);
-        System.out.println("Email: " + email);
-        System.out.println("SĐT: " + sdt);
-        System.out.println("Mật khẩu: " + matKhau);
-        System.out.println("Quê quán: " + queQuan);
-        System.out.println("Chức vụ: " + chucVu);
-        System.out.println("Giới tính: " + gioiTinh);
-        System.out.println("Ca làm: " + caLam);
-
+        user.setTen(tenNhanVien);
+        user.setEmail(email);
+        user.setSdt(sdt);
+        user.setMatKhau(matKhau);
+        user.setDiaChi(queQuan);
+        user.setChucVu(chucVu);
+        user.setGioiTinh(gioiTinh);
+        user.setCaLam(caLam);
+        User updatedUser = userRepository.update(user);
+    
+    if (updatedUser != null) {
+        updateUserInTable(user);
         javax.swing.JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+        this.dispose();
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "Cập nhật thất bại!");
+    }
+        updateUserInTable(user);
+        this.dispose();
     }//GEN-LAST:event_jButton_UpdateActionPerformed
+    public void updateUserInTable(User user) {
+        DefaultTableModel model = (DefaultTableModel) this.userTable.getModel();
+
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String maNV = model.getValueAt(i, 0).toString(); // Assuming maNV is in column 0
+            if (maNV.equals(user.getMaNV())) {
+                model.setValueAt(user.getTen(), i, 1);
+                model.setValueAt(user.getEmail(), i, 2);
+                model.setValueAt(user.getSdt(), i, 3);
+                model.setValueAt(user.getMatKhau(), i, 4);
+                model.setValueAt(user.getDiaChi(), i, 5);
+                model.setValueAt(user.getChucVu(), i, 6);
+                model.setValueAt(user.getGioiTinh(), i, 7);
+                model.setValueAt(user.getCaLam(), i, 8);
+                break;
+            }
+        }
+    }
 
     private void jButton_CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelActionPerformed
-        int response = javax.swing.JOptionPane.showConfirmDialog(this, "Bạn có muốn hủy thay đổi?", "Xác nhận", javax.swing.JOptionPane.YES_NO_OPTION);
-        if (response == javax.swing.JOptionPane.YES_OPTION) {
-            this.dispose();
-        }
-
+        this.dispose();
     }//GEN-LAST:event_jButton_CancelActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        /* Set Nimbus look and feel (optional) */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -300,22 +348,52 @@ public class EditUserForm extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        //</editor-fold>
+        UserRepositoryImpl testRepository = new UserRepositoryImpl();
+        /* Create a dummy table for testing */
+        JTable dummyTable = new JTable();
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Mã NV");
+        model.addColumn("Tên");
+        model.addColumn("Email");
+        model.addColumn("SĐT");
+        model.addColumn("Mật khẩu");
+        model.addColumn("Địa chỉ");
+        model.addColumn("Chức vụ");
+        model.addColumn("Giới tính");
+        model.addColumn("Ca làm");
+        dummyTable.setModel(model);
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EditUserForm().setVisible(true);
-            }
+        /* Add a sample user (for testing) */
+        User testUser = new User();
+        testUser.setMaNV("NV001");
+        testUser.setTen("Nguyễn Văn A");
+        testUser.setEmail("test@example.com");
+        testUser.setSdt("0123456789");
+        testUser.setMatKhau("123456");
+        testUser.setDiaChi("Hà Nội");
+        testUser.setChucVu("USER");
+        testUser.setGioiTinh("Nam");
+        testUser.setCaLam("Ca Sáng");
+
+        /* Add the user to the dummy table (for testing) */
+        model.addRow(new Object[]{
+            testUser.getMaNV(),
+            testUser.getTen(),
+            testUser.getEmail(),
+            testUser.getSdt(),
+            testUser.getMatKhau(),
+            testUser.getDiaChi(),
+            testUser.getChucVu(),
+            testUser.getGioiTinh(),
+            testUser.getCaLam()
+        });
+
+        /* Open EditUserForm with test data */
+        java.awt.EventQueue.invokeLater(() -> {
+            new EditUserForm(testUser, null, dummyTable,testRepository).setVisible(true);
         });
     }
 
