@@ -133,12 +133,8 @@ public class AddProductScene extends javax.swing.JPanel {
                 clearDetails();
                 javax.swing.JDialog dialog = (javax.swing.JDialog)javax.swing.SwingUtilities.getWindowAncestor(this);
                 dialog.dispose();
+                productRepositoryImpl.addProduct(pd);
                 admin.addProductToTable(pd);
-           
-            
-           
-            
-            
             JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
             }
             else{

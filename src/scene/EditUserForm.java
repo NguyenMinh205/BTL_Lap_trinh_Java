@@ -12,42 +12,23 @@ import scene.AdminScene;
  * @author admin
  */
 public class EditUserForm extends javax.swing.JFrame {
-
-    private User user;
+    private User selectedUser;
     private AdminScene adminScene;
-    private JTable userTable;
     private UserRepositoryImpl userRepository;
 
     /**
      * Creates new form EditUserForm
      */
-    public EditUserForm(User user, AdminScene adminScene, JTable userTable, UserRepositoryImpl userRepositoryImpl) {
-        this.user = user;
-        this.adminScene = adminScene;
-        this.userTable = userTable;
-        this.userRepository = userRepositoryImpl;
+    public EditUserForm() {
         initComponents();
-        jTextField_TenNhanVien.setText(user.getTen());
-        jTextField_email.setText(user.getEmail());
-        jTextField_sdt.setText(user.getSdt());
-        jTextField_matKhau.setText(user.getMatKhau());
-        jTextField_queQuan.setText(user.getDiaChi());
-        jComboBox_chucVu.setSelectedItem(user.getChucVu());
-        // Chọn giới tính và ca làm
-        if (user.getGioiTinh().equals("Nam")) {
-            jRadioButton_nam.setSelected(true);
-        } else {
-            jRadioButton_nu.setSelected(true);
-        }
-        if (user.getCaLam().equals("Ca Sáng")) {
-            jRadioButton_CaSang.setSelected(true);
-        } else if (user.getCaLam().equals("Ca Trưa")) {
-            jRadioButton_caTrua.setSelected(true);
-        } else if (user.getCaLam().equals("Ca Tối")) {
-            jRadioButton_caToi.setSelected(true);
-        }
-
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        userRepository = new UserRepositoryImpl();
+        setLocationRelativeTo(null);
+    }
+    
+    public EditUserForm(User user) {
+        initComponents();
+        this.selectedUser = user;
+        userRepository = new UserRepositoryImpl();
         setLocationRelativeTo(null);
     }
 
@@ -78,8 +59,8 @@ public class EditUserForm extends javax.swing.JFrame {
         jLabel_chucVu = new javax.swing.JLabel();
         jLable_gioiTinh = new javax.swing.JLabel();
         jLabel_CaLamViec = new javax.swing.JLabel();
-        jButton_Update = new javax.swing.JButton();
-        jButton_Cancel = new javax.swing.JButton();
+        updateBtn = new javax.swing.JButton();
+        cancelBtn = new javax.swing.JButton();
         jComboBox_chucVu = new javax.swing.JComboBox<>();
         jRadioButton_nam = new javax.swing.JRadioButton();
         jRadioButton_nu = new javax.swing.JRadioButton();
@@ -119,19 +100,19 @@ public class EditUserForm extends javax.swing.JFrame {
         jLabel_CaLamViec.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel_CaLamViec.setText("Ca Làm Việc");
 
-        jButton_Update.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton_Update.setText("Update");
-        jButton_Update.addActionListener(new java.awt.event.ActionListener() {
+        updateBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        updateBtn.setText("Update");
+        updateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_UpdateActionPerformed(evt);
+                updateBtnActionPerformed(evt);
             }
         });
 
-        jButton_Cancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton_Cancel.setText("Cancel");
-        jButton_Cancel.addActionListener(new java.awt.event.ActionListener() {
+        cancelBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cancelBtn.setText("Cancel");
+        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_CancelActionPerformed(evt);
+                cancelBtnActionPerformed(evt);
             }
         });
 
@@ -175,11 +156,6 @@ public class EditUserForm extends javax.swing.JFrame {
                         .addComponent(jLabel_Ten, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(54, 54, 54)
                         .addComponent(jTextField_TenNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton_Update)
-                        .addGap(65, 65, 65)
-                        .addComponent(jButton_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel_queQuan, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,19 +164,24 @@ public class EditUserForm extends javax.swing.JFrame {
                             .addComponent(jLabel_CaLamViec, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(54, 54, 54)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField_queQuan)
-                            .addComponent(jComboBox_chucVu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton_nam, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton_nu, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton_CaSang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton_caTrua, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton_caToi, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(36, 36, 36)))))
+                                .addComponent(updateBtn)
+                                .addGap(65, 65, 65)
+                                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField_queQuan)
+                                .addComponent(jComboBox_chucVu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jRadioButton_nam, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jRadioButton_nu, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jRadioButton_CaSang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jRadioButton_caTrua, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jRadioButton_caToi, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(36, 36, 36))))))
                 .addContainerGap(90, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -246,17 +227,17 @@ public class EditUserForm extends javax.swing.JFrame {
                     .addComponent(jRadioButton_CaSang)
                     .addComponent(jRadioButton_caTrua)
                     .addComponent(jRadioButton_caToi))
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton_Update, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 14, Short.MAX_VALUE))
+                    .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton_UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_UpdateActionPerformed
+    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         String tenNhanVien = jTextField_TenNhanVien.getText().trim();
         String email = jTextField_email.getText().trim();
         String sdt = jTextField_sdt.getText().trim();
@@ -292,48 +273,23 @@ public class EditUserForm extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Email không hợp lệ.");
             return;
         }
-        user.setTen(tenNhanVien);
-        user.setEmail(email);
-        user.setSdt(sdt);
-        user.setMatKhau(matKhau);
-        user.setDiaChi(queQuan);
-        user.setChucVu(chucVu);
-        user.setGioiTinh(gioiTinh);
-        user.setCaLam(caLam);
-        User updatedUser = userRepository.update(user);
-    
-    if (updatedUser != null) {
-        updateUserInTable(user);
-        javax.swing.JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
-        this.dispose();
-    } else {
-        javax.swing.JOptionPane.showMessageDialog(this, "Cập nhật thất bại!");
-    }
-        updateUserInTable(user);
-        this.dispose();
-    }//GEN-LAST:event_jButton_UpdateActionPerformed
-    public void updateUserInTable(User user) {
-        DefaultTableModel model = (DefaultTableModel) this.userTable.getModel();
+        
+        User updatedUser = userRepository.update(new User(selectedUser.getMaNV(), tenNhanVien, email, sdt, matKhau, queQuan, chucVu, gioiTinh, caLam));
 
-        for (int i = 0; i < model.getRowCount(); i++) {
-            String maNV = model.getValueAt(i, 0).toString(); // Assuming maNV is in column 0
-            if (maNV.equals(user.getMaNV())) {
-                model.setValueAt(user.getTen(), i, 1);
-                model.setValueAt(user.getEmail(), i, 2);
-                model.setValueAt(user.getSdt(), i, 3);
-                model.setValueAt(user.getMatKhau(), i, 4);
-                model.setValueAt(user.getDiaChi(), i, 5);
-                model.setValueAt(user.getChucVu(), i, 6);
-                model.setValueAt(user.getGioiTinh(), i, 7);
-                model.setValueAt(user.getCaLam(), i, 8);
-                break;
-            }
+        if (updatedUser != null) {
+            adminScene.updateUserInTable(updatedUser);
+            javax.swing.JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+            this.dispose();
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Cập nhật thất bại!");
         }
-    }
-
-    private void jButton_CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton_CancelActionPerformed
+    }//GEN-LAST:event_updateBtnActionPerformed
+
+
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_cancelBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -350,49 +306,10 @@ public class EditUserForm extends javax.swing.JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        UserRepositoryImpl testRepository = new UserRepositoryImpl();
-        /* Create a dummy table for testing */
-        JTable dummyTable = new JTable();
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Mã NV");
-        model.addColumn("Tên");
-        model.addColumn("Email");
-        model.addColumn("SĐT");
-        model.addColumn("Mật khẩu");
-        model.addColumn("Địa chỉ");
-        model.addColumn("Chức vụ");
-        model.addColumn("Giới tính");
-        model.addColumn("Ca làm");
-        dummyTable.setModel(model);
-
-        /* Add a sample user (for testing) */
-        User testUser = new User();
-        testUser.setMaNV("NV001");
-        testUser.setTen("Nguyễn Văn A");
-        testUser.setEmail("test@example.com");
-        testUser.setSdt("0123456789");
-        testUser.setMatKhau("123456");
-        testUser.setDiaChi("Hà Nội");
-        testUser.setChucVu("USER");
-        testUser.setGioiTinh("Nam");
-        testUser.setCaLam("Ca Sáng");
-
-        /* Add the user to the dummy table (for testing) */
-        model.addRow(new Object[]{
-            testUser.getMaNV(),
-            testUser.getTen(),
-            testUser.getEmail(),
-            testUser.getSdt(),
-            testUser.getMatKhau(),
-            testUser.getDiaChi(),
-            testUser.getChucVu(),
-            testUser.getGioiTinh(),
-            testUser.getCaLam()
-        });
 
         /* Open EditUserForm with test data */
         java.awt.EventQueue.invokeLater(() -> {
-            new EditUserForm(testUser, null, dummyTable,testRepository).setVisible(true);
+            new EditUserForm().setVisible(true);
         });
     }
 
@@ -400,8 +317,7 @@ public class EditUserForm extends javax.swing.JFrame {
     private javax.swing.JLabel LableHeader;
     private javax.swing.ButtonGroup buttonGroup_caLam;
     private javax.swing.ButtonGroup buttonGroup_gioiTinh;
-    private javax.swing.JButton jButton_Cancel;
-    private javax.swing.JButton jButton_Update;
+    private javax.swing.JButton cancelBtn;
     private javax.swing.JComboBox<String> jComboBox_chucVu;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel_CaLamViec;
@@ -423,5 +339,6 @@ public class EditUserForm extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_matKhau;
     private javax.swing.JTextField jTextField_queQuan;
     private javax.swing.JTextField jTextField_sdt;
+    private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 }

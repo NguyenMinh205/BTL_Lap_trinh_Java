@@ -94,6 +94,11 @@ public class OrderScene extends javax.swing.JFrame {
 
         generateBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         generateBtn.setText("GENERATE BILL ");
+        generateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateBtnActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Chọn món:");
@@ -282,6 +287,10 @@ public class OrderScene extends javax.swing.JFrame {
     private void totalFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalFieldActionPerformed
         
     }//GEN-LAST:event_totalFieldActionPerformed
+
+    private void generateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateBtnActionPerformed
+        
+    }//GEN-LAST:event_generateBtnActionPerformed
 
     /**
      * @param args the command line arguments
