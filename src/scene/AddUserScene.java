@@ -47,7 +47,6 @@ public class AddUserScene extends javax.swing.JFrame {
         email.setText("");
         phoneField.setText("");
         gioiTinh.clearSelection();
-        maNV.setText("");
         queQuan.setText("");
         caLamViec.clearSelection();
     }
@@ -75,8 +74,6 @@ public class AddUserScene extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         email = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        maNV = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         queQuan = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -119,8 +116,6 @@ public class AddUserScene extends javax.swing.JFrame {
         jLabel4.setText("Giới tính: ");
 
         jLabel5.setText("Email:");
-
-        jLabel6.setText("Mã nhân viên:");
 
         jLabel7.setText("Quê quán:");
 
@@ -176,20 +171,15 @@ public class AddUserScene extends javax.swing.JFrame {
                                 .addComponent(caToi, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(chucVu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(LabelMK, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(displayPassword)
-                                    .addComponent(LabelTK))
-                                .addGap(48, 48, 48)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(matKhau)
-                                    .addComponent(tenNV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(maNV, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(LabelMK, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(displayPassword)
+                                .addComponent(LabelTK))
+                            .addGap(48, 48, 48)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(matKhau)
+                                .addComponent(tenNV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -209,11 +199,7 @@ public class AddUserScene extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(maNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(LabelTK)
@@ -269,12 +255,11 @@ public class AddUserScene extends javax.swing.JFrame {
         String mail = email.getText();
         String phone = phoneField.getText();
         String gender = "";
-        String employeeID = maNV.getText();
         String hometown = queQuan.getText();
         String position = (String) chucVu.getSelectedItem();
         String workShift = "";
 
-        if (name.isEmpty() || password.isEmpty() || employeeID.isEmpty() || hometown.isEmpty() || position.isEmpty() || phone.isEmpty() || mail.isEmpty()) {
+        if (name.isEmpty() || password.isEmpty() || hometown.isEmpty() || position.isEmpty() || phone.isEmpty() || mail.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin.", "Thiếu thông tin", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -316,8 +301,9 @@ public class AddUserScene extends javax.swing.JFrame {
         }
         
         JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-        userRepositoryImpl.addUser(new User(employeeID, name, mail, phone, password, hometown, position, gender, workShift));
-        adminScene.loadUserTable();
+        User newUser = new User("", name, mail, phone, password, hometown, position, gender, workShift);
+        userRepositoryImpl.addUser(newUser);
+        adminScene.addUserToTable(newUser);
         clearDetails();
     }//GEN-LAST:event_inputDataActionPerformed
 
@@ -386,11 +372,9 @@ public class AddUserScene extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField maNV;
     private javax.swing.JPasswordField matKhau;
     private javax.swing.JTextField phoneField;
     private javax.swing.JTextField queQuan;

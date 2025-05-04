@@ -34,6 +34,21 @@ public class AdminScene extends javax.swing.JFrame {
         loadUserTable();
         loadProductTable();
     }
+    
+    public void addUserToTable(User user) {
+        DefaultTableModel model = (DefaultTableModel) userTable.getModel();
+        model.addRow(new Object[]{
+                user.getMaNV(),
+                user.getTen(),
+                user.getEmail(),
+                user.getSdt(),
+                user.getMatKhau(),
+                user.getChucVu(),
+                user.getGioiTinh(),
+                user.getDiaChi(),
+                user.getCaLam()
+            });
+    }
 
     public void addProductToTable(Product product) {
         DefaultTableModel model = (DefaultTableModel) productTable.getModel();
@@ -87,6 +102,24 @@ public class AdminScene extends javax.swing.JFrame {
         }
 
         productTable.setModel(model);
+    }
+    
+        public void updateUserInTable(User user) {
+        DefaultTableModel model = (DefaultTableModel) this.userTable.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String maNV = model.getValueAt(i, 0).toString(); // Assuming maNV is in column 0
+            if (maNV.equals(user.getMaNV())) {
+                model.setValueAt(user.getTen(), i, 1);
+                model.setValueAt(user.getEmail(), i, 2);
+                model.setValueAt(user.getSdt(), i, 3);
+                model.setValueAt(user.getMatKhau(), i, 4);
+                model.setValueAt(user.getDiaChi(), i, 5);
+                model.setValueAt(user.getChucVu(), i, 6);
+                model.setValueAt(user.getGioiTinh(), i, 7);
+                model.setValueAt(user.getCaLam(), i, 8);
+                break;
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -339,8 +372,8 @@ public class AdminScene extends javax.swing.JFrame {
         String chucVu = userTable.getValueAt(selecRow, 6).toString();
         String gioiTinh = userTable.getValueAt(selecRow, 7).toString();
         String caLamViec = userTable.getValueAt(selecRow, 8).toString();
-        User selecUser = new User(maNV, tenNV, email, soDT, matKhau, queQuan, chucVu, gioiTinh, caLamViec);
-        EditUserForm editUserForm = new EditUserForm(selecUser, this, userTable, userRepositoryImpl);
+        User selectUser = new User(maNV, tenNV, email, soDT, matKhau, queQuan, chucVu, gioiTinh, caLamViec);
+        EditUserForm editUserForm = new EditUserForm(selectUser);
         editUserForm.setVisible(true);
     }//GEN-LAST:event_editUserBtnActionPerformed
 
