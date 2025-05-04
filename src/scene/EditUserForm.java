@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import model.User;
 import repository.UserRepositoryImpl;
+import scene.AdminScene;
 
 /**
  *
@@ -26,7 +27,6 @@ public class EditUserForm extends javax.swing.JFrame {
         this.userTable = userTable;
         this.userRepository = userRepositoryImpl;
         initComponents();
-
         jTextField_TenNhanVien.setText(user.getTen());
         jTextField_email.setText(user.getEmail());
         jTextField_sdt.setText(user.getSdt());
@@ -90,6 +90,7 @@ public class EditUserForm extends javax.swing.JFrame {
         jLabel3.setText("Tên Nhân Viên");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Chỉnh sửa thông tin");
 
         LableHeader.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         LableHeader.setText(" EDIT USER");
@@ -251,8 +252,6 @@ public class EditUserForm extends javax.swing.JFrame {
                     .addComponent(jButton_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 14, Short.MAX_VALUE))
         );
-
-        jLable_Email.getAccessibleContext().setAccessibleName("Email");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

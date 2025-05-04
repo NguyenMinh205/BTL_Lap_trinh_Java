@@ -6,7 +6,10 @@ package scene;
 
 import java.awt.event.WindowEvent;
 import java.util.List;
+import java.awt.Frame;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import model.Product;
 import model.User;
@@ -17,11 +20,12 @@ public class AdminScene extends javax.swing.JFrame {
 
     private UserRepositoryImpl userRepositoryImpl;
     private ProductRepositoryImpl productRepositoryImpl;
-    // Add this method to AdminScene class
 
+    // Add this method to AdminScene class
     public UserRepositoryImpl getUserRepository() {
         return this.userRepositoryImpl;
     }
+
     public AdminScene() {
         initComponents();
         userRepositoryImpl = new UserRepositoryImpl();
@@ -29,6 +33,16 @@ public class AdminScene extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         loadUserTable();
         loadProductTable();
+    }
+
+    public void addProductToTable(Product product) {
+        DefaultTableModel model = (DefaultTableModel) productTable.getModel();
+        model.addRow(new Object[]{
+            product.getMaSP(),
+            product.getTenSP(),
+            product.getGia(),
+            product.getLoai()
+        });
     }
 
     public void loadUserTable() {
@@ -69,6 +83,7 @@ public class AdminScene extends javax.swing.JFrame {
                 product.getGia(),
                 product.getLoai(),};
             model.addRow(rowData);
+
         }
 
         productTable.setModel(model);
@@ -98,7 +113,6 @@ public class AdminScene extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Admin Scene");
-        setPreferredSize(new java.awt.Dimension(960, 540));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Admin Scene");
@@ -241,7 +255,7 @@ public class AdminScene extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(productScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
                         .addComponent(logoutBtn)
                         .addGap(70, 70, 70))))
         );
@@ -273,7 +287,7 @@ public class AdminScene extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addComponent(productScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(18, Short.MAX_VALUE))
+                        .addContainerGap(52, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(logoutBtn)
@@ -316,7 +330,6 @@ public class AdminScene extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một người dùng để sửa");
             return;
         }
-        //Lấy thông tin người dùng từ bảng userTable
         String maNV = userTable.getValueAt(selecRow, 0).toString();
         String tenNV = userTable.getValueAt(selecRow, 1).toString();
         String email = userTable.getValueAt(selecRow, 2).toString();
@@ -326,7 +339,6 @@ public class AdminScene extends javax.swing.JFrame {
         String chucVu = userTable.getValueAt(selecRow, 6).toString();
         String gioiTinh = userTable.getValueAt(selecRow, 7).toString();
         String caLamViec = userTable.getValueAt(selecRow, 8).toString();
-
         User selecUser = new User(maNV, tenNV, email, soDT, matKhau, queQuan, chucVu, gioiTinh, caLamViec);
         EditUserForm editUserForm = new EditUserForm(selecUser, this, userTable, userRepositoryImpl);
         editUserForm.setVisible(true);
@@ -334,11 +346,15 @@ public class AdminScene extends javax.swing.JFrame {
 
     private void deleteUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserBtnActionPerformed
 
-
     }//GEN-LAST:event_deleteUserBtnActionPerformed
 
     private void addProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductBtnActionPerformed
-
+        AddProductScene addProductPanel = new AddProductScene(this);
+        JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "Thêm sản phẩm", true);
+        dialog.getContentPane().add(addProductPanel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
     }//GEN-LAST:event_addProductBtnActionPerformed
 
     private void editProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProductBtnActionPerformed
@@ -375,13 +391,14 @@ public class AdminScene extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(AdminScene.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 AdminScene admin = new AdminScene();
-                admin.setVisible(true);
                 admin.setDefaultCloseOperation(EXIT_ON_CLOSE);
+                new AdminScene().setVisible(true);
             }
         });
     }
