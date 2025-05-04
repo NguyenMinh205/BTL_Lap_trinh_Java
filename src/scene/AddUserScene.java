@@ -25,6 +25,13 @@ public class AddUserScene extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
+    public AddUserScene(AdminScene adminScene) {
+        initComponents();
+        userRepositoryImpl = new UserRepositoryImpl();
+        this.adminScene = adminScene;
+        this.setLocationRelativeTo(null);
+    }
+    
     private boolean isPasswordValid(String password) {
         String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).{8,}$";
         return password.matches(passwordRegex);
