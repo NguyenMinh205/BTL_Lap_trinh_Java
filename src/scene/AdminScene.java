@@ -345,7 +345,29 @@ public class AdminScene extends javax.swing.JFrame {
     }//GEN-LAST:event_editUserBtnActionPerformed
 
     private void deleteUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserBtnActionPerformed
-
+        int selecRow = userTable.getSelectedRow();
+        if (selecRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn người dùng để xóa");
+        }
+        int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa người dùng này không ?");
+        if (option != JOptionPane.YES_OPTION) {
+            return;
+        }
+        String maNV = userTable.getValueAt(selecRow, 0).toString();
+        User userToDelete = null;
+        for (User u : userRepositoryImpl.findAll()) {
+            if (u.getMaNV().equals(maNV)) {
+                userToDelete = u;
+                break;
+            }
+        }
+        if (userToDelete != null) {
+            userRepositoryImpl.delete(userToDelete);
+            ((DefaultTableModel) userTable.getModel()).removeRow(selecRow);
+            JOptionPane.showMessageDialog(this, "Đã xóa người dùng thành công");
+        } else {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy người dùng để xóa");
+        }
     }//GEN-LAST:event_deleteUserBtnActionPerformed
 
     private void addProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductBtnActionPerformed
