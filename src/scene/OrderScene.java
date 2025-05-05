@@ -4,8 +4,17 @@
  */
 package scene;
 
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Bill;
 import model.Product;
 import repository.BillRepositoryImpl;
 import repository.ProductRepositoryImpl;
@@ -14,10 +23,13 @@ import repository.ProductRepositoryImpl;
  *
  * @author HP
  */
+
 public class OrderScene extends javax.swing.JFrame {
     private ProductRepositoryImpl productRepositoryImpl;
     private BillRepositoryImpl billRepositoryImpl;
-    private List<Product> listProduct = new ArrayList<Product>();;
+    private List<Product> listProduct = new ArrayList<Product>();
+    private Map<Product, Integer> productQuantityMap = new HashMap<>();
+    
     /**
      * Creates new form OrderScene
      */
@@ -36,7 +48,14 @@ public class OrderScene extends javax.swing.JFrame {
             menuComboBox.addItem(product.getTenSP());
 	}
     }
+    
+    private String generateMaHD() {
+        String datePart = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        int randomNum = (int) (Math.random() * 900 + 100); // VD: 742
+        return "HD" + datePart + "-" + randomNum;
+    }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,7 +89,6 @@ public class OrderScene extends javax.swing.JFrame {
         chooseProductBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(852, 520));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Order Scene");
@@ -91,6 +109,12 @@ public class OrderScene extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Số điện thoại:");
+
+        nameClientField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameClientFieldActionPerformed(evt);
+            }
+        });
 
         generateBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         generateBtn.setText("GENERATE BILL ");
@@ -217,7 +241,7 @@ public class OrderScene extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(333, 333, 333)
                         .addComponent(generateBtn)))
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addGap(76, 76, 76))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,7 +301,73 @@ public class OrderScene extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void chooseProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseProductBtnActionPerformed
-        
+        Object value = numberSpinner.getValue();
+        int newQuantity = 0;
+
+        if (value instanceof Integer) {
+            newQuantity = (Integer) value;
+        } else if (value instanceof Double) {
+            newQuantity = ((Double) value).intValue();
+        } else {
+            JOptionPane.showMessageDialog(null, "Số lượng không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (newQuantity < 0) {
+            JOptionPane.showMessageDialog(null, "Số lượng không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String productName = (String) menuComboBox.getSelectedItem();
+        Product selectedProduct = null;
+
+        for (Product product : listProduct) {
+            if (product.getTenSP().equals(productName)) {
+                selectedProduct = product;
+                break;
+            }
+        }
+
+        if (selectedProduct == null) {
+            JOptionPane.showMessageDialog(null, "Không tìm thấy món này.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (newQuantity == 0) {
+            productQuantityMap.remove(selectedProduct);
+        } else {
+            productQuantityMap.put(selectedProduct, newQuantity);
+        }
+
+        updateProductChosenTable();
+        updateTotal();
+    }
+
+
+
+    private void updateProductChosenTable() {
+        DefaultTableModel model = (DefaultTableModel) productChosenTable.getModel();
+        model.setRowCount(0);
+
+        for (Map.Entry<Product, Integer> entry : productQuantityMap.entrySet()) {
+            Product product = entry.getKey();
+            int quantity = entry.getValue();
+            double totalPrice = product.getGia() * quantity;
+            model.addRow(new Object[]{product.getTenSP(), quantity, totalPrice});
+        }
+    }
+
+    private void updateTotal() {
+        int totalQuantity = 0;
+        double totalMoney = 0;
+
+        for (Map.Entry<Product, Integer> entry : productQuantityMap.entrySet()) {
+            totalQuantity += entry.getValue();
+            totalMoney += entry.getKey().getGia() * entry.getValue();
+        }
+
+        sumOfProductField.setText(String.valueOf(totalQuantity));
+        totalField.setText(String.valueOf(totalMoney));
     }//GEN-LAST:event_chooseProductBtnActionPerformed
 
     private void sumOfProductFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumOfProductFieldActionPerformed
@@ -289,8 +379,49 @@ public class OrderScene extends javax.swing.JFrame {
     }//GEN-LAST:event_totalFieldActionPerformed
 
     private void generateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateBtnActionPerformed
+        String name = nameClientField.getText().trim();
+        String email = emailClientField.getText().trim();
+        String phone = phoneField.getText().trim();
+        
+        if (name.isEmpty() || email.isEmpty() || phone.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin khách hàng.", "Thiếu thông tin", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (productQuantityMap.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn ít nhất 1 món");
+            return;
+        }
+
+        String maHD = generateMaHD();
+        double tongTien = 0.0;
+
+        for (Map.Entry<Product, Integer> entry : productQuantityMap.entrySet()) {
+            Product product = entry.getKey();
+            int quantity = entry.getValue();
+            tongTien += product.getGia() * quantity;  
+        }
+        
+        Bill bill = new Bill();
+        LocalDate ngayDat = LocalDate.now();
+        String ngayDatStr = ngayDat.toString();
+        
+        
+        bill.setMaHD(maHD);
+        bill.setTen(name);
+        bill.setEmail(email);
+        bill.setSdt(phone);
+        bill.setNgayDat(ngayDatStr);
+        bill.setTongTien(tongTien);
+        
+        billRepositoryImpl.save(bill);
+        
+        
         
     }//GEN-LAST:event_generateBtnActionPerformed
+
+    private void nameClientFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameClientFieldActionPerformed
+    }//GEN-LAST:event_nameClientFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -317,6 +448,9 @@ public class OrderScene extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(OrderScene.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
