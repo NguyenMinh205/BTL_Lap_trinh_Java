@@ -59,17 +59,9 @@ public class AdminScene extends javax.swing.JFrame {
             product.getGia(),
             product.getLoai()
         });
+        productTable.setModel(model);
     }
     
-    public boolean isProductIdExists(String maSP) {
-        DefaultTableModel model = (DefaultTableModel) productTable.getModel();
-        for (int i = 0; i < model.getRowCount(); i++) {
-            if (maSP.equals(model.getValueAt(i, 0))) { // Cột 0 là mã SP
-                return true;
-            }
-        }
-        return false;
-    }
     
     public void loadUserTable() {
         String[] columnNames = {"Mã NV", "Tên", "Email", "SĐT", "Mật khẩu", "Chức vụ", "Giới tính", "Quê quán", "Ca làm"};
@@ -101,7 +93,6 @@ public class AdminScene extends javax.swing.JFrame {
     public void loadProductTable() {
         String[] columnNames = {"Mã SP", "Tên SP", "Giá", "Loại"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0); // 0: ban đầu chưa có dòng nào
-
         for (Product product : productRepositoryImpl.findAll()) {
             Object[] rowData = {
                 product.getMaSP(),
@@ -114,7 +105,24 @@ public class AdminScene extends javax.swing.JFrame {
 
         productTable.setModel(model);
     }
-
+    
+    public ProductRepositoryImpl getProductRepository() {
+        return this.productRepositoryImpl;
+    }
+    
+    public void updateProduct(Product product) {
+        DefaultTableModel model = (DefaultTableModel) this.productTable.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String maSP = model.getValueAt(i, 0).toString();
+            if (maSP.equals(product.getMaSP())) {
+                model.setValueAt(product.getTenSP(), i, 1);
+                model.setValueAt(product.getLoai(), i, 3); 
+                model.setValueAt(product.getGia(), i, 2);  
+                break; 
+            }
+        }
+        productTable.setModel(model);
+    }
     public void updateUserInTable(User user) {
         DefaultTableModel model = (DefaultTableModel) this.userTable.getModel();
         for (int i = 0; i < model.getRowCount(); i++) {
@@ -424,9 +432,34 @@ public class AdminScene extends javax.swing.JFrame {
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }//GEN-LAST:event_addProductBtnActionPerformed
-
+    
     private void editProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProductBtnActionPerformed
-
+        int selectedRow = productTable.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn sản phẩm cần sửa");
+            return;
+        }
+        String maSP = productTable.getValueAt(selectedRow, 0).toString();
+        String tenSP = productTable.getValueAt(selectedRow, 1).toString();
+        String loai = productTable.getValueAt(selectedRow, 3).toString();
+        Object cost = productTable.getValueAt(selectedRow, 2);
+        double gia = 0;
+        if(cost != null){
+            try{
+                gia = Double.parseDouble(cost.toString());
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(rootPane, "Không đúng định dạng số");
+                return;
+            }  
+        }
+        
+        Product selectProduct = new Product(maSP, tenSP, gia, loai);
+        EditProductScene editProduct = new EditProductScene(selectProduct, this);
+        JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "Sửa sản phẩm", true);
+        dialog.getContentPane().add(editProduct);
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
     }//GEN-LAST:event_editProductBtnActionPerformed
 
     private void deleteProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductBtnActionPerformed
@@ -456,11 +489,6 @@ public class AdminScene extends javax.swing.JFrame {
             ((DefaultTableModel) productTable.getModel()).removeRow(selecRow);
             JOptionPane.showMessageDialog(rootPane, "Đã xóa sản phẩm thành công");
         }
-        else
-        {
-            JOptionPane.showMessageDialog(rootPane, "Không tìm thấy sản phẩm");
-        }
-           
     }//GEN-LAST:event_deleteProductBtnActionPerformed
 
     /**

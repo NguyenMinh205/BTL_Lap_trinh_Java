@@ -16,4 +16,6 @@ public interface IProductRepository {
     public void delete(Product product);
 
     public void clear();
+    
+    public Product update(Product product);
 }

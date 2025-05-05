@@ -15,23 +15,30 @@ import scene.AdminScene;
  * @author Manh
  */
 public class AddProductScene extends javax.swing.JPanel {
+
     private ProductRepositoryImpl productRepositoryImpl;
     private AdminScene admin;
+
     /**
      * Creates new form AddProductScene
      */
-    public AddProductScene(AdminScene admin) {
-        
+
+    public AddProductScene() {
         initComponents();
-        productRepositoryImpl = new ProductRepositoryImpl();
+        admin = new AdminScene();
+    }
+
+    public AddProductScene(AdminScene admin) {
+        initComponents();
+        this.productRepositoryImpl = admin.getProductRepository(); 
         this.admin = admin;
     }
 
-    public void clearDetails(){
-        textMaSP.setText("");
+    public void clearDetails() {
         textTenSP.setText("");
         textGia.setText("");
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,17 +48,14 @@ public class AddProductScene extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        textMaSP = new javax.swing.JTextField();
         textTenSP = new javax.swing.JTextField();
         textGia = new javax.swing.JTextField();
         boxLoai = new javax.swing.JComboBox<>();
         addingBtn = new javax.swing.JButton();
-
-        jLabel1.setText("Mã sản phẩm :");
+        jLabel5 = new javax.swing.JLabel();
 
         jLabel2.setText("Tên sản phẩm : ");
 
@@ -68,6 +72,8 @@ public class AddProductScene extends javax.swing.JPanel {
             }
         });
 
+        jLabel5.setText("              THÊM SẢN PHẨM");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,29 +83,28 @@ public class AddProductScene extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textMaSP)
                             .addComponent(textTenSP)
                             .addComponent(textGia)
                             .addComponent(boxLoai, 0, 236, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(155, 155, 155)
-                        .addComponent(addingBtn)))
+                        .addComponent(addingBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(textMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(textTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -119,50 +124,50 @@ public class AddProductScene extends javax.swing.JPanel {
 
     private void addingBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addingBtnActionPerformed
         // TODO add your handling code here:
-        String id = textMaSP.getText();
-        String name = textTenSP.getText();
-        String gia = textGia.getText();
-        String loai = boxLoai.getSelectedItem().toString();
-        if(id.length() > 0 && name.length() > 0 && gia.length() > 0)
-        {
-            if(gia.matches("\\d+"))
-            {
-                if(admin != null && admin.isProductIdExists(id))
-                {
-                    JOptionPane.showMessageDialog(textMaSP, "Mã sản phẩm đã tồn tại");
-                    return;
-                }
-                double giaBan = Float.parseFloat(gia);
-                Product pd = new Product(id, name, giaBan, loai);
-                productRepositoryImpl.addProduct(pd);
-                clearDetails();
-                javax.swing.JDialog dialog = (javax.swing.JDialog)javax.swing.SwingUtilities.getWindowAncestor(this);
-                dialog.dispose();
-                admin.addProductToTable(pd);
-            JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-            }
-            else{
-                JOptionPane.showMessageDialog(textGia,"Giá chỉ có thể là số");
-            }
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(textMaSP, "Không được bỏ trống thông tin");
-        }
         
+        String name = textTenSP.getText().trim();
+        String gia = textGia.getText().trim();
+        String loai = boxLoai.getSelectedItem().toString().trim();
+
+        // Validation
+        if (name.isEmpty() || gia.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không được bỏ trống thông tin");
+            return;
+        }
+
+        try {
+            double giaBan = Double.parseDouble(gia);
+            if (giaBan <= 0) {
+                JOptionPane.showMessageDialog(this, "Giá phải lớn hơn 0");
+                return;
+            }
+
+            // Tạo sản phẩm (mã sẽ được tự động tạo trong repository)
+            Product pd = new Product("", name, giaBan, loai);
+            productRepositoryImpl.addProduct(pd);
+
+            // Đóng dialog và refresh bảng
+            javax.swing.JDialog dialog = (javax.swing.JDialog) javax.swing.SwingUtilities.getWindowAncestor(this);
+            dialog.dispose();
+            admin.loadProductTable();
+            JOptionPane.showMessageDialog(this, "Thêm thành công! Mã: " + pd.getMaSP());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Giá phải là số hợp lệ");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi: " + e.getMessage());
+        }
+
     }//GEN-LAST:event_addingBtnActionPerformed
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addingBtn;
     private javax.swing.JComboBox<String> boxLoai;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField textGia;
-    private javax.swing.JTextField textMaSP;
     private javax.swing.JTextField textTenSP;
     // End of variables declaration//GEN-END:variables
 

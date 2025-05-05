@@ -65,7 +65,7 @@ public class ProductRepositoryImpl implements IProductRepository {
         products.add(new Product("SP10", "Trà Sữa Phúc Long", 35000, "Đồ uống"));
         products.add(new Product("SP11", "Trà Sữa Socola", 40000, "Đồ uống"));
         products.add(new Product("SP12", "Trà Sữa Happy", 40000, "Đồ uống"));
-        
+
         products.add(new Product("SP13", "Gà rán", 50000, "Đồ ăn"));
         products.add(new Product("SP14", "Pizza xúc xích", 60000, "Đồ ăn"));
         products.add(new Product("SP15", "Pizza hải sản", 60000, "Đồ ăn"));
@@ -100,6 +100,7 @@ public class ProductRepositoryImpl implements IProductRepository {
 
     @Override
     public void addProduct(Product product) {
+        product.setMaSP(generateNewId());
         products.add(product);
         saveProductsToFile();
     }
@@ -117,16 +118,34 @@ public class ProductRepositoryImpl implements IProductRepository {
     }
 
     private String generateNewId() {
-        int max = 0;
+        
+        if (products.isEmpty()) {
+            return "SP01";
+        }
+
+        int maxNumber = 0;
         for (Product p : products) {
-            String ma = p.getMaSP();
-            if (ma != null && ma.matches("^SP\\d{2}$")) {
-                int num = Integer.parseInt(ma.substring(2));
-                if (num > max) {
-                    max = num;
+            String maSP = p.getMaSP();
+            if (maSP != null && maSP.matches("^SP\\d+$")) {
+                try {
+                    int currentNum = Integer.parseInt(maSP.substring(2));
+                    maxNumber = Math.max(maxNumber, currentNum);
+                } catch (NumberFormatException ignored) {
                 }
             }
         }
-        return String.format("SP%02d", max + 1);
+        return String.format("SP%02d", maxNumber + 1);
+    }
+
+    @Override
+    public Product update(Product pd) {
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getMaSP().equals(pd.getMaSP())) {
+                products.set(i, pd);
+                saveProductsToFile();
+                return pd;
+            }
+        }
+        return null;
     }
 }
