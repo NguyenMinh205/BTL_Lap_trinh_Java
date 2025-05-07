@@ -148,13 +148,13 @@ public class EditUserForm extends javax.swing.JFrame {
         jRadioButton_nu.setText("Nữ");
 
         buttonGroup_caLam.add(jRadioButton_CaSang);
-        jRadioButton_CaSang.setText("Ca Sáng ");
+        jRadioButton_CaSang.setText("Ca sáng ");
 
         buttonGroup_caLam.add(jRadioButton_caTrua);
-        jRadioButton_caTrua.setText("Ca Trưa");
+        jRadioButton_caTrua.setText("Ca chiều");
 
         buttonGroup_caLam.add(jRadioButton_caToi);
-        jRadioButton_caToi.setText("Ca Tối");
+        jRadioButton_caToi.setText("Ca tối");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -195,16 +195,19 @@ public class EditUserForm extends javax.swing.JFrame {
                                 .addComponent(jTextField_queQuan)
                                 .addComponent(jComboBox_chucVu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jRadioButton_nam, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jRadioButton_nu, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jRadioButton_CaSang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jRadioButton_caTrua, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jRadioButton_CaSang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jRadioButton_caTrua, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jRadioButton_nam, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jRadioButton_nu, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(12, 12, 12)))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(jRadioButton_caToi, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(36, 36, 36))))))
+                                    .addGap(57, 57, 57))))))
                 .addContainerGap(90, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -277,11 +280,11 @@ public class EditUserForm extends javax.swing.JFrame {
 
         String caLam = "";
         if (jRadioButton_CaSang.isSelected()) {
-            caLam = "Ca Sáng";
+            caLam = "Ca sáng";
         } else if (jRadioButton_caTrua.isSelected()) {
-            caLam = "Ca Trưa";
+            caLam = "Ca chiều";
         } else if (jRadioButton_caToi.isSelected()) {
-            caLam = "Ca Tối";
+            caLam = "Ca tối";
         }
 
         // Kiểm tra đầu vào 

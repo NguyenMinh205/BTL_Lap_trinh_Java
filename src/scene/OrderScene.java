@@ -49,12 +49,15 @@ public class OrderScene extends javax.swing.JFrame {
 	}
     }
     
-    private String generateMaHD() {
-        String datePart = new SimpleDateFormat("yyyyMMdd").format(new Date());
-        int randomNum = (int) (Math.random() * 900 + 100); // VD: 742
-        return "HD" + datePart + "-" + randomNum;
+    public void clearDetail() {
+        nameClientField.setText("");
+        phoneField.setText("");
+        emailClientField.setText("");
+        DefaultTableModel model = (DefaultTableModel) productChosenTable.getModel();
+        model.setRowCount(0);
+        sumOfProductField.setText("");
+        totalField.setText("");
     }
-
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,6 +90,7 @@ public class OrderScene extends javax.swing.JFrame {
         menuComboBox = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         chooseProductBtn = new javax.swing.JButton();
+        deleteProductBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,7 +98,7 @@ public class OrderScene extends javax.swing.JFrame {
         jLabel1.setText("Order Scene");
 
         logoutBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        logoutBtn.setText("Log out");
+        logoutBtn.setText("Đăng xuất");
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logoutBtnActionPerformed(evt);
@@ -110,14 +114,8 @@ public class OrderScene extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Số điện thoại:");
 
-        nameClientField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameClientFieldActionPerformed(evt);
-            }
-        });
-
         generateBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        generateBtn.setText("GENERATE BILL ");
+        generateBtn.setText("Xuất hóa đơn");
         generateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 generateBtnActionPerformed(evt);
@@ -133,20 +131,8 @@ public class OrderScene extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Tổng số lượng:");
 
-        sumOfProductField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sumOfProductFieldActionPerformed(evt);
-            }
-        });
-
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setText("Tổng tiền:");
-
-        totalField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                totalFieldActionPerformed(evt);
-            }
-        });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setText("Danh sách món đã chọn:");
@@ -189,6 +175,14 @@ public class OrderScene extends javax.swing.JFrame {
             }
         });
 
+        deleteProductBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        deleteProductBtn.setText("Xóa");
+        deleteProductBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteProductBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -196,64 +190,62 @@ public class OrderScene extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(240, 240, 240)
+                .addGap(221, 221, 221)
                 .addComponent(logoutBtn)
                 .addGap(39, 39, 39))
             .addGroup(layout.createSequentialGroup()
+                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel3))
+                        .addGap(67, 67, 67)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel3))
-                                .addGap(67, 67, 67)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(menuComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(45, 45, 45)
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(numberSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(54, 54, 54)
-                                        .addComponent(chooseProductBtn))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(nameClientField, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(emailClientField, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(phoneField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(51, 51, 51)
-                                .addComponent(sumOfProductField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(214, 214, 214)
-                                .addComponent(jLabel8)
+                                .addComponent(menuComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(45, 45, 45)
+                                .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(totalField, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel10))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(64, 64, 64)
-                                .addComponent(productScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(numberSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(nameClientField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(emailClientField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(phoneField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(333, 333, 333)
+                        .addComponent(jLabel7)
+                        .addGap(51, 51, 51)
+                        .addComponent(sumOfProductField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(214, 214, 214)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(totalField, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel10))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(651, 651, 651)
+                        .addComponent(chooseProductBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(productScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(deleteProductBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(277, 277, 277)
                         .addComponent(generateBtn)))
-                .addGap(76, 76, 76))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(24, 24, 24))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(logoutBtn)
-                        .addGap(18, 18, 18)))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(logoutBtn)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -278,7 +270,8 @@ public class OrderScene extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addComponent(productScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(productScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteProductBtn))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -370,14 +363,6 @@ public class OrderScene extends javax.swing.JFrame {
         totalField.setText(String.valueOf(totalMoney));
     }//GEN-LAST:event_chooseProductBtnActionPerformed
 
-    private void sumOfProductFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumOfProductFieldActionPerformed
-        
-    }//GEN-LAST:event_sumOfProductFieldActionPerformed
-
-    private void totalFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalFieldActionPerformed
-        
-    }//GEN-LAST:event_totalFieldActionPerformed
-
     private void generateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateBtnActionPerformed
         String name = nameClientField.getText().trim();
         String email = emailClientField.getText().trim();
@@ -393,7 +378,6 @@ public class OrderScene extends javax.swing.JFrame {
             return;
         }
 
-        String maHD = generateMaHD();
         double tongTien = 0.0;
 
         for (Map.Entry<Product, Integer> entry : productQuantityMap.entrySet()) {
@@ -406,8 +390,6 @@ public class OrderScene extends javax.swing.JFrame {
         LocalDate ngayDat = LocalDate.now();
         String ngayDatStr = ngayDat.toString();
         
-        
-        bill.setMaHD(maHD);
         bill.setTen(name);
         bill.setEmail(email);
         bill.setSdt(phone);
@@ -416,12 +398,38 @@ public class OrderScene extends javax.swing.JFrame {
         
         billRepositoryImpl.save(bill);
         
-        
-        
+        JOptionPane.showMessageDialog(this, "Thông tin hóa đơn: \n" + bill.toString(), "Hiện hóa đơn", JOptionPane.INFORMATION_MESSAGE);
+        clearDetail();
     }//GEN-LAST:event_generateBtnActionPerformed
 
-    private void nameClientFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameClientFieldActionPerformed
-    }//GEN-LAST:event_nameClientFieldActionPerformed
+    private void deleteProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductBtnActionPerformed
+        int selectRow = productChosenTable.getSelectedRow();
+        if (selectRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm để xóa");
+            return;
+        }
+        
+        int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa đơn hàng này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        if (option != JOptionPane.YES_OPTION) {
+            return;
+        }
+        
+        String tenSP = productChosenTable.getValueAt(selectRow, 0).toString();
+        Product productToDelete = null;
+        for (Product p : productRepositoryImpl.findAll()) {
+            if (p.getTenSP().equals(tenSP)) {
+                productToDelete = p;
+                break;
+            }
+        }
+        if (productToDelete != null) {
+            productRepositoryImpl.delete(productToDelete);
+            ((DefaultTableModel) productChosenTable.getModel()).removeRow(selectRow);
+            JOptionPane.showMessageDialog(this, "Đã xóa sản phẩm thành công");
+        } else {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy sản phẩm để xóa");
+        }
+    }//GEN-LAST:event_deleteProductBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -463,6 +471,7 @@ public class OrderScene extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton chooseProductBtn;
+    private javax.swing.JButton deleteProductBtn;
     private javax.swing.JTextField emailClientField;
     private javax.swing.JButton generateBtn;
     private javax.swing.JLabel jLabel1;

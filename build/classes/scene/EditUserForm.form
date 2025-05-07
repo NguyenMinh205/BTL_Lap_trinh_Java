@@ -77,18 +77,23 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jTextField_queQuan" max="32767" attributes="0"/>
                               <Component id="jComboBox_chucVu" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="jRadioButton_nam" min="-2" pref="82" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jRadioButton_nu" min="-2" pref="77" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="jRadioButton_CaSang" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jRadioButton_caTrua" min="-2" pref="102" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="jRadioButton_CaSang" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jRadioButton_caTrua" min="-2" pref="81" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="jRadioButton_nam" min="-2" pref="82" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jRadioButton_nu" min="-2" pref="77" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jRadioButton_caToi" min="-2" pref="87" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -299,7 +304,7 @@
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup_caLam"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Ca S&#xe1;ng "/>
+        <Property name="text" type="java.lang.String" value="Ca s&#xe1;ng "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton_caTrua">
@@ -307,7 +312,7 @@
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup_caLam"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Ca Tr&#x1b0;a"/>
+        <Property name="text" type="java.lang.String" value="Ca chi&#x1ec1;u"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton_caToi">
@@ -315,7 +320,7 @@
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup_caLam"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Ca T&#x1ed1;i"/>
+        <Property name="text" type="java.lang.String" value="Ca t&#x1ed1;i"/>
       </Properties>
     </Component>
   </SubComponents>

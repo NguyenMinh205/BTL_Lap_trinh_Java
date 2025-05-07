@@ -72,7 +72,9 @@ public class AddProductScene extends javax.swing.JPanel {
             }
         });
 
-        jLabel5.setText("              THÊM SẢN PHẨM");
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("THÊM SẢN PHẨM");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -95,8 +97,8 @@ public class AddProductScene extends javax.swing.JPanel {
                         .addGap(155, 155, 155)
                         .addComponent(addingBtn))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(118, 118, 118)
+                        .addComponent(jLabel5)))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -123,8 +125,6 @@ public class AddProductScene extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addingBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addingBtnActionPerformed
-        // TODO add your handling code here:
-        
         String name = textTenSP.getText().trim();
         String gia = textGia.getText().trim();
         String loai = boxLoai.getSelectedItem().toString().trim();

@@ -44,7 +44,7 @@ public class ForgotPasswordScene extends javax.swing.JFrame {
         findPasswordField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         findPasswordBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        findPasswordBtn.setText("Find Password");
+        findPasswordBtn.setText("Tìm mật khẩu");
         findPasswordBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 findPasswordBtnActionPerformed(evt);
@@ -52,7 +52,7 @@ public class ForgotPasswordScene extends javax.swing.JFrame {
         });
 
         backLoginBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        backLoginBtn.setText("Back to Login");
+        backLoginBtn.setText("Quay lại trang Login");
         backLoginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backLoginBtnActionPerformed(evt);
@@ -70,9 +70,9 @@ public class ForgotPasswordScene extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(findPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
+                        .addGap(13, 13, 13)
                         .addComponent(backLoginBtn)
-                        .addGap(40, 40, 40)
+                        .addGap(43, 43, 43)
                         .addComponent(findPasswordBtn)))
                 .addContainerGap(68, Short.MAX_VALUE))
         );

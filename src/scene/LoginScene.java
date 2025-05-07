@@ -84,12 +84,12 @@ public class LoginScene extends javax.swing.JFrame {
 
         logInBtn.setBackground(new java.awt.Color(50, 224, 65));
         logInBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        logInBtn.setText("Log in");
+        logInBtn.setText("Đăng nhập");
         logInBtn.setMargin(new java.awt.Insets(15, 30, 15, 30));
 
         clearBtn.setBackground(new java.awt.Color(211, 211, 211));
         clearBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        clearBtn.setText("Clear Details");
+        clearBtn.setText("Xóa thông tin");
         clearBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clearBtnActionPerformed(evt);
@@ -98,7 +98,7 @@ public class LoginScene extends javax.swing.JFrame {
 
         forgetPasswordBtn.setBackground(new java.awt.Color(211, 211, 211));
         forgetPasswordBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        forgetPasswordBtn.setText("Forgot Password");
+        forgetPasswordBtn.setText("Quên mật khẩu");
         forgetPasswordBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 forgetPasswordBtnActionPerformed(evt);
@@ -140,7 +140,7 @@ public class LoginScene extends javax.swing.JFrame {
         PasswordLabel.setText("Password");
 
         enterBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        enterBtn.setText("Enter");
+        enterBtn.setText("Nhập");
         enterBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 enterBtnActionPerformed(evt);
@@ -148,7 +148,7 @@ public class LoginScene extends javax.swing.JFrame {
         });
 
         displayPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        displayPassword.setText("Show/Hide Password");
+        displayPassword.setText("Hiện/ Ẩn mật khẩu");
         displayPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 displayPasswordActionPerformed(evt);
