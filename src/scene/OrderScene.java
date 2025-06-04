@@ -164,6 +164,12 @@ public class OrderScene extends javax.swing.JFrame {
             productChosenTable.getColumnModel().getColumn(1).setPreferredWidth(100);
         }
 
+        menuComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuComboBoxActionPerformed(evt);
+            }
+        });
+
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setText("VNĐ");
 
@@ -216,9 +222,9 @@ public class OrderScene extends javax.swing.JFrame {
                                 .addComponent(phoneField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(51, 51, 51)
+                        .addGap(93, 93, 93)
                         .addComponent(sumOfProductField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(214, 214, 214)
+                        .addGap(172, 172, 172)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(totalField, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -319,6 +325,12 @@ public class OrderScene extends javax.swing.JFrame {
                 selectedProduct = product;
                 break;
             }
+        }
+        
+        if(selectedProduct.getSoLuong() == 0)
+        {
+            JOptionPane.showMessageDialog(this, "Món này đã hết, vui lòng chọn món khác");
+            return;
         }
 
         if (selectedProduct == null) {
@@ -430,6 +442,10 @@ public class OrderScene extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Không tìm thấy sản phẩm để xóa");
         }
     }//GEN-LAST:event_deleteProductBtnActionPerformed
+
+    private void menuComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuComboBoxActionPerformed
 
     /**
      * @param args the command line arguments

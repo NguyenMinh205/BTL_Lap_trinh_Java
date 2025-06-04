@@ -54,24 +54,24 @@ public class ProductRepositoryImpl implements IProductRepository {
     }
 
     public void initializeProducts() {
-        products.add(new Product("SP01", "Trà sữa Mixue", 45000, "Đồ uống"));
-        products.add(new Product("SP02", "Trà Sữa Thiên Đường", 40000, "Đồ uống"));
-        products.add(new Product("SP04", "Trà Sữa Koi Thé", 45000, "Đồ uống"));
-        products.add(new Product("SP05", "Cà phê Trung Nguyên", 50000, "Đồ uống"));
-        products.add(new Product("SP06", "Cà phê VIP", 70000, "Đồ uống"));
-        products.add(new Product("SP07", "Mimi tea", 35000, "Đồ uống"));
-        products.add(new Product("SP08", "Share Tea", 35000, "Đồ uống"));
-        products.add(new Product("SP09", "Bubbly Tea", 30000, "Đồ uống"));
-        products.add(new Product("SP10", "Trà Sữa Phúc Long", 35000, "Đồ uống"));
-        products.add(new Product("SP11", "Trà Sữa Socola", 40000, "Đồ uống"));
-        products.add(new Product("SP12", "Trà Sữa Happy", 40000, "Đồ uống"));
+        products.add(new Product("SP01", "Trà sữa Mixue", 45000, "Đồ uống", 100));
+        products.add(new Product("SP02", "Trà Sữa Thiên Đường", 40000, "Đồ uống", 100));
+        products.add(new Product("SP04", "Trà Sữa Koi Thé", 45000, "Đồ uống", 100));
+        products.add(new Product("SP05", "Cà phê Trung Nguyên", 50000, "Đồ uống", 100));
+        products.add(new Product("SP06", "Cà phê VIP", 70000, "Đồ uống",100));
+        products.add(new Product("SP07", "Mimi tea", 35000, "Đồ uống", 100));
+        products.add(new Product("SP08", "Share Tea", 35000, "Đồ uống", 100));
+        products.add(new Product("SP09", "Bubbly Tea", 30000, "Đồ uống", 100));
+        products.add(new Product("SP10", "Trà Sữa Phúc Long", 35000, "Đồ uống", 100));
+        products.add(new Product("SP11", "Trà Sữa Socola", 40000, "Đồ uống", 100));
+        products.add(new Product("SP12", "Trà Sữa Happy", 40000, "Đồ uống", 100));
 
-        products.add(new Product("SP13", "Gà rán", 50000, "Đồ ăn"));
-        products.add(new Product("SP14", "Pizza xúc xích", 60000, "Đồ ăn"));
-        products.add(new Product("SP15", "Pizza hải sản", 60000, "Đồ ăn"));
-        products.add(new Product("SP16", "Mì cay Hàn Quốc", 40000, "Đồ ăn"));
-        products.add(new Product("SP17", "Bánh tráng trộn", 20000, "Đồ ăn"));
-        products.add(new Product("SP18", "Bánh tráng nướng", 20000, "Đồ ăn"));
+        products.add(new Product("SP13", "Gà rán", 50000, "Đồ ăn", 100));
+        products.add(new Product("SP14", "Pizza xúc xích", 60000, "Đồ ăn", 100));
+        products.add(new Product("SP15", "Pizza hải sản", 60000, "Đồ ăn", 100));
+        products.add(new Product("SP16", "Mì cay Hàn Quốc", 40000, "Đồ ăn", 100));
+        products.add(new Product("SP17", "Bánh tráng trộn", 20000, "Đồ ăn", 100));
+        products.add(new Product("SP18", "Bánh tráng nướng", 20000, "Đồ ăn", 100));
     }
 
     @Override

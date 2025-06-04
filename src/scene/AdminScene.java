@@ -91,14 +91,17 @@ public class AdminScene extends javax.swing.JFrame {
     }
 
     public void loadProductTable() {
-        String[] columnNames = {"Mã SP", "Tên SP", "Giá", "Loại"};
+        String[] columnNames = {"Mã SP", "Tên SP", "Giá", "Loại", "Số lượng còn lại"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0); // 0: ban đầu chưa có dòng nào
         for (Product product : productRepositoryImpl.findAll()) {
             Object[] rowData = {
                 product.getMaSP(),
                 product.getTenSP(),
                 product.getGia(),
-                product.getLoai(),};
+                product.getLoai(),
+                product.getSoLuong()
+            };
+                
             model.addRow(rowData);
 
         }
@@ -117,7 +120,8 @@ public class AdminScene extends javax.swing.JFrame {
             if (maSP.equals(product.getMaSP())) {
                 model.setValueAt(product.getTenSP(), i, 1);
                 model.setValueAt(product.getLoai(), i, 3); 
-                model.setValueAt(product.getGia(), i, 2);  
+                model.setValueAt(product.getGia(), i, 2);
+                model.setValueAt(product.getSoLuong(), i, 4);
                 break; 
             }
         }
@@ -185,13 +189,13 @@ public class AdminScene extends javax.swing.JFrame {
 
         productTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Loại", "Giá thành"
+                "Mã sản phẩm", "Tên sản phẩm", "Loại", "Giá thành", "Số lượng còn lại"
             }
         ));
         productScrollPane.setViewportView(productTable);
@@ -450,7 +454,17 @@ public class AdminScene extends javax.swing.JFrame {
             }  
         }
         
-        Product selectProduct = new Product(maSP, tenSP, gia, loai);
+        Object soLuong = productTable.getValueAt(selectedRow, 4);
+        int num = 0;
+        if(soLuong != null){
+            try{
+                num = Integer.parseInt(soLuong.toString());
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(rootPane, "Không đúng định dạng số");
+            }
+        }
+        
+        Product selectProduct = new Product(maSP, tenSP, gia, loai, num);
         EditProductScene editProduct = new EditProductScene(selectProduct, this);
         JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "Sửa sản phẩm", true);
         dialog.getContentPane().add(editProduct);

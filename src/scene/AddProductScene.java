@@ -56,6 +56,8 @@ public class AddProductScene extends javax.swing.JPanel {
         boxLoai = new javax.swing.JComboBox<>();
         addingBtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        numField = new javax.swing.JTextField();
 
         jLabel2.setText("Tên sản phẩm : ");
 
@@ -64,6 +66,11 @@ public class AddProductScene extends javax.swing.JPanel {
         jLabel4.setText("Loại : ");
 
         boxLoai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đồ Uống", "Đồ Ăn", " ", " ", " " }));
+        boxLoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxLoaiActionPerformed(evt);
+            }
+        });
 
         addingBtn.setText("Thêm");
         addingBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +83,8 @@ public class AddProductScene extends javax.swing.JPanel {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("THÊM SẢN PHẨM");
 
+        jLabel1.setText("Số lượng :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,18 +96,20 @@ public class AddProductScene extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel1))
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(textTenSP)
                             .addComponent(textGia)
-                            .addComponent(boxLoai, 0, 236, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(addingBtn))
+                            .addComponent(boxLoai, 0, 236, Short.MAX_VALUE)
+                            .addComponent(numField)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(118, 118, 118)
-                        .addComponent(jLabel5)))
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(162, 162, 162)
+                        .addComponent(addingBtn)))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -116,11 +127,15 @@ public class AddProductScene extends javax.swing.JPanel {
                     .addComponent(textGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(boxLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                    .addComponent(jLabel1)
+                    .addComponent(numField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(boxLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(29, 29, 29)
                 .addComponent(addingBtn)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -128,6 +143,7 @@ public class AddProductScene extends javax.swing.JPanel {
         String name = textTenSP.getText().trim();
         String gia = textGia.getText().trim();
         String loai = boxLoai.getSelectedItem().toString().trim();
+        String soLuong = numField.getText().trim();
 
         // Validation
         if (name.isEmpty() || gia.isEmpty()) {
@@ -137,13 +153,14 @@ public class AddProductScene extends javax.swing.JPanel {
 
         try {
             double giaBan = Double.parseDouble(gia);
+            int num = Integer.parseInt(soLuong);
             if (giaBan <= 0) {
                 JOptionPane.showMessageDialog(this, "Giá phải lớn hơn 0");
                 return;
             }
 
             // Tạo sản phẩm (mã sẽ được tự động tạo trong repository)
-            Product pd = new Product("", name, giaBan, loai);
+            Product pd = new Product("", name, giaBan, loai, num);
             productRepositoryImpl.addProduct(pd);
 
             // Đóng dialog và refresh bảng
@@ -159,14 +176,20 @@ public class AddProductScene extends javax.swing.JPanel {
 
     }//GEN-LAST:event_addingBtnActionPerformed
 
+    private void boxLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxLoaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boxLoaiActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addingBtn;
     private javax.swing.JComboBox<String> boxLoai;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JTextField numField;
     private javax.swing.JTextField textGia;
     private javax.swing.JTextField textTenSP;
     // End of variables declaration//GEN-END:variables

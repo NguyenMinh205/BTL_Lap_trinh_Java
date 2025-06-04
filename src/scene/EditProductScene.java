@@ -13,9 +13,11 @@ import repository.ProductRepositoryImpl;
  * @author Manh
  */
 public class EditProductScene extends javax.swing.JPanel {
+
     private Product selected;
     private AdminScene admin;
     private ProductRepositoryImpl productRepo;
+
     /**
      * Creates new form EditProductScene
      */
@@ -30,19 +32,19 @@ public class EditProductScene extends javax.swing.JPanel {
         this.admin = admin;
         initComponents();
         productRepo = new ProductRepositoryImpl();
-        
+
         textName.setText(selected.getTenSP());
         textGia.setText(String.valueOf(selected.getGia()));
-        for(int i = 0; i < boxLoai.getItemCount(); i++)
-        {
+        numText.setText(String.valueOf(selected.getSoLuong()));
+
+        for (int i = 0; i < boxLoai.getItemCount(); i++) {
             String item = boxLoai.getItemAt(i);
-            if(item.equals(selected.getLoai()))
-            {
+            if (item.equals(selected.getLoai())) {
                 boxLoai.setSelectedIndex(i);
                 break;
             }
         }
-        
+
     }
 
     /**
@@ -63,6 +65,8 @@ public class EditProductScene extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         textGia = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        numText = new javax.swing.JTextField();
 
         jLabel2.setText("Tên Sản phẩm :");
 
@@ -76,6 +80,11 @@ public class EditProductScene extends javax.swing.JPanel {
         });
 
         boxLoai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đồ uống", "Đồ ăn", " ", " " }));
+        boxLoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxLoaiActionPerformed(evt);
+            }
+        });
 
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -96,35 +105,38 @@ public class EditProductScene extends javax.swing.JPanel {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Sửa thông tin sản phẩm");
 
+        jLabel1.setText("Số lượng :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(76, 76, 76)
-                            .addComponent(updateBtn)
-                            .addGap(61, 61, 61)
-                            .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(21, 21, 21)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel3))
-                            .addGap(38, 38, 38)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(boxLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addComponent(textName)
-                                .addComponent(textGia))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(updateBtn)
+                        .addGap(63, 63, 63)
+                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1))
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textName)
+                            .addComponent(textGia)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(boxLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(numText)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(95, 95, 95)
                         .addComponent(jLabel5)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGap(31, 31, 31))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,15 +151,26 @@ public class EditProductScene extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(boxLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updateBtn)
-                    .addComponent(cancelBtn))
-                .addGap(23, 23, 23))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addComponent(numText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(50, 50, 50))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(boxLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(updateBtn)
+                            .addComponent(cancelBtn))
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -156,34 +179,36 @@ public class EditProductScene extends javax.swing.JPanel {
         String tenSP = textName.getText().trim();
         String gia = textGia.getText();
         String loai = boxLoai.getSelectedItem().toString();
-        if(tenSP.length() > 0 && gia.length() > 0)
-        {
-            if(gia.matches("\\d+"))
-            {
-                double giaBan = Double.parseDouble(gia);
-                Product pd = new Product(selected.getMaSP(), tenSP, giaBan, loai);
-                Product updateProduct = productRepo.update(pd);
-                if(updateProduct != null)
-                {
-                    admin.updateProduct(updateProduct);
-                    javax.swing.JDialog dialog = (javax.swing.JDialog)javax.swing.SwingUtilities.getWindowAncestor(this);
-                    dialog.dispose();
-                    JOptionPane.showMessageDialog(this, "Cập nhập sản phẩm thành công");
+        String soLuong = numText.getText();
+        if (tenSP.length() > 0 && gia.length() > 0) {
+            if (gia.matches("[-+]?\\d*\\.?\\d+([eE][-+]?\\d+)?")) {
+                if (soLuong.matches("\\d+")) {
+                    int num = Integer.parseInt(soLuong);
+                    double giaBan = Double.parseDouble(gia);
+                    Product pd = new Product(selected.getMaSP(), tenSP, giaBan, loai, num);
+                    Product updateProduct = productRepo.update(pd);
+                    if (updateProduct != null) {
+                        admin.updateProduct(updateProduct);
+                        javax.swing.JDialog dialog = (javax.swing.JDialog) javax.swing.SwingUtilities.getWindowAncestor(this);
+                        dialog.dispose();
+                        JOptionPane.showMessageDialog(this, "Cập nhập sản phẩm thành công");
+                    }
                 }
-            }
-            else
-            {
+                else{
+                    JOptionPane.showMessageDialog(this, "Số lượng không đúng định dạng");
+                }
+
+            } else {
                 JOptionPane.showMessageDialog(this, "Giá phải đúng định dạng số");
             }
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(this, "Không để trống thông tin");
         }
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         // TODO add your handling code here:
-        javax.swing.JDialog dialog = (javax.swing.JDialog)javax.swing.SwingUtilities.getWindowAncestor(this);
+        javax.swing.JDialog dialog = (javax.swing.JDialog) javax.swing.SwingUtilities.getWindowAncestor(this);
         dialog.dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
 
@@ -191,14 +216,20 @@ public class EditProductScene extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_textGiaActionPerformed
 
+    private void boxLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxLoaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boxLoaiActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> boxLoai;
     private javax.swing.JButton cancelBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JTextField numText;
     private javax.swing.JTextField textGia;
     private javax.swing.JTextField textName;
     private javax.swing.JButton updateBtn;

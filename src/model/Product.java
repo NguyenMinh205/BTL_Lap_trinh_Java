@@ -9,15 +9,18 @@ public class Product implements Serializable {
     private String tenSP;
     private double gia;
     private String loai;
+    private int soLuong;
+    
 
     public Product() {
     }
 
-    public Product(String maSP, String tenSP, double gia, String loai) {
+    public Product(String maSP, String tenSP, double gia, String loai, int soLuong) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.gia = gia;
         this.loai = loai;
+        this.soLuong = soLuong;
     }
 
     public Product(String tenSP) {
@@ -55,6 +58,16 @@ public class Product implements Serializable {
     public void setLoai(String loai) {
         this.loai = loai;
     }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+    
+    
 
     @Override
     public String toString() {
