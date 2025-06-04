@@ -59,6 +59,22 @@ public class OrderScene extends javax.swing.JFrame {
         totalField.setText("");
     }
     
+    private void decreaseStock(){
+        DefaultTableModel model = (DefaultTableModel) productChosenTable.getModel();
+        for(int i = 0; i < model.getRowCount(); i++){
+            String name = model.getValueAt(i, 0).toString();
+            int num = Integer.parseInt(model.getValueAt(i, 1).toString());
+            Product findProduct = productRepositoryImpl.findByName(name);
+                  
+            if(findProduct != null){
+                int formerNum = findProduct.getSoLuong();
+                int latterNum = formerNum - num;
+                findProduct.setSoLuong(latterNum);
+                productRepositoryImpl.update(findProduct);
+            }
+        }        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -327,7 +343,7 @@ public class OrderScene extends javax.swing.JFrame {
             }
         }
         
-        if(selectedProduct.getSoLuong() == 0)
+        if(selectedProduct.getSoLuong() < newQuantity)
         {
             JOptionPane.showMessageDialog(this, "Món này đã hết, vui lòng chọn món khác");
             return;
@@ -411,6 +427,7 @@ public class OrderScene extends javax.swing.JFrame {
         billRepositoryImpl.save(bill);
         
         JOptionPane.showMessageDialog(this, "Thông tin hóa đơn: \n" + bill.toString(), "Hiện hóa đơn", JOptionPane.INFORMATION_MESSAGE);
+        decreaseStock();
         clearDetail();
     }//GEN-LAST:event_generateBtnActionPerformed
 
