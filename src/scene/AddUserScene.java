@@ -1,62 +1,51 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package scene;
 
+import AdminViews.UserManager;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.User;
 import repository.UserRepositoryImpl;
+import scene.AdminScene;
 
-/**
- *
- * @author HP
- */
 public class AddUserScene extends javax.swing.JFrame {
     private UserRepositoryImpl userRepositoryImpl;
-    private AdminScene adminScene;
-    
-    public AddUserScene() {
+    private UserManager userManager; 
+
+    public AddUserScene(UserManager userManager) {
         initComponents();
+        this.userManager = userManager;
         userRepositoryImpl = new UserRepositoryImpl();
-        adminScene = new AdminScene();
         this.setLocationRelativeTo(null);
     }
-    
-    public AddUserScene(AdminScene adminScene) {
-        initComponents();
-        userRepositoryImpl = new UserRepositoryImpl();
-        this.adminScene = adminScene;
-        this.setLocationRelativeTo(null);
-    }
-    
-    private boolean isPasswordValid(String password) {
-        String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).{8,}$";
-        return password.matches(passwordRegex);
-    }
-    
-    public boolean isEmailValid(String email) {
-        String regex = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$";
-        return email.matches(regex);
-    }
-    
-    private boolean isPhoneNumberValid(String phoneNumber) {
-        String phoneRegex = "^0\\d{9}$";
-        return phoneNumber.matches(phoneRegex);
-    }
 
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        String ten = txtTen.getText();
+        String email = txtEmail.getText();
+        String sdt = txtSDT.getText();
+        String matKhau = txtMatKhau.getText();
+        String diaChi = txtDiaChi.getText();
+        String chucVu = (String) comboChucVu.getSelectedItem();
+        String gioiTinh = (String) comboGioiTinh.getSelectedItem();
+        String caLam = (String) comboCaLam.getSelectedItem();
 
-    public void clearDetails(){
-        tenNV.setText("");
-        matKhau.setText("");
-        email.setText("");
-        phoneField.setText("");
-        gioiTinh.clearSelection();
-        queQuan.setText("");
-        caLamViec.clearSelection();
+        User newUser = new User(
+            userRepositoryImpl.generateId(),
+            ten, email, sdt, matKhau, chucVu, gioiTinh, diaChi, caLam
+        );
+
+        boolean success = userRepositoryImpl.add(newUser);
+
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Thêm người dùng thành công!");
+            userManager.loadUserTable();
+            this.dispose(); // đóng popup
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm người dùng thất bại!");
+        }
     }
+}
+
     
     
     /**
@@ -116,6 +105,11 @@ public class AddUserScene extends javax.swing.JFrame {
 
         gioiTinh.add(gtNam);
         gtNam.setText("Nam");
+        gtNam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gtNamActionPerformed(evt);
+            }
+        });
 
         gioiTinh.add(gtNu);
         gtNu.setText("Nữ");
@@ -223,7 +217,7 @@ public class AddUserScene extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(gtNam)
                     .addComponent(gtNu)
@@ -322,6 +316,10 @@ public class AddUserScene extends javax.swing.JFrame {
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         clearDetails();
     }//GEN-LAST:event_resetActionPerformed
+
+    private void gtNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gtNamActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gtNamActionPerformed
 
     /**
      * @param args the command line arguments

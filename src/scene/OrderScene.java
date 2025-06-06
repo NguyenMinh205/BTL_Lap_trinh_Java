@@ -23,13 +23,13 @@ import repository.ProductRepositoryImpl;
  *
  * @author HP
  */
-
 public class OrderScene extends javax.swing.JFrame {
+
     private ProductRepositoryImpl productRepositoryImpl;
     private BillRepositoryImpl billRepositoryImpl;
     private List<Product> listProduct = new ArrayList<Product>();
     private Map<Product, Integer> productQuantityMap = new HashMap<>();
-    
+
     /**
      * Creates new form OrderScene
      */
@@ -37,18 +37,18 @@ public class OrderScene extends javax.swing.JFrame {
         initComponents();
         initSetUp();
     }
-    
+
     public void initSetUp() {
         productRepositoryImpl = new ProductRepositoryImpl();
         billRepositoryImpl = new BillRepositoryImpl();
         this.setLocationRelativeTo(null);
-        
+
         listProduct = productRepositoryImpl.findAll();
         for (Product product : listProduct) {
             menuComboBox.addItem(product.getTenSP());
-	}
+        }
     }
-    
+
     public void clearDetail() {
         nameClientField.setText("");
         phoneField.setText("");
@@ -57,24 +57,40 @@ public class OrderScene extends javax.swing.JFrame {
         model.setRowCount(0);
         sumOfProductField.setText("");
         totalField.setText("");
+        productQuantityMap.clear();
     }
-    
-    private void decreaseStock(){
+
+    private void decreaseStock() {
         DefaultTableModel model = (DefaultTableModel) productChosenTable.getModel();
-        for(int i = 0; i < model.getRowCount(); i++){
+        for (int i = 0; i < model.getRowCount(); i++) {
             String name = model.getValueAt(i, 0).toString();
             int num = Integer.parseInt(model.getValueAt(i, 1).toString());
             Product findProduct = productRepositoryImpl.findByName(name);
-                  
-            if(findProduct != null){
+
+            if (findProduct != null) {
                 int formerNum = findProduct.getSoLuong();
                 int latterNum = formerNum - num;
                 findProduct.setSoLuong(latterNum);
                 productRepositoryImpl.update(findProduct);
             }
-        }        
+        }
     }
-    
+
+    private boolean isPhoneNumberValid(String phoneNumber) {
+        String phoneRegex = "^0\\d{9}$";
+        return phoneNumber.matches(phoneRegex);
+    }
+
+    public boolean isEmailValid(String email) {
+        String regex = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$";
+        return email.matches(regex);
+    }
+
+    public boolean isNameValid(String name) {
+        String nameRegex = "^[A-ZÀ-Ỹ][a-zà-ỹ]*(?: [A-ZÀ-Ỹ][a-zà-ỹ]*)*$";
+        return name.matches(nameRegex);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -109,8 +125,10 @@ public class OrderScene extends javax.swing.JFrame {
         deleteProductBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(153, 255, 102));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 101, 0));
         jLabel1.setText("Order Scene");
 
         logoutBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -143,6 +161,9 @@ public class OrderScene extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Số lượng:");
+
+        numberSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100000, 1));
+        numberSpinner.setRequestFocusEnabled(false);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Tổng số lượng:");
@@ -209,103 +230,115 @@ public class OrderScene extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(221, 221, 221)
-                .addComponent(logoutBtn)
-                .addGap(39, 39, 39))
             .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3))
-                        .addGap(67, 67, 67)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(menuComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(45, 45, 45)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(numberSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(nameClientField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(emailClientField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(phoneField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(357, 357, 357)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(jLabel2)
+                        .addGap(67, 67, 67)
+                        .addComponent(nameClientField, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(jLabel4)
+                        .addGap(85, 85, 85)
+                        .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(jLabel3)
+                        .addGap(137, 137, 137)
+                        .addComponent(emailClientField, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
                         .addComponent(jLabel7)
                         .addGap(93, 93, 93)
                         .addComponent(sumOfProductField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(172, 172, 172)
                         .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(12, 12, 12)
                         .addComponent(totalField, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(6, 6, 6)
                         .addComponent(jLabel10))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(651, 651, 651)
-                        .addComponent(chooseProductBtn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(18, 18, 18)
-                        .addComponent(productScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(deleteProductBtn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(277, 277, 277)
-                        .addComponent(generateBtn)))
+                        .addGap(64, 64, 64)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(103, 103, 103)
+                                .addComponent(menuComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(45, 45, 45)
+                                .addComponent(jLabel6)
+                                .addGap(12, 12, 12)
+                                .addComponent(numberSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(18, 18, 18)
+                                .addComponent(productScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(deleteProductBtn))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(48, 48, 48)
+                                .addComponent(chooseProductBtn))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(341, 341, 341)
+                            .addComponent(generateBtn))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(logoutBtn)
+                            .addGap(21, 21, 21))))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(logoutBtn)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(nameClientField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(emailClientField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(numberSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6)
-                        .addComponent(chooseProductBtn))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(menuComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel2)
+                    .addComponent(nameClientField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel3))
+                    .addComponent(emailClientField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(menuComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chooseProductBtn)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(numberSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(productScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deleteProductBtn))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(sumOfProductField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(sumOfProductField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(totalField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel10)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                    .addComponent(totalField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addGap(18, 18, 18)
                 .addComponent(generateBtn)
-                .addGap(29, 29, 29))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(logoutBtn)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         pack();
@@ -342,9 +375,8 @@ public class OrderScene extends javax.swing.JFrame {
                 break;
             }
         }
-        
-        if(selectedProduct.getSoLuong() < newQuantity)
-        {
+
+        if (selectedProduct.getSoLuong() < newQuantity) {
             JOptionPane.showMessageDialog(this, "Món này đã hết, vui lòng chọn món khác");
             return;
         }
@@ -363,8 +395,6 @@ public class OrderScene extends javax.swing.JFrame {
         updateProductChosenTable();
         updateTotal();
     }
-
-
 
     private void updateProductChosenTable() {
         DefaultTableModel model = (DefaultTableModel) productChosenTable.getModel();
@@ -395,40 +425,57 @@ public class OrderScene extends javax.swing.JFrame {
         String name = nameClientField.getText().trim();
         String email = emailClientField.getText().trim();
         String phone = phoneField.getText().trim();
-        
+
         if (name.isEmpty() || email.isEmpty() || phone.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin khách hàng.", "Thiếu thông tin", JOptionPane.WARNING_MESSAGE);
             return;
-        }
+        } else {
+            if (isNameValid(name)) {
+                if (isPhoneNumberValid(phone)) {
+                    if (isEmailValid(email)) {
+                        if (productQuantityMap.isEmpty()) {
+                            JOptionPane.showMessageDialog(this, "Vui lòng chọn ít nhất 1 món");
+                            return;
+                        }
 
-        if (productQuantityMap.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn ít nhất 1 món");
-            return;
-        }
+                        double tongTien = 0.0;
 
-        double tongTien = 0.0;
+                        for (Map.Entry<Product, Integer> entry : productQuantityMap.entrySet()) {
+                            Product product = entry.getKey();
+                            int quantity = entry.getValue();
+                            tongTien += product.getGia() * quantity;
+                        }
 
-        for (Map.Entry<Product, Integer> entry : productQuantityMap.entrySet()) {
-            Product product = entry.getKey();
-            int quantity = entry.getValue();
-            tongTien += product.getGia() * quantity;  
+                        Bill bill = new Bill();
+                        LocalDate ngayDat = LocalDate.now();
+                        String ngayDatStr = ngayDat.toString();
+                        bill.setTen(name);
+                        bill.setEmail(email);
+                        bill.setSdt(phone);
+                        bill.setNgayDat(ngayDatStr);
+                        bill.setTongTien(tongTien);
+
+                        billRepositoryImpl.save(bill);
+
+                        JOptionPane.showMessageDialog(this, "Thông tin hóa đơn: \n" + bill.toString(), "Hiện hóa đơn", JOptionPane.INFORMATION_MESSAGE);
+                        decreaseStock();
+                        clearDetail();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null,"Email không đúng định dạng", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+                        emailClientField.setText("");
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Số điện thoại không đúng định dạng", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+                    phoneField.setText("");
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Không đúng định dạng tên", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+                nameClientField.setText("");
+            }
         }
-        
-        Bill bill = new Bill();
-        LocalDate ngayDat = LocalDate.now();
-        String ngayDatStr = ngayDat.toString();
-        
-        bill.setTen(name);
-        bill.setEmail(email);
-        bill.setSdt(phone);
-        bill.setNgayDat(ngayDatStr);
-        bill.setTongTien(tongTien);
-        
-        billRepositoryImpl.save(bill);
-        
-        JOptionPane.showMessageDialog(this, "Thông tin hóa đơn: \n" + bill.toString(), "Hiện hóa đơn", JOptionPane.INFORMATION_MESSAGE);
-        decreaseStock();
-        clearDetail();
     }//GEN-LAST:event_generateBtnActionPerformed
 
     private void deleteProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductBtnActionPerformed
@@ -437,12 +484,12 @@ public class OrderScene extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm để xóa");
             return;
         }
-        
+
         int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa đơn hàng này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (option != JOptionPane.YES_OPTION) {
             return;
         }
-        
+
         String tenSP = productChosenTable.getValueAt(selectRow, 0).toString();
         Product productToDelete = null;
         for (Product p : productRepositoryImpl.findAll()) {
@@ -451,13 +498,33 @@ public class OrderScene extends javax.swing.JFrame {
                 break;
             }
         }
+
         if (productToDelete != null) {
-            productRepositoryImpl.delete(productToDelete);
+            String num = ((DefaultTableModel) productChosenTable.getModel()).getValueAt(selectRow, 1).toString();
+            int so = Integer.parseInt(num);
+            int formerNum = Integer.parseInt(sumOfProductField.getText());
+            int latterNum = formerNum - so;
+            sumOfProductField.setText(String.valueOf(latterNum));
+
             ((DefaultTableModel) productChosenTable.getModel()).removeRow(selectRow);
+            productQuantityMap.remove(productToDelete);
+            
+            double tongTien = 0.0;
+            for (Map.Entry<Product, Integer> entry : productQuantityMap.entrySet()) {
+                Product product = entry.getKey();
+                int quantity = entry.getValue();
+                tongTien += product.getGia() * quantity;
+            }
+            String sum = String.valueOf(tongTien);
+            totalField.setText(sum);
+            
             JOptionPane.showMessageDialog(this, "Đã xóa sản phẩm thành công");
+
         } else {
             JOptionPane.showMessageDialog(this, "Không tìm thấy sản phẩm để xóa");
         }
+
+
     }//GEN-LAST:event_deleteProductBtnActionPerformed
 
     private void menuComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuComboBoxActionPerformed
