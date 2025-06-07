@@ -278,7 +278,7 @@ public class AddUserView extends javax.swing.JFrame {
                     .addComponent(caToi)
                     .addComponent(caTrua)
                     .addComponent(caSang))
-                .addGap(38, 38, 38))
+                .addContainerGap())
         );
 
         btnReset.setBackground(new java.awt.Color(199, 213, 126));
@@ -337,7 +337,7 @@ public class AddUserView extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -352,6 +352,7 @@ public class AddUserView extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         String tenStr = tenNV.getText();
         String matKhauStr = new String(matKhau.getPassword());
+        String matKhauNhapLaiStr = matKhau1.getText();
         String emailStr = email.getText();
         String sdtStr = phoneField.getText();
         String diaChiStr = queQuan.getText();
@@ -364,7 +365,22 @@ public class AddUserView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin.", "Thiếu thông tin", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+        
+        if (!matKhauStr.equals(matKhauNhapLaiStr)) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu nhập lại không khớp!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (!matKhauStr.matches("^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-=]).{8,}$")) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu phải có ít nhất 8 ký tự, bao gồm 1 chữ hoa và 1 ký tự đặc biệt.", "Mật khẩu không hợp lệ", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (!sdtStr.matches("\\d{10}")) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải gồm đúng 10 chữ số.", "Số điện thoại không hợp lệ", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         User newUser = new User(
             "",
             tenStr,

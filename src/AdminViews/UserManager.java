@@ -10,8 +10,7 @@ import repository.UserRepositoryImpl;
 public class UserManager extends javax.swing.JPanel {
     private UserRepositoryImpl userRepositoryImpl;
     private ProductRepositoryImpl productRepositoryImpl;
-
-    // Add this method to AdminScene class
+    
     public UserRepositoryImpl getUserRepository() {
         return this.userRepositoryImpl;
     }
@@ -145,18 +144,18 @@ public class UserManager extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(AddUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Search))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
+                .addGap(62, 62, 62)
                 .addComponent(AddUser, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -180,7 +179,7 @@ public class UserManager extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 983, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,11 +207,13 @@ public class UserManager extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 983, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 42, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -265,11 +266,32 @@ public class UserManager extends javax.swing.JPanel {
     }//GEN-LAST:event_deleteActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-        
+        int selecRow = UserTable.getSelectedRow();
+        if (selecRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn người dùng để cập nhật");
+            return;
+        }
+
+        String maNV = UserTable.getValueAt(selecRow, 0).toString();
+        String ten = UserTable.getValueAt(selecRow, 1).toString();
+        String email = UserTable.getValueAt(selecRow, 2).toString();
+        String sdt = UserTable.getValueAt(selecRow, 3).toString();
+        String matKhau = UserTable.getValueAt(selecRow, 4).toString();
+        String diaChi = UserTable.getValueAt(selecRow, 5).toString();
+        String chucVu = UserTable.getValueAt(selecRow, 6).toString();
+        String gioiTinh = UserTable.getValueAt(selecRow, 7).toString();
+        String caLam = UserTable.getValueAt(selecRow, 8).toString();
+
+        User selectedUser = new User(maNV, ten, email, sdt, matKhau, diaChi, chucVu, gioiTinh, caLam);
+
+        EditUserView Scene = new EditUserView(selectedUser);
+        Scene.setVisible(true);
     }//GEN-LAST:event_updateActionPerformed
 
     private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
-        
+        FindUserView scene = new FindUserView();
+        scene.setLocationRelativeTo(null);
+        scene.setVisible(true);
     }//GEN-LAST:event_SearchActionPerformed
 
 

@@ -6,6 +6,41 @@ import model.User;
 import repository.UserRepositoryImpl;
 
 public class EditUserView extends javax.swing.JFrame {
+    private User user;
+
+    public EditUserView(User user) {
+        this.user = user;
+        initComponents();
+        loadUserData();
+    }
+    
+    private void loadUserData() {
+        jTextField_TenNhanVien.setText(user.getTen());
+        jTextField_matKhau.setText(user.getMatKhau());
+        jTextField_sdt.setText(user.getSdt());
+        jTextField_email.setText(user.getEmail());
+        queQuan.setText(user.getDiaChi());
+        jComboBox_chucVu.setSelectedItem(user.getChucVu());
+
+        if ("Nam".equalsIgnoreCase(user.getGioiTinh())) {
+            jRadioButton_nam.setSelected(true);
+        } else {
+            jRadioButton_nu.setSelected(true);
+        }
+
+        switch (user.getCaLam()) {
+            case "Ca sáng":
+                jRadioButton_CaSang.setSelected(true);
+                break;
+            case "Ca chiều":
+                jRadioButton_caTrua.setSelected(true);
+                break;
+            case "Ca tối":
+                jRadioButton_caToi.setSelected(true);
+                break;
+            default:
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -283,7 +318,46 @@ public class EditUserView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-      
+        String fullName = jTextField_TenNhanVien.getText().trim();
+        String password = jTextField_matKhau.getText().trim();
+        String phone = jTextField_sdt.getText().trim();
+        String email = jTextField_email.getText().trim();
+        String address = queQuan.getText().trim();
+        String role = (String) jComboBox_chucVu.getSelectedItem();
+
+        String gender = jRadioButton_nam.isSelected() ? "Nam" : (jRadioButton_nu.isSelected() ? "Nữ" : "");
+        String workShift = "";
+        if (jRadioButton_CaSang.isSelected()) {
+            workShift = "Ca sáng";
+        } else if (jRadioButton_caTrua.isSelected()) {
+            workShift = "Ca chiều";
+        } else if (jRadioButton_caToi.isSelected()) {
+            workShift = "Ca tối";
+        }
+
+        if (fullName.isEmpty() || password.isEmpty() || phone.isEmpty() || email.isEmpty() || gender.isEmpty() || workShift.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin bắt buộc!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        user.setTen(fullName);
+        user.setMatKhau(password);
+        user.setSdt(phone);
+        user.setEmail(email);
+        user.setDiaChi(address);
+        user.setChucVu(role);
+        user.setGioiTinh(gender);
+        user.setCaLam(workShift);
+
+        UserRepositoryImpl userRepository = new UserRepositoryImpl();
+        User updatedUser = userRepository.update(user);
+
+        if (updatedUser != null) {
+            JOptionPane.showMessageDialog(this, "Cập nhật người dùng thành công!");
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Cập nhật thất bại! Vui lòng thử lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        } 
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     
