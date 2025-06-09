@@ -1,38 +1,82 @@
 package AdminViews;
 
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Product;
+import model.User;
+import repository.ProductRepositoryImpl;
+import repository.UserRepositoryImpl;
+
 public class FoodManagerView extends javax.swing.JPanel {
+    private UserRepositoryImpl userRepositoryImpl;
+    private ProductRepositoryImpl productRepositoryImpl;
+    
+    public UserRepositoryImpl getUserRepository() {
+        return this.userRepositoryImpl;
+    }
 
     public FoodManagerView() {
         initComponents();
+        userRepositoryImpl = new UserRepositoryImpl();
+        productRepositoryImpl = new ProductRepositoryImpl();
+        loadProductTable();
     }
+    
+    public void loadProductTable() {
+        try {
+        List<Product> productList = productRepositoryImpl.findAll();
 
+        DefaultTableModel model = (DefaultTableModel) foodTable.getModel();
+        model.setRowCount(0);
+
+        for (Product product : productList) {
+                model.addRow(new Object[] {
+                    product.getMaSP(),
+                    product.getTenSP(),
+                    product.getGia(),
+                    product.getLoai(),
+                    product.getSoLuong()
+                });
+            }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu món ăn: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public ProductRepositoryImpl getProductRepository() {
+        return this.productRepositoryImpl;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        AddUser = new javax.swing.JButton();
+        AddFood = new javax.swing.JButton();
         delete = new javax.swing.JButton();
         update = new javax.swing.JButton();
         Search = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        foodTable = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(37, 37, 37));
         setPreferredSize(new java.awt.Dimension(1200, 600));
 
         jPanel1.setBackground(new java.awt.Color(37, 37, 37));
 
-        AddUser.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        AddUser.setIcon(new javax.swing.ImageIcon("D:\\codenham\\java\\Clone_BTL_JAVA\\src\\main\\java\\icons\\Add_User-80_icon-icons.com_57380.png")); // NOI18N
-        AddUser.setText("Thêm");
-        AddUser.addActionListener(new java.awt.event.ActionListener() {
+        AddFood.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        AddFood.setIcon(new javax.swing.ImageIcon("C:\\Users\\aoshi\\Downloads\\BTL_Lap_trinh_Java\\BTL_Lap_trinh_Java\\src\\icon&image\\add.png")); // NOI18N
+        AddFood.setText("Thêm");
+        AddFood.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddUserActionPerformed(evt);
+                AddFoodActionPerformed(evt);
             }
         });
 
         delete.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        delete.setIcon(new javax.swing.ImageIcon("D:\\codenham\\java\\Clone_BTL_JAVA\\src\\main\\java\\icons\\Remove_User-80_icon-icons.com_57283.png")); // NOI18N
+        delete.setIcon(new javax.swing.ImageIcon("C:\\Users\\aoshi\\Downloads\\BTL_Lap_trinh_Java\\BTL_Lap_trinh_Java\\src\\icon&image\\delete.png")); // NOI18N
         delete.setText("Xóa");
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -41,7 +85,7 @@ public class FoodManagerView extends javax.swing.JPanel {
         });
 
         update.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        update.setIcon(new javax.swing.ImageIcon("D:\\codenham\\java\\Clone_BTL_JAVA\\src\\main\\java\\icons\\Edit_User-80_icon-icons.com_57329.png")); // NOI18N
+        update.setIcon(new javax.swing.ImageIcon("C:\\Users\\aoshi\\Downloads\\BTL_Lap_trinh_Java\\BTL_Lap_trinh_Java\\src\\icon&image\\Edit_User-80_icon-icons.com_57329.png")); // NOI18N
         update.setText("Sửa");
         update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -50,7 +94,7 @@ public class FoodManagerView extends javax.swing.JPanel {
         });
 
         Search.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        Search.setIcon(new javax.swing.ImageIcon("D:\\codenham\\java\\Clone_BTL_JAVA\\src\\main\\java\\icons\\Search-80_icon-icons.com_57273.png")); // NOI18N
+        Search.setIcon(new javax.swing.ImageIcon("C:\\Users\\aoshi\\Downloads\\BTL_Lap_trinh_Java\\BTL_Lap_trinh_Java\\src\\icon&image\\search.png")); // NOI18N
         Search.setText("Tìm kiếm");
         Search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,7 +109,7 @@ public class FoodManagerView extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(AddUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(AddFood, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Search))
@@ -75,7 +119,7 @@ public class FoodManagerView extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addComponent(AddUser, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(AddFood, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -108,44 +152,115 @@ public class FoodManagerView extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        foodTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Mã sản phẩm", "Tên sản phẩm", "Giá", "Loại", "Số lượng"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(foodTable);
+        if (foodTable.getColumnModel().getColumnCount() > 0) {
+            foodTable.getColumnModel().getColumn(0).setResizable(false);
+            foodTable.getColumnModel().getColumn(1).setResizable(false);
+            foodTable.getColumnModel().getColumn(2).setResizable(false);
+            foodTable.getColumnModel().getColumn(3).setResizable(false);
+            foodTable.getColumnModel().getColumn(4).setResizable(false);
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1211, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(3, 3, 3)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addGap(12, 12, 12)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 624, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(556, 556, 556)))
-                    .addContainerGap()))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddUserActionPerformed
-        
-    }//GEN-LAST:event_AddUserActionPerformed
+    private void AddFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddFoodActionPerformed
+        AddProductView Scene = new AddProductView(this);
+        Scene.setVisible(true);
+    }//GEN-LAST:event_AddFoodActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        int selectedRow = foodTable.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một món ăn để xóa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        String maSP = foodTable.getValueAt(selectedRow, 0).toString();
+        
+        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa món ăn này không?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+        
+        List<Product> productList = productRepositoryImpl.findAll();
+        Product productToDelete = null;
+        for (Product p : productList) {
+            if (p.getMaSP().equals(maSP)) {
+                productToDelete = p;
+                break;
+            }
+        }
 
+        if (productToDelete != null) {
+            productRepositoryImpl.delete(productToDelete);
+            loadProductTable();
+            JOptionPane.showMessageDialog(this, "Đã xóa món ăn thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy món ăn để xóa.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_deleteActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+        int selectedRow = foodTable.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn món ăn để cập nhật");
+            return;
+        }
 
+        String maSP = foodTable.getValueAt(selectedRow, 0).toString();
+        String tenSP = foodTable.getValueAt(selectedRow, 1).toString();
+        double gia = Double.parseDouble(foodTable.getValueAt(selectedRow, 2).toString());
+        String loai = foodTable.getValueAt(selectedRow, 3).toString();
+        int soLuong = Integer.parseInt(foodTable.getValueAt(selectedRow, 4).toString());
+
+        Product selectedProduct = new Product(maSP, tenSP, gia, loai, soLuong);
+
+        EditProductView scene = new EditProductView(this, selectedProduct);
+        scene.setVisible(true);
     }//GEN-LAST:event_updateActionPerformed
 
     private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
@@ -154,12 +269,14 @@ public class FoodManagerView extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddUser;
+    private javax.swing.JButton AddFood;
     private javax.swing.JButton Search;
     private javax.swing.JButton delete;
+    private javax.swing.JTable foodTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }

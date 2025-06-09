@@ -42,6 +42,11 @@ public class ForgotPasswordScene extends javax.swing.JFrame {
         jLabel1.setText("Nhập email tài khoản của bạn để lấy lại mật khẩu");
 
         findPasswordField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        findPasswordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                findPasswordFieldActionPerformed(evt);
+            }
+        });
 
         findPasswordBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         findPasswordBtn.setText("Tìm mật khẩu");
@@ -94,7 +99,7 @@ public class ForgotPasswordScene extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backLoginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backLoginBtnActionPerformed
-        this.dispose(); //Tự tắt chính nó
+        this.dispose();
     }//GEN-LAST:event_backLoginBtnActionPerformed
 
     private void findPasswordBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findPasswordBtnActionPerformed
@@ -112,6 +117,10 @@ public class ForgotPasswordScene extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Không tìm thấy tài khoản có email đã nhập ", "Không tìm thấy", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_findPasswordBtnActionPerformed
+
+    private void findPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findPasswordFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_findPasswordFieldActionPerformed
 
     /**
      * @param args the command line arguments

@@ -42,6 +42,7 @@ public class AdminMainView extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
+        Home.setIcon(new javax.swing.ImageIcon("C:\\Users\\aoshi\\Downloads\\BTL_Lap_trinh_Java\\BTL_Lap_trinh_Java\\src\\icon&image\\home.png")); // NOI18N
         Home.setText("Trang chủ");
         Home.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,6 +64,7 @@ public class AdminMainView extends javax.swing.JFrame {
 
         jQuanl.setText("Quản lý");
 
+        jQuanLyNhanSu.setIcon(new javax.swing.ImageIcon("C:\\Users\\aoshi\\Downloads\\BTL_Lap_trinh_Java\\BTL_Lap_trinh_Java\\src\\icon&image\\group.png")); // NOI18N
         jQuanLyNhanSu.setText("Quản lý nhân sự");
         jQuanLyNhanSu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,6 +74,7 @@ public class AdminMainView extends javax.swing.JFrame {
         jQuanl.add(jQuanLyNhanSu);
         jQuanl.add(jSeparator5);
 
+        jQuanLyDoAn.setIcon(new javax.swing.ImageIcon("C:\\Users\\aoshi\\Downloads\\BTL_Lap_trinh_Java\\BTL_Lap_trinh_Java\\src\\icon&image\\fast-food.png")); // NOI18N
         jQuanLyDoAn.setText("Quản lý đồ ăn");
         jQuanLyDoAn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
