@@ -207,6 +207,7 @@ public class LoginScene extends javax.swing.JFrame {
             AdminMainView AdminMainView = new AdminMainView();
             AdminMainView.setVisible(true);
             AdminMainView.setLocationRelativeTo(this);
+            this.dispose();
             return;
         }
         
@@ -239,10 +240,12 @@ public class LoginScene extends javax.swing.JFrame {
             AdminMainView AdminMainView = new AdminMainView();
             AdminMainView.setVisible(true);
             AdminMainView.setLocationRelativeTo(this);
+            this.dispose();
         } else if (user.getChucVu().equalsIgnoreCase("USER")) {
             OrderScene orderScene = new OrderScene();
             orderScene.setVisible(true);
             orderScene.setLocationRelativeTo(this);
+            this.dispose();
         }
     }//GEN-LAST:event_enterBtnActionPerformed
 

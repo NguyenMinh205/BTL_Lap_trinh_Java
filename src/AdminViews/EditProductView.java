@@ -261,6 +261,10 @@ public class EditProductView extends javax.swing.JFrame {
         try {
             gia = Double.parseDouble(giaStr);
             soLuong = Integer.parseInt(soLuongStr);
+            if(gia < 0 || soLuong < 0){
+                JOptionPane.showMessageDialog(this, "Giá và số lượng phải lớn hơn 0", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Giá và số lượng phải là số hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;

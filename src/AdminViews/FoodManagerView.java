@@ -29,7 +29,6 @@ public class FoodManagerView extends javax.swing.JPanel {
 
         DefaultTableModel model = (DefaultTableModel) foodTable.getModel();
         model.setRowCount(0);
-
         for (Product product : productList) {
                 model.addRow(new Object[] {
                     product.getMaSP(),
@@ -168,7 +167,6 @@ public class FoodManagerView extends javax.swing.JPanel {
             }
         });
         foodTable.setMaximumSize(new java.awt.Dimension(970, 80));
-        foodTable.setPreferredSize(new java.awt.Dimension(970, 80));
         jScrollPane1.setViewportView(foodTable);
         if (foodTable.getColumnModel().getColumnCount() > 0) {
             foodTable.getColumnModel().getColumn(0).setResizable(false);
