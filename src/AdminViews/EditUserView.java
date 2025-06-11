@@ -7,10 +7,15 @@ import repository.UserRepositoryImpl;
 
 public class EditUserView extends javax.swing.JFrame {
     private User user;
+    private UserManager parent;
+    private UserRepositoryImpl userRepo;
 
-    public EditUserView(User user) {
+    public EditUserView(User user, UserManager parent) {
         this.user = user;
         initComponents();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.parent = parent ;
+        userRepo = parent.getUserRepository();
         loadUserData();
     }
     
@@ -349,20 +354,21 @@ public class EditUserView extends javax.swing.JFrame {
         user.setGioiTinh(gender);
         user.setCaLam(workShift);
 
-        UserRepositoryImpl userRepository = new UserRepositoryImpl();
-        User updatedUser = userRepository.update(user);
+        User updatedUser = userRepo.update(user);
 
         if (updatedUser != null) {
+            parent.loadUserTable();
             JOptionPane.showMessageDialog(this, "Cập nhật người dùng thành công!");
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Cập nhật thất bại! Vui lòng thử lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         } 
+        
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void jTextField_TenNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_TenNhanVienActionPerformed

@@ -290,7 +290,7 @@ public class UserManager extends javax.swing.JPanel {
 
         User selectedUser = new User(maNV, ten, email, sdt, matKhau, diaChi, chucVu, gioiTinh, caLam);
 
-        EditUserView Scene = new EditUserView(selectedUser);
+        EditUserView Scene = new EditUserView(selectedUser, this);
         Scene.setVisible(true);
     }//GEN-LAST:event_updateActionPerformed
 

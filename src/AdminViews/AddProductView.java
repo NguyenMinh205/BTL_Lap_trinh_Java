@@ -14,6 +14,7 @@ public class AddProductView extends javax.swing.JFrame {
         initComponents();
         this.foodManagerView = foodManagerView;
         this.productRepository = foodManagerView.getProductRepository();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null); 
     }
 
@@ -30,7 +31,6 @@ public class AddProductView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnExit = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         tenSP = new javax.swing.JTextField();
@@ -53,32 +53,20 @@ public class AddProductView extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Thêm món");
 
-        btnExit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnExit.setText("Thoát");
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(129, 129, 129)
-                .addComponent(btnExit)
-                .addGap(15, 15, 15))
+                .addGap(236, 236, 236))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(btnExit))
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1)
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -256,7 +244,7 @@ public class AddProductView extends javax.swing.JFrame {
             return;
         }
 
-        Product product = new Product(null, ten, gia, loai, soLuong);
+        Product product = new Product("", ten, gia, loai, soLuong);
 
         try {
             productRepository.addProduct(product);
@@ -272,10 +260,6 @@ public class AddProductView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddActionPerformed
 
     
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        dispose();
-    }//GEN-LAST:event_btnExitActionPerformed
-
     private void tenSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenSPActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tenSPActionPerformed
@@ -295,7 +279,6 @@ public class AddProductView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnReset;
     private javax.swing.JTextField cost;
     private javax.swing.JLabel jLabel1;

@@ -13,6 +13,7 @@ public class AddUserView extends javax.swing.JFrame {
         initComponents();
         this.userManager = userManager;
         this.userRepositoryImpl = userManager.getUserRepository();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
     }
 

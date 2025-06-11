@@ -18,4 +18,5 @@ public interface IProductRepository {
     public void clear();
     
     public Product update(Product product);
+    
 }

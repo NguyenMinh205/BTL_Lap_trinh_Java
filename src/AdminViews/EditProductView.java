@@ -12,6 +12,7 @@ public class EditProductView extends javax.swing.JFrame {
     
     public EditProductView(FoodManagerView foodManagerView, Product product) {
         initComponents();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.foodManagerView = foodManagerView;
         this.productRepository = foodManagerView.getProductRepository();
         this.product = product;

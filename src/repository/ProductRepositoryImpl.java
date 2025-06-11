@@ -91,7 +91,7 @@ public class ProductRepositoryImpl implements IProductRepository {
     @Override
     public Product findByName(String name) {
         for (Product product : products) {
-            if (product.getTenSP().equals(name)) {
+            if (product.getTenSP().toLowerCase().equals(name.toLowerCase())) {
                 return product;
             }
         }

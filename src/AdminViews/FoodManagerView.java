@@ -68,7 +68,6 @@ public class FoodManagerView extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(200, 600));
 
         AddFood.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        AddFood.setIcon(new javax.swing.ImageIcon("C:\\Users\\aoshi\\Downloads\\BTL_Lap_trinh_Java\\BTL_Lap_trinh_Java\\src\\icon&image\\add.png")); // NOI18N
         AddFood.setText("Thêm");
         AddFood.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,7 +76,6 @@ public class FoodManagerView extends javax.swing.JPanel {
         });
 
         delete.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        delete.setIcon(new javax.swing.ImageIcon("C:\\Users\\aoshi\\Downloads\\BTL_Lap_trinh_Java\\BTL_Lap_trinh_Java\\src\\icon&image\\delete.png")); // NOI18N
         delete.setText("Xóa");
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,7 +84,6 @@ public class FoodManagerView extends javax.swing.JPanel {
         });
 
         update.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        update.setIcon(new javax.swing.ImageIcon("C:\\Users\\aoshi\\Downloads\\BTL_Lap_trinh_Java\\BTL_Lap_trinh_Java\\src\\icon&image\\Edit_User-80_icon-icons.com_57329.png")); // NOI18N
         update.setText("Sửa");
         update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,7 +92,6 @@ public class FoodManagerView extends javax.swing.JPanel {
         });
 
         Search.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        Search.setIcon(new javax.swing.ImageIcon("C:\\Users\\aoshi\\Downloads\\BTL_Lap_trinh_Java\\BTL_Lap_trinh_Java\\src\\icon&image\\search.png")); // NOI18N
         Search.setText("Tìm kiếm");
         Search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,25 +105,26 @@ public class FoodManagerView extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(AddFood, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Search))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(AddFood, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Search)))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
+                .addGap(64, 64, 64)
                 .addComponent(AddFood, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(288, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(37, 37, 37));
@@ -144,7 +141,7 @@ public class FoodManagerView extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 973, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +184,7 @@ public class FoodManagerView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 973, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -263,7 +260,8 @@ public class FoodManagerView extends javax.swing.JPanel {
     }//GEN-LAST:event_updateActionPerformed
 
     private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
-
+        FindProductView findView = new FindProductView();
+        findView.setVisible(true);
     }//GEN-LAST:event_SearchActionPerformed
 
 
