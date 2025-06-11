@@ -84,6 +84,7 @@ public class AdminMainView extends javax.swing.JFrame {
         jQuanl.add(jQuanLyDoAn);
         jQuanl.add(jSeparator4);
 
+        jQuanLyHoaDon.setIcon(new javax.swing.ImageIcon("C:\\Users\\aoshi\\Downloads\\BTL_Lap_trinh_Java\\BTL_Lap_trinh_Java\\src\\icon&image\\menu.png")); // NOI18N
         jQuanLyHoaDon.setText("Quản lý hóa đơn");
         jQuanLyHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,7 +132,12 @@ public class AdminMainView extends javax.swing.JFrame {
 
     
     private void jQuanLyHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jQuanLyHoaDonActionPerformed
-    
+        BillManagerView panel = new BillManagerView();
+        MainPanel.removeAll(); // xóa nội dung cũ
+        MainPanel.setLayout(new java.awt.BorderLayout()); // nếu chưa đặt layout
+        MainPanel.add(panel, java.awt.BorderLayout.CENTER);
+        MainPanel.revalidate(); // cập nhật giao diện
+        MainPanel.repaint();    // vẽ lại
     }//GEN-LAST:event_jQuanLyHoaDonActionPerformed
 
     private void jQuanLyDoAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jQuanLyDoAnActionPerformed

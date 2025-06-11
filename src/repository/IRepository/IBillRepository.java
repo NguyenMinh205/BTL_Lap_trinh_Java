@@ -1,13 +1,20 @@
 package repository.IRepository;
 
+import java.time.LocalDateTime;
 import model.Bill;
 import java.util.List;
 
 public interface IBillRepository {
 
-    public Bill save(Bill bill);
+    Bill save(Bill bill);
 
-    public List<Bill> findAll();
+    List<Bill> findAll();
 
-    public void clear();
+    void clear();
+
+    Bill findById(String maHD);                
+
+    boolean deleteById(String maHD);    
+
+    List<Bill> findByDateRange(LocalDateTime from, LocalDateTime to); 
 }

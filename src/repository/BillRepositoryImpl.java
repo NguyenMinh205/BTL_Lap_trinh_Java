@@ -4,8 +4,10 @@ import model.Bill;
 import repository.IRepository.IBillRepository;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BillRepositoryImpl implements IBillRepository {
     private static final String FILE_PATH = "bills.txt";
@@ -49,11 +51,11 @@ public class BillRepositoryImpl implements IBillRepository {
     }
 
     private void initializeSampleBills() {
-        bills.add(new Bill("HD01", "Nguyễn Văn A", "0123456789", "a@gmail.com", "2025-05-01", 150000.0));
-        bills.add(new Bill("HD02", "Trần Thị B", "0234567891", "b@gmail.com", "2025-05-01", 180000.0));
-        bills.add(new Bill("HD03", "Lê Văn C", "0345678912", "c@gmail.com", "2025-05-02", 220000.0));
-        bills.add(new Bill("HD04", "Phạm Thị D", "0456789123", "d@gmail.com", "2025-05-02", 95000.0));
-        bills.add(new Bill("HD05", "Hoàng Văn E", "0567891234", "e@gmail.com", "2025-05-02", 275000.0));
+        bills.add(new Bill("HD01", "Nguyễn Văn A", "0123456789", "a@gmail.com", LocalDateTime.of(2025, 5, 1, 10, 0), 150000.0));
+        bills.add(new Bill("HD02", "Trần Thị B", "0234567891", "b@gmail.com", LocalDateTime.of(2025, 5, 1, 11, 30), 180000.0));
+        bills.add(new Bill("HD03", "Lê Văn C", "0345678912", "c@gmail.com", LocalDateTime.of(2025, 5, 2, 14, 45), 220000.0));
+        bills.add(new Bill("HD04", "Phạm Thị D", "0456789123", "d@gmail.com", LocalDateTime.of(2025, 5, 2, 16, 15), 95000.0));
+        bills.add(new Bill("HD05", "Hoàng Văn E", "0567891234", "e@gmail.com", LocalDateTime.of(2025, 5, 2, 18, 0), 275000.0));
     }
 
     private String generateNewId() {
@@ -73,6 +75,9 @@ public class BillRepositoryImpl implements IBillRepository {
     public Bill save(Bill bill) {
         String newId = generateNewId();
         bill.setMaHD(newId);
+        if (bill.getNgayDat() == null) {
+            bill.setNgayDat(LocalDateTime.now());
+        }
         bills.add(bill);
         saveBillsToFile();
         return bill;
@@ -87,5 +92,30 @@ public class BillRepositoryImpl implements IBillRepository {
     public void clear() {
         bills.clear();
         saveBillsToFile();
+    }
+
+    @Override
+    public Bill findById(String maHD) {
+        return bills.stream()
+                .filter(b -> b.getMaHD().equalsIgnoreCase(maHD))
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
+    public boolean deleteById(String maHD) {
+        boolean removed = bills.removeIf(b -> b.getMaHD().equalsIgnoreCase(maHD));
+        if (removed) saveBillsToFile();
+        return removed;
+    }
+
+    @Override
+    public List<Bill> findByDateRange(LocalDateTime from, LocalDateTime to) {
+        return bills.stream()
+                .filter(b -> {
+                    LocalDateTime d = b.getNgayDat();
+                    return d != null && (d.isEqual(from) || d.isAfter(from)) && (d.isBefore(to) || d.isEqual(to));
+                })
+                .collect(Collectors.toList());
     }
 }

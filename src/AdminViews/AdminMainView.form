@@ -66,6 +66,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jQuanLyHoaDon">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\aoshi\Downloads\BTL_Lap_trinh_Java\BTL_Lap_trinh_Java\src\icon&amp;image\menu.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; h&#xf3;a &#x111;&#x1a1;n"/>
               </Properties>
               <Events>

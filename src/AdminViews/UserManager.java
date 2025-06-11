@@ -69,7 +69,7 @@ public class UserManager extends javax.swing.JPanel {
     public void updateUserInTable(User user) {
         DefaultTableModel model = (DefaultTableModel) this.UserTable.getModel();
         for (int i = 0; i < model.getRowCount(); i++) {
-            String maNV = model.getValueAt(i, 0).toString(); // Assuming maNV is in column 0
+            String maNV = model.getValueAt(i, 0).toString();
             if (maNV.equals(user.getMaNV())) {
                 model.setValueAt(user.getTen(), i, 1);
                 model.setValueAt(user.getEmail(), i, 2);
@@ -99,7 +99,7 @@ public class UserManager extends javax.swing.JPanel {
         UserTable = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(37, 37, 37));
-        setPreferredSize(new java.awt.Dimension(1200, 505));
+        setPreferredSize(new java.awt.Dimension(1200, 600));
 
         jPanel1.setBackground(new java.awt.Color(37, 37, 37));
 
@@ -150,7 +150,7 @@ public class UserManager extends javax.swing.JPanel {
                     .addComponent(delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Search))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,9 +213,11 @@ public class UserManager extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 30, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 25, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -225,8 +227,8 @@ public class UserManager extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -281,12 +283,12 @@ public class UserManager extends javax.swing.JPanel {
         String email = UserTable.getValueAt(selecRow, 2).toString();
         String sdt = UserTable.getValueAt(selecRow, 3).toString();
         String matKhau = UserTable.getValueAt(selecRow, 4).toString();
-        String diaChi = UserTable.getValueAt(selecRow, 5).toString();
-        String chucVu = UserTable.getValueAt(selecRow, 6).toString();
-        String gioiTinh = UserTable.getValueAt(selecRow, 7).toString();
+        String chucVu = UserTable.getValueAt(selecRow, 5).toString();
+        String gioiTinh = UserTable.getValueAt(selecRow, 6).toString();
+        String diaChi = UserTable.getValueAt(selecRow, 7).toString();
         String caLam = UserTable.getValueAt(selecRow, 8).toString();
 
-        User selectedUser = new User(maNV, ten, email, sdt, matKhau, diaChi, gioiTinh, chucVu, caLam);
+        User selectedUser = new User(maNV, ten, email, sdt, matKhau, diaChi, chucVu, gioiTinh, caLam);
 
         EditUserView Scene = new EditUserView(selectedUser);
         Scene.setVisible(true);

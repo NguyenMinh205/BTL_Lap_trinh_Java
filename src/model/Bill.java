@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Bill implements Serializable {
@@ -10,13 +12,13 @@ public class Bill implements Serializable {
     private String ten;
     private String sdt;       // Sửa từ int sang String
     private String email;
-    private String ngayDat;
+    private LocalDateTime ngayDat;
     private double tongTien;
 
     public Bill() {
     }
 
-    public Bill(String maHD, String ten, String sdt, String email, String ngayDat, double tongTien) {
+    public Bill(String maHD, String ten, String sdt, String email, LocalDateTime ngayDat, double tongTien) {
         this.maHD = maHD;
         this.ten = ten;
         this.sdt = sdt;
@@ -25,63 +27,65 @@ public class Bill implements Serializable {
         this.tongTien = tongTien;
     }
 
-    // Getters
+
     public String getMaHD() {
         return maHD;
+    }
+
+    public void setMaHD(String maHD) {
+        this.maHD = maHD;
     }
 
     public String getTen() {
         return ten;
     }
 
-    public String getSdt() {
-        return sdt;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getNgayDat() {
-        return ngayDat;
-    }
-
-    public double getTongTien() {
-        return tongTien;
-    }
-
-    // Setters
-    public void setMaHD(String maHD) {
-        this.maHD = maHD;
-    }
-
     public void setTen(String ten) {
         this.ten = ten;
+    }
+
+    public String getSdt() {
+        return sdt;
     }
 
     public void setSdt(String sdt) {
         this.sdt = sdt;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setNgayDat(String ngayDat) {
+    public LocalDateTime getNgayDat() {
+        return ngayDat;
+    }
+
+    public void setNgayDat(LocalDateTime ngayDat) {
         this.ngayDat = ngayDat;
+    }
+
+    public double getTongTien() {
+        return tongTien;
     }
 
     public void setTongTien(double tongTien) {
         this.tongTien = tongTien;
     }
 
+    
+
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         return "Mã hóa đơn   : " + maHD + "\n" +
                "Tên khách    : " + ten + "\n" +
                "SĐT          : " + sdt + "\n" +
                "Email        : " + email + "\n" +
-               "Ngày đặt     : " + ngayDat + "\n" +
+               "Ngày đặt     : " + ngayDat.format(formatter) + "\n" +
                "Tổng tiền    : " + tongTien + " VND\n";
     }
 
