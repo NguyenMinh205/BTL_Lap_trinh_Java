@@ -12,7 +12,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="Home">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\aoshi\Downloads\BTL_Lap_trinh_Java\BTL_Lap_trinh_Java\src\icon&amp;image\home.png"/>
+                  <Image iconType="3" name="/icon&amp;image/home.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Trang ch&#x1ee7;"/>
               </Properties>
@@ -23,7 +23,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jLogOut">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="D:\codenham\java\Clone_BTL_JAVA\src\main\java\icons\logout.png"/>
+                  <Image iconType="3" name="/icon&amp;image/logout.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x110;&#x103;ng xu&#x1ea5;t"/>
               </Properties>
@@ -41,7 +41,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jQuanLyNhanSu">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\aoshi\Downloads\BTL_Lap_trinh_Java\BTL_Lap_trinh_Java\src\icon&amp;image\group.png"/>
+                  <Image iconType="3" name="/icon&amp;image/group.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; nh&#xe2;n s&#x1ef1;"/>
               </Properties>
@@ -54,7 +54,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jQuanLyDoAn">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\aoshi\Downloads\BTL_Lap_trinh_Java\BTL_Lap_trinh_Java\src\icon&amp;image\fast-food.png"/>
+                  <Image iconType="3" name="/icon&amp;image/fast-food.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; &#x111;&#x1ed3; &#x103;n"/>
               </Properties>
@@ -67,7 +67,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jQuanLyHoaDon">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\aoshi\Downloads\BTL_Lap_trinh_Java\BTL_Lap_trinh_Java\src\icon&amp;image\menu.png"/>
+                  <Image iconType="3" name="/icon&amp;image/menu.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; h&#xf3;a &#x111;&#x1a1;n"/>
               </Properties>

@@ -54,7 +54,6 @@ public class EditUserView extends javax.swing.JFrame {
         buttonGroup_caLam = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnExit = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField_TenNhanVien = new javax.swing.JTextField();
@@ -87,32 +86,20 @@ public class EditUserView extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("CẬP NHẬT NGƯỜI DÙNG");
 
-        btnExit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnExit.setText("Thoát");
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(160, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(63, 63, 63)
-                .addComponent(btnExit)
-                .addGap(15, 15, 15))
+                .addGap(150, 150, 150))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(btnExit))
+                .addComponent(jLabel1)
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -367,10 +354,6 @@ public class EditUserView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnExitActionPerformed
-
     private void jTextField_TenNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_TenNhanVienActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_TenNhanVienActionPerformed
@@ -393,7 +376,6 @@ public class EditUserView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnUpdate;
     private javax.swing.ButtonGroup buttonGroup_caLam;
     private javax.swing.ButtonGroup buttonGroup_gioiTinh;

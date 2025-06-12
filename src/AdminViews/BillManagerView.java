@@ -1,9 +1,12 @@
 package AdminViews;
 
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 import model.Bill;
 import repository.BillRepositoryImpl;
 
@@ -17,6 +20,18 @@ public class BillManagerView extends javax.swing.JPanel {
     
     public BillManagerView() {
         initComponents();
+        try {
+            MaskFormatter startMask = new MaskFormatter("##/##/####");
+            startMask.setPlaceholderCharacter('_');
+            startMask.install(DayStart);
+
+            MaskFormatter endMask = new MaskFormatter("##/##/####");
+            endMask.setPlaceholderCharacter('_');
+            endMask.install(DayEnd);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         loadDataToTable(billRepository.findAll());
     }
 
@@ -47,8 +62,15 @@ public class BillManagerView extends javax.swing.JPanel {
         BillTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         DelBillbtn = new javax.swing.JButton();
-        UpdateBill = new javax.swing.JButton();
-        SearchBillByEmail = new javax.swing.JButton();
+        FindBillByDay = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        Reset = new javax.swing.JButton();
+        DayStart = new javax.swing.JFormattedTextField();
+        DayEnd = new javax.swing.JFormattedTextField();
 
         setBackground(new java.awt.Color(37, 37, 37));
         setPreferredSize(new java.awt.Dimension(1200, 600));
@@ -103,21 +125,29 @@ public class BillManagerView extends javax.swing.JPanel {
             }
         });
 
-        UpdateBill.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        UpdateBill.setText("Chỉnh sửa ");
-        UpdateBill.setPreferredSize(new java.awt.Dimension(100, 25));
-        UpdateBill.addActionListener(new java.awt.event.ActionListener() {
+        FindBillByDay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        FindBillByDay.setText("Tìm kiếm");
+        FindBillByDay.setPreferredSize(new java.awt.Dimension(100, 25));
+        FindBillByDay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateBillActionPerformed(evt);
+                FindBillByDayActionPerformed(evt);
             }
         });
 
-        SearchBillByEmail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        SearchBillByEmail.setText("Tìm kiếm");
-        SearchBillByEmail.setPreferredSize(new java.awt.Dimension(100, 25));
-        SearchBillByEmail.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Ngày bắt đầu:");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Ngày kết thúc:");
+
+        Reset.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Reset.setText("Reset");
+        Reset.setPreferredSize(new java.awt.Dimension(100, 25));
+        Reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SearchBillByEmailActionPerformed(evt);
+                ResetActionPerformed(evt);
             }
         });
 
@@ -126,23 +156,56 @@ public class BillManagerView extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(36, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DelBillbtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(UpdateBill, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SearchBillByEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(DayStart, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(DelBillbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                        .addComponent(Reset, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DayEnd)
+                        .addComponent(FindBillByDay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(28, 28, 28))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(56, 56, 56)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(DelBillbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel2)
+                .addGap(5, 5, 5)
+                .addComponent(DayStart, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(DayEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(UpdateBill, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(SearchBillByEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(FindBillByDay, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Reset, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(145, 145, 145)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(455, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -152,7 +215,7 @@ public class BillManagerView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 975, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
         );
@@ -209,23 +272,71 @@ public class BillManagerView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_DelBillbtnActionPerformed
 
-    private void UpdateBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBillActionPerformed
-        
-    }//GEN-LAST:event_UpdateBillActionPerformed
+    private void FindBillByDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindBillByDayActionPerformed
+        String startText = DayStart.getText().trim();
+        String endText = DayEnd.getText().trim();
 
-    private void SearchBillByEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBillByEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SearchBillByEmailActionPerformed
+        if (startText.contains("_") || endText.contains("_")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ cả ngày bắt đầu và ngày kết thúc.");
+            return;
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        try {
+            LocalDate startDate = LocalDate.parse(startText, formatter);
+            LocalDate endDate = LocalDate.parse(endText, formatter);
+
+            if (startDate.isAfter(endDate)) {
+                JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải trước hoặc bằng ngày kết thúc.");
+                return;
+            }
+
+            List<Bill> result = billRepository.findByDateRange(startDate, endDate);
+            if (result.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn trong khoảng ngày.");
+            }
+            loadDataToTable(result);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng ngày: dd/MM/yyyy");
+        }
+    }//GEN-LAST:event_FindBillByDayActionPerformed
+
+    private void ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetActionPerformed
+        DefaultTableModel model = (DefaultTableModel) BillTable.getModel();
+    
+        model.setRowCount(0);
+
+        List<Bill> bills = billRepository.findAll();
+
+        for (Bill b : bills) {
+            model.addRow(new Object[]{
+                b.getMaHD(),
+                b.getTen(),
+                b.getSdt(),
+                b.getEmail(),
+                b.getNgayDat(),
+                b.getTongTien()
+            });
+        }
+    }//GEN-LAST:event_ResetActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable BillTable;
+    private javax.swing.JFormattedTextField DayEnd;
+    private javax.swing.JFormattedTextField DayStart;
     private javax.swing.JButton DelBillbtn;
-    private javax.swing.JButton SearchBillByEmail;
-    private javax.swing.JButton UpdateBill;
+    private javax.swing.JButton FindBillByDay;
+    private javax.swing.JButton Reset;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     // End of variables declaration//GEN-END:variables
 }

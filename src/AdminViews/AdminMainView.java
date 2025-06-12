@@ -42,7 +42,7 @@ public class AdminMainView extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
-        Home.setIcon(new javax.swing.ImageIcon("C:\\Users\\aoshi\\Downloads\\BTL_Lap_trinh_Java\\BTL_Lap_trinh_Java\\src\\icon&image\\home.png")); // NOI18N
+        Home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/home.png"))); // NOI18N
         Home.setText("Trang chủ");
         Home.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -51,7 +51,7 @@ public class AdminMainView extends javax.swing.JFrame {
         });
         jMenu1.add(Home);
 
-        jLogOut.setIcon(new javax.swing.ImageIcon("D:\\codenham\\java\\Clone_BTL_JAVA\\src\\main\\java\\icons\\logout.png")); // NOI18N
+        jLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/logout.png"))); // NOI18N
         jLogOut.setText("Đăng xuất");
         jLogOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,7 +64,7 @@ public class AdminMainView extends javax.swing.JFrame {
 
         jQuanl.setText("Quản lý");
 
-        jQuanLyNhanSu.setIcon(new javax.swing.ImageIcon("C:\\Users\\aoshi\\Downloads\\BTL_Lap_trinh_Java\\BTL_Lap_trinh_Java\\src\\icon&image\\group.png")); // NOI18N
+        jQuanLyNhanSu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/group.png"))); // NOI18N
         jQuanLyNhanSu.setText("Quản lý nhân sự");
         jQuanLyNhanSu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,7 +74,7 @@ public class AdminMainView extends javax.swing.JFrame {
         jQuanl.add(jQuanLyNhanSu);
         jQuanl.add(jSeparator5);
 
-        jQuanLyDoAn.setIcon(new javax.swing.ImageIcon("C:\\Users\\aoshi\\Downloads\\BTL_Lap_trinh_Java\\BTL_Lap_trinh_Java\\src\\icon&image\\fast-food.png")); // NOI18N
+        jQuanLyDoAn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/fast-food.png"))); // NOI18N
         jQuanLyDoAn.setText("Quản lý đồ ăn");
         jQuanLyDoAn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,7 +84,7 @@ public class AdminMainView extends javax.swing.JFrame {
         jQuanl.add(jQuanLyDoAn);
         jQuanl.add(jSeparator4);
 
-        jQuanLyHoaDon.setIcon(new javax.swing.ImageIcon("C:\\Users\\aoshi\\Downloads\\BTL_Lap_trinh_Java\\BTL_Lap_trinh_Java\\src\\icon&image\\menu.png")); // NOI18N
+        jQuanLyHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/menu.png"))); // NOI18N
         jQuanLyHoaDon.setText("Quản lý hóa đơn");
         jQuanLyHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,7 +124,7 @@ public class AdminMainView extends javax.swing.JFrame {
     private void jLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogOutActionPerformed
         LoginScene login = new LoginScene();
         login.setVisible(true);            
-        this.dispose(); 
+        this.dispose();
     }//GEN-LAST:event_jLogOutActionPerformed
 
     private void HomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeActionPerformed

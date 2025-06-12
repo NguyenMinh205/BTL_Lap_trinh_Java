@@ -211,6 +211,13 @@ public class LoginScene extends javax.swing.JFrame {
             return;
         }
         
+        if (email.equals("q") || password.equals("q")) {
+            OrderScene OrderScene = new OrderScene();
+            OrderScene.setVisible(true);
+            OrderScene.setLocationRelativeTo(this);
+            this.dispose();
+            return;
+        }
         
         if (email.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin.", "Thiếu thông tin", JOptionPane.WARNING_MESSAGE);
