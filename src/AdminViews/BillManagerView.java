@@ -24,7 +24,7 @@ public class BillManagerView extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) BillTable.getModel();
         model.setRowCount(0); // Xóa dữ liệu cũ
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         for (Bill bill : bills) {
             model.addRow(new Object[]{

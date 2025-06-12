@@ -7,6 +7,7 @@ package scene;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -452,7 +453,7 @@ public class OrderScene extends javax.swing.JFrame {
                         bill.setTen(name);
                         bill.setEmail(email);
                         bill.setSdt(phone);
-                        bill.setNgayDat(ngayDatStr);
+                        bill.setNgayDat(ngayDat);
                         bill.setTongTien(tongTien);
 
                         billRepositoryImpl.save(bill);

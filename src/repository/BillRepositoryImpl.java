@@ -4,6 +4,7 @@ import model.Bill;
 import repository.IRepository.IBillRepository;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,11 +52,11 @@ public class BillRepositoryImpl implements IBillRepository {
     }
 
     private void initializeSampleBills() {
-        bills.add(new Bill("HD01", "Nguyễn Văn A", "0123456789", "a@gmail.com", LocalDateTime.of(2025, 5, 1, 10, 0), 150000.0));
-        bills.add(new Bill("HD02", "Trần Thị B", "0234567891", "b@gmail.com", LocalDateTime.of(2025, 5, 1, 11, 30), 180000.0));
-        bills.add(new Bill("HD03", "Lê Văn C", "0345678912", "c@gmail.com", LocalDateTime.of(2025, 5, 2, 14, 45), 220000.0));
-        bills.add(new Bill("HD04", "Phạm Thị D", "0456789123", "d@gmail.com", LocalDateTime.of(2025, 5, 2, 16, 15), 95000.0));
-        bills.add(new Bill("HD05", "Hoàng Văn E", "0567891234", "e@gmail.com", LocalDateTime.of(2025, 5, 2, 18, 0), 275000.0));
+        bills.add(new Bill("HD01", "Nguyễn Văn A", "0123456789", "a@gmail.com", LocalDate.of(2025, 5, 1), 150000.0));
+        bills.add(new Bill("HD02", "Trần Thị B", "0234567891", "b@gmail.com", LocalDate.of(2025, 5, 1), 180000.0));
+        bills.add(new Bill("HD03", "Lê Văn C", "0345678912", "c@gmail.com", LocalDate.of(2025, 5, 2), 220000.0));
+        bills.add(new Bill("HD04", "Phạm Thị D", "0456789123", "d@gmail.com", LocalDate.of(2025, 5, 2), 95000.0));
+        bills.add(new Bill("HD05", "Hoàng Văn E", "0567891234", "e@gmail.com", LocalDate.of(2025, 5, 2), 275000.0));
     }
 
     private String generateNewId() {
@@ -76,7 +77,7 @@ public class BillRepositoryImpl implements IBillRepository {
         String newId = generateNewId();
         bill.setMaHD(newId);
         if (bill.getNgayDat() == null) {
-            bill.setNgayDat(LocalDateTime.now());
+            bill.setNgayDat(LocalDate.now());
         }
         bills.add(bill);
         saveBillsToFile();
@@ -110,10 +111,10 @@ public class BillRepositoryImpl implements IBillRepository {
     }
 
     @Override
-    public List<Bill> findByDateRange(LocalDateTime from, LocalDateTime to) {
+    public List<Bill> findByDateRange(LocalDate from, LocalDate to) {
         return bills.stream()
                 .filter(b -> {
-                    LocalDateTime d = b.getNgayDat();
+                    LocalDate d = b.getNgayDat();
                     return d != null && (d.isEqual(from) || d.isAfter(from)) && (d.isBefore(to) || d.isEqual(to));
                 })
                 .collect(Collectors.toList());

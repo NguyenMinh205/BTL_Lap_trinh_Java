@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -12,13 +13,13 @@ public class Bill implements Serializable {
     private String ten;
     private String sdt;       // Sửa từ int sang String
     private String email;
-    private LocalDateTime ngayDat;
+    private LocalDate ngayDat;
     private double tongTien;
 
     public Bill() {
     }
 
-    public Bill(String maHD, String ten, String sdt, String email, LocalDateTime ngayDat, double tongTien) {
+    public Bill(String maHD, String ten, String sdt, String email, LocalDate ngayDat, double tongTien) {
         this.maHD = maHD;
         this.ten = ten;
         this.sdt = sdt;
@@ -60,11 +61,11 @@ public class Bill implements Serializable {
         this.email = email;
     }
 
-    public LocalDateTime getNgayDat() {
+    public LocalDate getNgayDat() {
         return ngayDat;
     }
 
-    public void setNgayDat(LocalDateTime ngayDat) {
+    public void setNgayDat(LocalDate ngayDat) {
         this.ngayDat = ngayDat;
     }
 
@@ -80,7 +81,7 @@ public class Bill implements Serializable {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return "Mã hóa đơn   : " + maHD + "\n" +
                "Tên khách    : " + ten + "\n" +
                "SĐT          : " + sdt + "\n" +
