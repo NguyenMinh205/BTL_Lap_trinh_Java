@@ -51,7 +51,7 @@ public class UserRepositoryImpl implements IUserRepository {
     private void initializeUsers() {
         users.add(new User("AD01", "Nguyễn Quang Minh", "nqm1312@gmail.com", "0966618229", "Minh123*", "Hà Nội", "ADMIN", "Nam", "Ca sáng"));
         users.add(new User("AD02", "Vũ Tiến Khang", "khang2404@gmail.com", "0966618229", "Khang123*", "Hà Nội", "ADMIN", "Nam", "Ca sáng"));
-        users.add(new User("NV01", "Nguyễn Văn A", "a@gmail.com", "0900000001", "Abcd123*", "Hà Nội", "USER", "Nam", "Ca chiều"));
+        users.add(new User("NV01", "Nguyễn Văn A", "manh@gmail.com", "0900000001", "Abcd123*", "Hà Nội", "USER", "Nam", "Ca chiều"));
         users.add(new User("NV02", "Trần Thị B", "b@gmail.com", "0900000002", "Abcd123*", "Hà Nội", "USER", "Nữ", "Ca sáng"));
         users.add(new User("NV03", "Lê Văn C", "c@gmail.com", "0900000003", "Abcd123*", "Hà Nội", "USER", "Nam", "Ca tối"));
         users.add(new User("NV04", "Phạm Thị D", "d@gmail.com", "0900000004", "Abcd123*", "Hà Nội", "USER", "Nữ", "Ca chiều"));

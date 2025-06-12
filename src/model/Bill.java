@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Bill implements Serializable {
@@ -15,8 +17,10 @@ public class Bill implements Serializable {
     private String email;
     private LocalDate ngayDat;
     private double tongTien;
+    private HashMap<String, Integer> items;
 
     public Bill() {
+        this.items = new HashMap<>();
     }
 
     public Bill(String maHD, String ten, String sdt, String email, LocalDate ngayDat, double tongTien) {
@@ -26,8 +30,19 @@ public class Bill implements Serializable {
         this.email = email;
         this.ngayDat = ngayDat;
         this.tongTien = tongTien;
+        this.items = new HashMap<>();
+    }
+    
+    public Map<String, Integer> getItems() {
+        if (items == null) {
+            items = new HashMap<>();
+        }
+        return items;
     }
 
+    public void addItem(String tenMon, int soLuong) {
+        items.merge(tenMon, soLuong, Integer::sum);
+    }
 
     public String getMaHD() {
         return maHD;

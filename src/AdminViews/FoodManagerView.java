@@ -67,7 +67,7 @@ public class FoodManagerView extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(200, 600));
 
         AddFood.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        AddFood.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/add.png"))); // NOI18N
+        AddFood.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/fast-food.png"))); // NOI18N
         AddFood.setText("Thêm");
         AddFood.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

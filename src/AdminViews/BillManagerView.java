@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
@@ -268,7 +269,25 @@ public class BillManagerView extends javax.swing.JPanel {
     }
 
     private void CheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckActionPerformed
-        
+        int selectedRow = BillTable.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn đơn hàng");
+        } else {
+            String maHD = BillTable.getValueAt(selectedRow, 0).toString();
+            Bill bill = billRepository.findById(maHD);
+            if (bill != null) {
+                BillDetailScene billDetail = new BillDetailScene(bill);
+                JFrame detailFrame = new JFrame("Chi tiết hóa đơn");
+                detailFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                detailFrame.getContentPane().add(billDetail);
+                detailFrame.pack();
+                detailFrame.setLocationRelativeTo(null);
+                detailFrame.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy đơn hàng");
+            }
+        }
+
     }//GEN-LAST:event_CheckActionPerformed
 
     private void FindBillByDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindBillByDayActionPerformed
