@@ -61,7 +61,7 @@ public class BillManagerView extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         BillTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        DelBillbtn = new javax.swing.JButton();
+        Check = new javax.swing.JButton();
         FindBillByDay = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -71,6 +71,8 @@ public class BillManagerView extends javax.swing.JPanel {
         Reset = new javax.swing.JButton();
         DayStart = new javax.swing.JFormattedTextField();
         DayEnd = new javax.swing.JFormattedTextField();
+        DelBillbtn = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(37, 37, 37));
         setPreferredSize(new java.awt.Dimension(1200, 600));
@@ -116,16 +118,18 @@ public class BillManagerView extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(37, 37, 37));
         jPanel2.setPreferredSize(new java.awt.Dimension(200, 0));
 
-        DelBillbtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        DelBillbtn.setText("Xóa ");
-        DelBillbtn.setPreferredSize(new java.awt.Dimension(100, 25));
-        DelBillbtn.addActionListener(new java.awt.event.ActionListener() {
+        Check.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Check.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/transaction.png"))); // NOI18N
+        Check.setText("Xem chi tiết");
+        Check.setPreferredSize(new java.awt.Dimension(100, 25));
+        Check.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DelBillbtnActionPerformed(evt);
+                CheckActionPerformed(evt);
             }
         });
 
         FindBillByDay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        FindBillByDay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/transaction-history.png"))); // NOI18N
         FindBillByDay.setText("Tìm kiếm");
         FindBillByDay.setPreferredSize(new java.awt.Dimension(100, 25));
         FindBillByDay.addActionListener(new java.awt.event.ActionListener() {
@@ -151,32 +155,43 @@ public class BillManagerView extends javax.swing.JPanel {
             }
         });
 
+        DelBillbtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        DelBillbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/bill.png"))); // NOI18N
+        DelBillbtn.setText("Xóa ");
+        DelBillbtn.setPreferredSize(new java.awt.Dimension(100, 25));
+        DelBillbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DelBillbtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(26, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Check, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(Reset, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DayEnd)
+                    .addComponent(FindBillByDay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(DelBillbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(DayStart))
+                .addGap(28, 28, 28))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DayStart, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(DelBillbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                        .addComponent(Reset, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(DayEnd)
-                        .addComponent(FindBillByDay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(28, 28, 28))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                    .addComponent(jSeparator4)
                     .addContainerGap()))
         );
         jPanel2Layout.setVerticalGroup(
@@ -185,8 +200,12 @@ public class BillManagerView extends javax.swing.JPanel {
                 .addGap(56, 56, 56)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Check, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
                 .addComponent(DelBillbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addGap(5, 5, 5)
                 .addComponent(DayStart, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -203,9 +222,9 @@ public class BillManagerView extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(145, 145, 145)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(455, Short.MAX_VALUE)))
+                    .addGap(132, 132, 132)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(468, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -248,29 +267,9 @@ public class BillManagerView extends javax.swing.JPanel {
         }
     }
 
-    private void DelBillbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DelBillbtnActionPerformed
-        int selectedRow = BillTable.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hóa đơn để xóa.");
-            return;
-        }
-
-        String maHD = BillTable.getValueAt(selectedRow, 0).toString();
-
-        int confirm = JOptionPane.showConfirmDialog(this,
-                "Bạn có chắc chắn muốn xóa hóa đơn " + maHD + "?",
-                "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
-
-        if (confirm == JOptionPane.YES_OPTION) {
-            boolean deleted = billRepository.deleteById(maHD);
-            if (deleted) {
-                JOptionPane.showMessageDialog(this, "Xóa thành công!");
-                loadTable();
-            } else {
-                JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn để xóa.");
-            }
-        }
-    }//GEN-LAST:event_DelBillbtnActionPerformed
+    private void CheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckActionPerformed
+        
+    }//GEN-LAST:event_CheckActionPerformed
 
     private void FindBillByDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindBillByDayActionPerformed
         String startText = DayStart.getText().trim();
@@ -321,9 +320,34 @@ public class BillManagerView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_ResetActionPerformed
 
+    private void DelBillbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DelBillbtnActionPerformed
+        int selectedRow = BillTable.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hóa đơn để xóa.");
+            return;
+        }
+
+        String maHD = BillTable.getValueAt(selectedRow, 0).toString();
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Bạn có chắc chắn muốn xóa hóa đơn " + maHD + "?",
+                "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            boolean deleted = billRepository.deleteById(maHD);
+            if (deleted) {
+                JOptionPane.showMessageDialog(this, "Xóa thành công!");
+                loadTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn để xóa.");
+            }
+        }
+    }//GEN-LAST:event_DelBillbtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable BillTable;
+    private javax.swing.JButton Check;
     private javax.swing.JFormattedTextField DayEnd;
     private javax.swing.JFormattedTextField DayStart;
     private javax.swing.JButton DelBillbtn;
@@ -338,5 +362,6 @@ public class BillManagerView extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     // End of variables declaration//GEN-END:variables
 }

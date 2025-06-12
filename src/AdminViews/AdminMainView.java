@@ -22,7 +22,6 @@ public class AdminMainView extends javax.swing.JFrame {
         jQuanLyDoAn = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jQuanLyHoaDon = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -95,9 +94,6 @@ public class AdminMainView extends javax.swing.JFrame {
 
         jMenuBar2.add(jQuanl);
 
-        jMenu4.setText("Trợ giúp");
-        jMenuBar2.add(jMenu4);
-
         setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -163,7 +159,6 @@ public class AdminMainView extends javax.swing.JFrame {
     private javax.swing.JPanel MainPanel;
     private javax.swing.JMenuItem jLogOut;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jQuanLyDoAn;
     private javax.swing.JMenuItem jQuanLyHoaDon;

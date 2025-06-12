@@ -67,6 +67,7 @@ public class FoodManagerView extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(200, 600));
 
         AddFood.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        AddFood.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/add.png"))); // NOI18N
         AddFood.setText("Thêm");
         AddFood.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,6 +76,7 @@ public class FoodManagerView extends javax.swing.JPanel {
         });
 
         delete.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/del.png"))); // NOI18N
         delete.setText("Xóa");
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +85,7 @@ public class FoodManagerView extends javax.swing.JPanel {
         });
 
         update.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/updated.png"))); // NOI18N
         update.setText("Sửa");
         update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,6 +94,7 @@ public class FoodManagerView extends javax.swing.JPanel {
         });
 
         Search.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        Search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/search.png"))); // NOI18N
         Search.setText("Tìm kiếm");
         Search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
