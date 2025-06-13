@@ -1,6 +1,7 @@
 package UserViews;
 
 import model.User;
+import scene.LoginScene;
 
 public class PersonalProfile extends javax.swing.JPanel {
     private User currentUser;
@@ -317,7 +318,8 @@ public class PersonalProfile extends javax.swing.JPanel {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void chargepasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargepasswordActionPerformed
-        
+        chargePassWord chargepass = new chargePassWord(currentUser);
+        chargepass.setVisible(true); 
     }//GEN-LAST:event_chargepasswordActionPerformed
 
 
