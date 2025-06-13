@@ -212,13 +212,6 @@ public class LoginScene extends javax.swing.JFrame {
             return;
         }
         
-        if (email.equals("q") || password.equals("q")) {
-            UserMainView UserMainView = new UserMainView();
-            UserMainView.setVisible(true);
-            UserMainView.setLocationRelativeTo(this);
-            this.dispose();
-            return;
-        }
         
         if (email.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin.", "Thiếu thông tin", JOptionPane.WARNING_MESSAGE);
@@ -249,10 +242,11 @@ public class LoginScene extends javax.swing.JFrame {
             AdminMainView.setVisible(true);
             AdminMainView.setLocationRelativeTo(this);
             this.dispose();
-        } else if (user.getChucVu().equalsIgnoreCase("USER")) {
-            UserMainView UserMainView = new UserMainView();
-            UserMainView.setVisible(true);
-            UserMainView.setLocationRelativeTo(this);
+        } 
+        else if (user.getChucVu().equalsIgnoreCase("USER")) {
+            UserMainView userMainView = new UserMainView(user); // truyền user vào
+            userMainView.setVisible(true);
+            userMainView.setLocationRelativeTo(this);
             this.dispose();
         }
     }//GEN-LAST:event_enterBtnActionPerformed

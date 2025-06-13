@@ -4,6 +4,7 @@
  */
 package UserViews;
 
+import model.User;
 import scene.LoginScene;
 
 /**
@@ -11,14 +12,16 @@ import scene.LoginScene;
  * @author aoshi
  */
 public class UserMainView extends javax.swing.JFrame {
-
+    private User currentUser;
+    PersonalProfile profilePanel = new PersonalProfile(currentUser);
     /**
      * Creates new form UserMainView
      */
-    public UserMainView() {
+    public UserMainView(User user) {
+        this.currentUser = user;
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -178,12 +181,12 @@ public class UserMainView extends javax.swing.JFrame {
     }//GEN-LAST:event_OrderScenebtnActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        PersonalProfile panel = new PersonalProfile();
+        PersonalProfile panel = new PersonalProfile(currentUser);
         UserMainPanel.removeAll();
         UserMainPanel.setLayout(new java.awt.BorderLayout());
         UserMainPanel.add(panel, java.awt.BorderLayout.CENTER);
         UserMainPanel.revalidate();
-        UserMainPanel.repaint(); 
+        UserMainPanel.repaint();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
