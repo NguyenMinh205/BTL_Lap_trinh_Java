@@ -2,10 +2,6 @@ package UserViews;
 
 import model.User;
 
-/**
- *
- * @author aoshi
- */
 public class PersonalProfile extends javax.swing.JPanel {
     private User currentUser;
     /**
@@ -294,11 +290,34 @@ public class PersonalProfile extends javax.swing.JPanel {
     }//GEN-LAST:event_chucVuActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        
+        String ten = tenNV.getText().trim();
+        String sdt = phoneField.getText().trim();
+        String mail = email.getText().trim();
+        String diaChi = queQuan.getText().trim();
+        String gioiTinh = gtNam.isSelected() ? "Nam" : "Nữ";
+        String chucvu = chucVu.getSelectedItem().toString();
+        String caLam = "";
+
+        if (caSang.isSelected()) caLam = "Ca sáng";
+        else if (caTrua.isSelected()) caLam = "Ca chiều";
+        else if (caToi.isSelected()) caLam = "Ca tối";
+
+        currentUser.setTen(ten);
+        currentUser.setSdt(sdt);
+        currentUser.setEmail(mail);
+        currentUser.setDiaChi(diaChi);
+        currentUser.setGioiTinh(gioiTinh);
+        currentUser.setChucVu(chucvu);
+        currentUser.setCaLam(caLam);
+
+        repository.UserRepositoryImpl userRepo = new repository.UserRepositoryImpl();
+        userRepo.update(currentUser); // Ghi đè user cũ trong file
+
+        javax.swing.JOptionPane.showMessageDialog(this, "Cập nhật thông tin thành công!");
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void chargepasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargepasswordActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_chargepasswordActionPerformed
 
 
