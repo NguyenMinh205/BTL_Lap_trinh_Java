@@ -5,6 +5,7 @@
 package scene;
 
 import AdminViews.AdminMainView;
+import UserViews.UserMainView;
 import java.awt.Dimension;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -212,9 +213,9 @@ public class LoginScene extends javax.swing.JFrame {
         }
         
         if (email.equals("q") || password.equals("q")) {
-            OrderScene OrderScene = new OrderScene();
-            OrderScene.setVisible(true);
-            OrderScene.setLocationRelativeTo(this);
+            UserMainView UserMainView = new UserMainView();
+            UserMainView.setVisible(true);
+            UserMainView.setLocationRelativeTo(this);
             this.dispose();
             return;
         }
@@ -249,9 +250,9 @@ public class LoginScene extends javax.swing.JFrame {
             AdminMainView.setLocationRelativeTo(this);
             this.dispose();
         } else if (user.getChucVu().equalsIgnoreCase("USER")) {
-            OrderScene orderScene = new OrderScene();
-            orderScene.setVisible(true);
-            orderScene.setLocationRelativeTo(this);
+            UserMainView UserMainView = new UserMainView();
+            UserMainView.setVisible(true);
+            UserMainView.setLocationRelativeTo(this);
             this.dispose();
         }
     }//GEN-LAST:event_enterBtnActionPerformed
