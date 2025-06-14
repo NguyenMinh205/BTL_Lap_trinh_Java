@@ -1,5 +1,6 @@
 package UserViews;
 
+import javax.swing.JOptionPane;
 import model.User;
 import scene.LoginScene;
 
@@ -298,11 +299,16 @@ public class PersonalProfile extends javax.swing.JPanel {
         String gioiTinh = gtNam.isSelected() ? "Nam" : "Nữ";
         String chucvu = chucVu.getSelectedItem().toString();
         String caLam = "";
-
+        
         if (caSang.isSelected()) caLam = "Ca sáng";
         else if (caTrua.isSelected()) caLam = "Ca chiều";
         else if (caToi.isSelected()) caLam = "Ca tối";
-
+        
+        if (!sdt.matches("\\d{10}")) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải gồm đúng 10 chữ số.", "Số điện thoại không hợp lệ", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         currentUser.setTen(ten);
         currentUser.setSdt(sdt);
         currentUser.setEmail(mail);

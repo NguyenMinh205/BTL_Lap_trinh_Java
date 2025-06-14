@@ -14,6 +14,7 @@ public class chargePassWord extends javax.swing.JFrame {
         this.userRepository = new UserRepositoryImpl();
         initComponents();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -134,7 +135,7 @@ public class chargePassWord extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(245, 245, 245)
+                .addGap(228, 228, 228)
                 .addComponent(chargepassbtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

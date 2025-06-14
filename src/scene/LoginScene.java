@@ -53,12 +53,10 @@ public class LoginScene extends javax.swing.JFrame {
         image1 = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
         image2 = new javax.swing.JLabel();
-        lblRegister = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login Scene");
         setBackground(new java.awt.Color(37, 37, 37));
-        setPreferredSize(new java.awt.Dimension(600, 500));
 
         content.setBackground(new java.awt.Color(37, 37, 37));
         content.setMaximumSize(new java.awt.Dimension(37, 32767));
@@ -117,41 +115,27 @@ public class LoginScene extends javax.swing.JFrame {
         image2.setPreferredSize(new java.awt.Dimension(60, 80));
         header.add(image2);
 
-        lblRegister.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblRegister.setForeground(new java.awt.Color(255, 255, 255));
-        lblRegister.setText("Chưa có tài khoản?");
-        lblRegister.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblRegisterMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
-            .addGroup(contentLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(PasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passwordField)
                             .addGroup(contentLayout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(PasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(passwordField)
-                                    .addGroup(contentLayout.createSequentialGroup()
-                                        .addComponent(displayPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblForgotPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(enterBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(EmailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(246, 246, 246)
-                        .addComponent(lblRegister)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(displayPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblForgotPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(enterBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(EmailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(104, 104, 104))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,9 +155,7 @@ public class LoginScene extends javax.swing.JFrame {
                     .addComponent(lblForgotPassword))
                 .addGap(18, 18, 18)
                 .addComponent(enterBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblRegister)
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -257,10 +239,6 @@ public class LoginScene extends javax.swing.JFrame {
         findPasswordForm.setLocationRelativeTo(this);
     }//GEN-LAST:event_lblForgotPasswordMouseClicked
 
-    private void lblRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegisterMouseClicked
-
-    }//GEN-LAST:event_lblRegisterMouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -307,7 +285,6 @@ public class LoginScene extends javax.swing.JFrame {
     private javax.swing.JLabel image1;
     private javax.swing.JLabel image2;
     private javax.swing.JLabel lblForgotPassword;
-    private javax.swing.JLabel lblRegister;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
