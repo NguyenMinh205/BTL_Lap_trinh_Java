@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package AdminViews;
 
 import java.time.format.DateTimeFormatter;
@@ -9,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 import model.Bill;
+import model.Product;
+import repository.ProductRepositoryImpl;
 
 /**
  *
@@ -17,7 +15,8 @@ import model.Bill;
 public class BillDetailScene extends javax.swing.JPanel {
     private Bill bill;
     private HashMap<String, Integer> items;
-    
+    ProductRepositoryImpl productRepo = new ProductRepositoryImpl();
+
     /**
      * Creates new form BillDetailScene
      */
@@ -44,8 +43,13 @@ public class BillDetailScene extends javax.swing.JPanel {
         dateField.setText(bill.getNgayDat().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         DefaultTableModel model = (DefaultTableModel) listTable.getModel();
         model.setRowCount(0);
-        for(Map.Entry<String, Integer> entry : items.entrySet()){
-            model.addRow(new Object[]{entry.getKey(), entry.getValue()});
+        for (Map.Entry<String, Integer> entry : items.entrySet()) {
+            String tenSP = entry.getKey();
+            int soLuong = entry.getValue();
+            Product product = productRepo.findByName(tenSP);
+            double donGia = (product != null) ? product.getGia() : 0;
+            double thanhTien = donGia * soLuong;
+            model.addRow(new Object[]{tenSP, soLuong, String.format("%,.0f", donGia), String.format("%,.0f", thanhTien)});
         }
         
         int tongSoLuong = items.values().stream().mapToInt(i -> i).sum();
@@ -83,17 +87,17 @@ public class BillDetailScene extends javax.swing.JPanel {
 
         listTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Tên món", "Số lượng"
+                "Tên món", "Số lượng", "Đơn giá", "Thành tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

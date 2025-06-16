@@ -102,6 +102,7 @@ public class AdminMainView extends javax.swing.JFrame {
         jQuanl.add(jQuanLyHoaDon);
         jQuanl.add(jSeparator1);
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/pie-chart.png"))); // NOI18N
         jMenuItem1.setText("Thống kê");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

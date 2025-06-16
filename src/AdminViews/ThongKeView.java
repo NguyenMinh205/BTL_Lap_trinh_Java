@@ -1,4 +1,5 @@
 package AdminViews;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -6,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 import model.Bill;
 import model.Product;
 import model.User;
@@ -25,7 +27,19 @@ public class ThongKeView extends javax.swing.JPanel {
         productRepo = new ProductRepositoryImpl();
         userRepo = new UserRepositoryImpl();
         luu = new HashMap<>();
+        
+        try {
+            MaskFormatter startMask = new MaskFormatter("##/##/####");
+            startMask.setPlaceholderCharacter('_');
+            startMask.install(DayStart);
 
+            MaskFormatter endMask = new MaskFormatter("##/##/####");
+            endMask.setPlaceholderCharacter('_');
+            endMask.install(DayEnd);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        
         List<Bill> e = billRepo.findAll();
         List<Product> p = productRepo.findAll();
         List<User> u = userRepo.findAll();
@@ -237,19 +251,21 @@ public class ThongKeView extends javax.swing.JPanel {
                     .addComponent(billField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(79, 79, 79)
                 .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(DayStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DayEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel6))
+                    .addComponent(DayStart, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(DayEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGap(18, 18, 18)
+                .addGap(11, 11, 11)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(FindBillByDay, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Reset, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addGap(225, 225, 225))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                     .addContainerGap(164, Short.MAX_VALUE)
