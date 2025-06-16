@@ -71,6 +71,10 @@ public class BillRepositoryImpl implements IBillRepository {
             .max().orElse(0);
         return String.format("HD%02d", max + 1);
     }
+    
+    public int billNum(List<Bill> e){
+        return e.size();
+    }
 
     @Override
     public Bill save(Bill bill) {

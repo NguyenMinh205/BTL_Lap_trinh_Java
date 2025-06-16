@@ -64,6 +64,10 @@ public class UserRepositoryImpl implements IUserRepository {
                 .count() + 1;
         return role.equalsIgnoreCase("ADMIN") ? String.format("AD%02d", count) : String.format("NV%02d", count);
     }
+    
+    public int userNum(List<User> u){
+        return u.size();
+    }
 
     @Override
     public User findByEmailAndPassword(String email, String password) {

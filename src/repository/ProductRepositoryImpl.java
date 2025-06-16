@@ -73,6 +73,10 @@ public class ProductRepositoryImpl implements IProductRepository {
         products.add(new Product("SP17", "Bánh tráng trộn", 20000, "Đồ ăn", 100));
         products.add(new Product("SP18", "Bánh tráng nướng", 20000, "Đồ ăn", 100));
     }
+    
+    public int productNum(List<Product> p){
+        return p.size();
+    }
 
     @Override
     public Product save(Product product) {

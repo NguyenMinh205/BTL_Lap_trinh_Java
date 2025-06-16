@@ -110,7 +110,7 @@ public class OrderView extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         sumOfProductField = new javax.swing.JTextField();
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBackground(new java.awt.Color(55, 55, 55));
 
         jLabel1.setBackground(new java.awt.Color(37, 37, 37));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
