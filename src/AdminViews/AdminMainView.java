@@ -23,6 +23,8 @@ public class AdminMainView extends javax.swing.JFrame {
         jQuanLyDoAn = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jQuanLyHoaDon = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -41,7 +43,7 @@ public class AdminMainView extends javax.swing.JFrame {
         );
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 600, Short.MAX_VALUE)
             .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, Short.MAX_VALUE))
         );
@@ -98,6 +100,15 @@ public class AdminMainView extends javax.swing.JFrame {
             }
         });
         jQuanl.add(jQuanLyHoaDon);
+        jQuanl.add(jSeparator1);
+
+        jMenuItem1.setText("Thống kê");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jQuanl.add(jMenuItem1);
 
         jMenuBar2.add(jQuanl);
 
@@ -161,6 +172,15 @@ public class AdminMainView extends javax.swing.JFrame {
         MainPanel.repaint();    // vẽ lại
     }//GEN-LAST:event_jQuanLyNhanSuActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        ThongKeView panel = new ThongKeView();
+        MainPanel.removeAll(); // xóa nội dung cũ
+        MainPanel.setLayout(new java.awt.BorderLayout()); // nếu chưa đặt layout
+        MainPanel.add(panel, java.awt.BorderLayout.CENTER);
+        MainPanel.revalidate(); // cập nhật giao diện
+        MainPanel.repaint();    // vẽ lại
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Home;
     private javax.swing.JPanel MainPanel;
@@ -168,10 +188,12 @@ public class AdminMainView extends javax.swing.JFrame {
     private javax.swing.JMenuItem jLogOut;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jQuanLyDoAn;
     private javax.swing.JMenuItem jQuanLyHoaDon;
     private javax.swing.JMenuItem jQuanLyNhanSu;
     private javax.swing.JMenu jQuanl;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     // End of variables declaration//GEN-END:variables
