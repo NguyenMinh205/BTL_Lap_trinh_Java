@@ -185,7 +185,15 @@ public class UserManager extends javax.swing.JPanel {
             new String [] {
                 "Mã nhân viên", "Tên nhân viên", "Email", "Số điện thoại", "Mật khẩu", "Quê quán", "Chức vụ", "Giới tính", "Ca làm việc"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(UserTable);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

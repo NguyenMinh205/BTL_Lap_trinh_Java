@@ -126,7 +126,15 @@ public class ListBillView extends javax.swing.JPanel {
             new String [] {
                 "Mã hóa đơn", "Tên khách hàng", "Số điện thoại", "Email", "Ngày mua", "Tổng tiền"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(BillTable);
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
