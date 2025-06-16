@@ -9,6 +9,7 @@ public class EditUserView extends javax.swing.JFrame {
     private User user;
     private UserManager parent;
     private UserRepositoryImpl userRepo;
+    private String formerMail;
 
     public EditUserView(User user, UserManager parent) {
         this.user = user;
@@ -19,6 +20,8 @@ public class EditUserView extends javax.swing.JFrame {
         loadUserData();
     }
     
+    
+    
     private void loadUserData() {
         jTextField_TenNhanVien.setText(user.getTen());
         jTextField_matKhau.setText(user.getMatKhau());
@@ -26,6 +29,8 @@ public class EditUserView extends javax.swing.JFrame {
         jTextField_email.setText(user.getEmail());
         queQuan.setText(user.getDiaChi());
         jComboBox_chucVu.setSelectedItem(user.getChucVu());
+        
+        formerMail = user.getEmail();
 
         if ("Nam".equalsIgnoreCase(user.getGioiTinh())) {
             jRadioButton_nam.setSelected(true);
@@ -329,6 +334,11 @@ public class EditUserView extends javax.swing.JFrame {
 
         if (fullName.isEmpty() || password.isEmpty() || phone.isEmpty() || email.isEmpty() || gender.isEmpty() || workShift.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin bắt buộc!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if(!(email.equals(formerMail)) && userRepo.isEmailExist(email)){
+            JOptionPane.showMessageDialog(this, "Email này đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
         }
 

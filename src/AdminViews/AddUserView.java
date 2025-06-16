@@ -368,6 +368,11 @@ public class AddUserView extends javax.swing.JFrame {
             return;
         }
         
+        if(userRepositoryImpl.isEmailExist(emailStr)){
+            JOptionPane.showMessageDialog(this, "Email đã tồn tại", "Email Checking", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         User newUser = new User(
             "",
             tenStr,

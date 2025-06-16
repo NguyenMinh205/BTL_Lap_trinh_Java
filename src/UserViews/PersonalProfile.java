@@ -2,21 +2,27 @@ package UserViews;
 
 import javax.swing.JOptionPane;
 import model.User;
+import repository.UserRepositoryImpl;
 import scene.LoginScene;
 
 public class PersonalProfile extends javax.swing.JPanel {
     private User currentUser;
+    private UserRepositoryImpl userRepo;
+    private String formerMail; // để lưu cái mail ban đầu
     /**
      * Creates new form OrderView
      */
     public PersonalProfile(User user) {
         this.currentUser = user;
+        userRepo = new UserRepositoryImpl();
         initComponents();
         initSetUp();
-}
+    }
     
     public void initSetUp() {
         if (currentUser == null) return;
+        
+        formerMail = currentUser.getEmail();
 
         tenNV.setText(currentUser.getTen());
         phoneField.setText(currentUser.getSdt());
@@ -306,6 +312,11 @@ public class PersonalProfile extends javax.swing.JPanel {
         
         if (!sdt.matches("\\d{10}")) {
             JOptionPane.showMessageDialog(this, "Số điện thoại phải gồm đúng 10 chữ số.", "Số điện thoại không hợp lệ", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if(!(mail.equals(formerMail)) && userRepo.isEmailExist(mail)){
+            JOptionPane.showMessageDialog(this, "Email đã tồn tại", "Email Checking", JOptionPane.WARNING_MESSAGE);
             return;
         }
         

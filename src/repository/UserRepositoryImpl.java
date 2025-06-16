@@ -68,6 +68,16 @@ public class UserRepositoryImpl implements IUserRepository {
     public int userNum(List<User> u){
         return u.size();
     }
+    
+    public boolean isEmailExist(String mail){
+        for(User user : users)
+        {
+            if(mail.equals(user.getEmail())){
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public User findByEmailAndPassword(String email, String password) {

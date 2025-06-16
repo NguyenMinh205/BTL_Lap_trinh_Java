@@ -272,7 +272,15 @@ public class ThongKeView extends javax.swing.JPanel {
             new String [] {
                 "Tên sản phẩm", "Số lượng đã bán"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(statisticsProductTable);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
