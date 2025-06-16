@@ -126,7 +126,7 @@ public class FoodManagerView extends javax.swing.JPanel {
             }
         });
 
-        locBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đồ uống", "Đồ ăn" }));
+        locBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đồ uống", "Đồ ăn", "Tất cả" }));
 
         fillterBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         fillterBtn.setText("Lọc");
@@ -169,11 +169,11 @@ public class FoodManagerView extends javax.swing.JPanel {
                 .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(locBox, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
+                .addComponent(locBox, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(fillterBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(37, 37, 37));
@@ -315,8 +315,12 @@ public class FoodManagerView extends javax.swing.JPanel {
 
     private void fillterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillterBtnActionPerformed
         // TODO add your handling code here:
-        String loai = locBox.getSelectedItem().toString();
-        LoadTheoLoai(loai);
+        if(!(locBox.getSelectedItem().toString().equals("Đồ ăn")) && !(locBox.getSelectedItem().toString().equals("Đồ uống"))){
+            loadProductTable();
+        }
+        else{
+            LoadTheoLoai(locBox.getSelectedItem().toString());
+        }
     }//GEN-LAST:event_fillterBtnActionPerformed
 
 
