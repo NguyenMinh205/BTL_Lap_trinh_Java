@@ -126,7 +126,7 @@ public class FoodManagerView extends javax.swing.JPanel {
             }
         });
 
-        locBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đồ uống", "Đồ ăn", "Tất cả" }));
+        locBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Đồ uống", "Đồ ăn" }));
 
         fillterBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         fillterBtn.setText("Lọc");

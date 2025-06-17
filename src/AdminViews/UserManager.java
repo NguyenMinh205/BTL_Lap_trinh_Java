@@ -177,7 +177,7 @@ public class UserManager extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Lọc theo :");
 
-        locBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản trị viên", "Nhân viên", "Tất cả" }));
+        locBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Quản trị viên", "Nhân viên" }));
 
         fillterBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         fillterBtn.setText("Lọc");

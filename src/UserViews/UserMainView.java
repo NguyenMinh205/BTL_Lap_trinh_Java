@@ -51,6 +51,7 @@ public class UserMainView extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(200, 600));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/home1.png"))); // NOI18N
         jButton1.setText("Trang chủ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,6 +60,7 @@ public class UserMainView extends javax.swing.JFrame {
         });
 
         OrderScenebtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        OrderScenebtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/payment1.png"))); // NOI18N
         OrderScenebtn.setText("Tạo đơn hàng");
         OrderScenebtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,6 +69,7 @@ public class UserMainView extends javax.swing.JFrame {
         });
 
         billList.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        billList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/clipboard1.png"))); // NOI18N
         billList.setText("Hóa đơn");
         billList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,6 +78,7 @@ public class UserMainView extends javax.swing.JFrame {
         });
 
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/logout.png"))); // NOI18N
         jButton6.setText("Đăng xuất");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,6 +95,7 @@ public class UserMainView extends javax.swing.JFrame {
         });
 
         Foodlist.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Foodlist.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon&image/shopping-list.png"))); // NOI18N
         Foodlist.setText("Món ăn");
         Foodlist.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
